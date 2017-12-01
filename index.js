@@ -15,8 +15,6 @@ const passport = require('./config/ppConfig') // to register passport strategies
 const { hasLoggedOut, isLoggedIn } = require('./helpers')
 
 // Models
-const User = require('./models/user')
-const Travelplan = require('./models/travel')
 
 const app = express()
 
@@ -38,6 +36,10 @@ app.use(bodyParser.urlencoded({
 }))
 // setup methodOverride
 app.use(methodOverride('_method'))
+
+//MongoDB files
+const dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'mongodb://localhost/project2'
+const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 4000 // this is for our express server
 
 // connecting to mongodb before we starting the server
 mongoose.Promise = global.Promise
