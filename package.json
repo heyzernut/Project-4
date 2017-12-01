@@ -5,10 +5,22 @@
   "repository": "https://github.com/heyzernut/Project-4.git",
   "author": "siya-ng <ngsiya90@gmail.com>",
   "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "connect-mongo": "^2.0.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "method-override": "^2.3.10",
+    "moment": "^2.19.1",
+    "mongoose": "^4.12.4",
+    "nodemon": "^1.12.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  },
   "scripts": {
     "start": "nodemon"
-  },
-  "dependencies": {
-    "nodemon": "^1.12.1"
   }
 }
