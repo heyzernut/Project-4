@@ -7,6 +7,5 @@ const modelSchema = new Schema({
   itemCode: String,
   model: String,
   color: String,
-  dimension: String,
-
+  dimension: String
 })
