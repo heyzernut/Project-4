@@ -38,7 +38,7 @@ app.use(bodyParser.urlencoded({
 app.use(methodOverride('_method'))
 
 //MongoDB files
-const dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'mongodb://localhost/project2'
+const dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'mongodb://localhost/project4'
 const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 4000 // this is for our express server
 
 // connecting to mongodb before we starting the server
