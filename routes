@@ -1,0 +1,60 @@
+ROUTE PLANS
+
+app.use('/')
+  GET /             #login
+  GET /homepage      #home
+
+app.use('/users')
+  GET /           #show
+  POST /          #create
+  PUT /:id        #update
+  DELETE /:id     #delete
+
+  GET /:id        #show_user
+
+app.use('/suppliers')
+  GET /          #show
+  POST /         #create
+  PUT /:id       #update
+  DELETE /:id    #delete
+
+  GET /:id      #show_suppliers
+
+app.use('/model')
+  GET /         #show
+  POST /        #create
+  PUT /:id         #update
+  DELETE /:id      #delete
+
+  GET /:id      #show_model
+
+app.use('/inventories')
+  GET /         #show
+  POST /        #create
+  PUT /:id         #update
+  DELETE /:id      #delete
+
+  GET /:id      #show_inventory
+
+app.use('/orders')
+  GET /         #show_all
+  POST /        #create_one
+  PUT /:id         #edit_one
+  DELETE /:id      #delete_one
+
+  GET /:id        #show_one_order
+
+  //to check whether the route is an id or tracking
+  GET /:id/tracking   #update delivery status
+  GET /:id/:item_id   #show_one_order
+
+app.use('/location')
+  GET /                #show_all
+  POST /               #create
+  PUT /:id             #edit
+  DELETE /:id          #delete_warehouse/retail
+  DELETE /:id/:warehouse_id         #shelf/zone
+
+app.use('/incomingStock')
+  GET /                 #show_all
+  GET /:id              #show_one
