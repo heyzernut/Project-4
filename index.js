@@ -11,13 +11,10 @@ const methodOverride = require('method-override') // for accessing PUT / DELETE
 
 const session = require('express-session') // to create session and cookies
 const MongoStore = require('connect-mongo')(session) // to store session into db
-<<<<<<< HEAD
-// const passport = require('./config/ppConfig') // to register passport strategies
-//const { hasLoggedOut, isLoggedIn } = require('./helpers')
-=======
+
 const passport = require('./config/ppConfig') // to register passport strategies
 const { hasLoggedOut, isLoggedIn } = require('./helpers')
->>>>>>> 60462a48083303862ed3cdb89a59c91ca67d0a80
+
 
 // Models
 const Customer = require('./models/customer')
@@ -76,7 +73,8 @@ app.get('/',(req,res) => {
   res.render('home')
 })
 
-//admin routes
+
+// NEW ROUTE - Suppliers
 app.use((req, res, next) => {
   app.locals.user = req.user
   if (req.user) {
