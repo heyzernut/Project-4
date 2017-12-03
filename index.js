@@ -16,7 +16,10 @@ const MongoStore = require('connect-mongo')(session) // to store session into db
 
 // Models
 const Customer = require('./models/customer')
+const Supplier = require('./models/supplier')
 
+// require all my route files
+const supplier_routes = require('./routes/supplier_routes')
 
 const app = express()
 
@@ -62,12 +65,15 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
+app.get('/',(req,res) => {
+  res.render('home')
+})
+
+// NEW ROUTE - Suppliers
+app.use('/suppliers', supplier_routes)
+
 
 // opening the port for express
 app.listen(port, () => {
   console.log(`Server is running on ${port}`)
-})
-
-app.get('/',(req,res) => {
-  res.render('home')
 })
