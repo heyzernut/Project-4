@@ -20,6 +20,8 @@ const Customer = require('./models/customer')
 
 const app = express()
 
+
+const inventory_routes = require('./routes/inventory_routes')
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -71,3 +73,5 @@ app.listen(port, () => {
 app.get('/',(req,res) => {
   res.render('home')
 })
+
+app.use('/inventories', inventory_routes)
