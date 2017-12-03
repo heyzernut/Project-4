@@ -26,6 +26,8 @@ const supplier_routes = require('./routes/supplier_routes')
 
 const app = express()
 
+
+const inventory_routes = require('./routes/inventory_routes')
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -95,3 +97,9 @@ app.use('/suppliers', supplier_routes)
 app.listen(port, () => {
   console.log(`Server is running on ${port}`)
 })
+
+app.get('/',(req,res) => {
+  res.render('home')
+})
+
+app.use('/inventories', inventory_routes)
