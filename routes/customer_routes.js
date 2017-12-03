@@ -6,3 +6,5 @@ router.get('/new',(req,res) => {
   res.render('customers/new')
 
 })
+
+module.exports = router

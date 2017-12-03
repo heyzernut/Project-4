@@ -11,11 +11,15 @@ const methodOverride = require('method-override') // for accessing PUT / DELETE
 
 const session = require('express-session') // to create session and cookies
 const MongoStore = require('connect-mongo')(session) // to store session into db
-// const passport = require('./config/ppConfig') // to register passport strategies
-// const { hasLoggedOut, isLoggedIn } = require('./helpers')
+const passport = require('./config/ppConfig') // to register passport strategies
+const { hasLoggedOut, isLoggedIn } = require('./helpers')
 
 // Models
 const Customer = require('./models/customer')
+
+
+//require all route files
+const customer_routes = require('./routes/customer_routes')
 
 
 const app = express()
@@ -62,6 +66,15 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
+app.use((req, res, next) => {
+  app.locals.user = req.user
+  if (req.user) {
+    app.locals.admin = req.user.type === 'admin' ? req.user : null
+  }
+  // app.locals.admin  // we'll only `req.user` if we managed to log in
+  next()
+})
+
 
 // opening the port for express
 app.listen(port, () => {
@@ -71,3 +84,5 @@ app.listen(port, () => {
 app.get('/',(req,res) => {
   res.render('home')
 })
+
+app.use('/customer',hasLoggedOut, customer_routes)
