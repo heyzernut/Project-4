@@ -15,8 +15,8 @@ const passport = require('./config/ppConfig') // to register passport strategies
 const { hasLoggedOut, isLoggedIn } = require('./helpers')
 
 // Models
-const User = require('./models/user')
-const Travelplan = require('./models/travel')
+const Customer = require('./models/customer')
+
 
 const app = express()
 
@@ -61,8 +61,6 @@ app.use(session({
   // store this to our db too
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
-
-
 
 
 // opening the port for express
