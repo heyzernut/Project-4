@@ -66,7 +66,6 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-<<<<<<< HEAD
 app.get('/',(req,res) => {
   res.render('home')
 })
