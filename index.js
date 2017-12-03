@@ -11,8 +11,8 @@ const methodOverride = require('method-override') // for accessing PUT / DELETE
 
 const session = require('express-session') // to create session and cookies
 const MongoStore = require('connect-mongo')(session) // to store session into db
-const passport = require('./config/ppConfig') // to register passport strategies
-const { hasLoggedOut, isLoggedIn } = require('./helpers')
+// const passport = require('./config/ppConfig') // to register passport strategies
+// const { hasLoggedOut, isLoggedIn } = require('./helpers')
 
 // Models
 const Customer = require('./models/customer')
