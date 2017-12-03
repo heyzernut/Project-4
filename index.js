@@ -62,12 +62,17 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-
-// opening the port for express
-app.listen(port, () => {
-  console.log(`Server is running on ${port}`)
-})
-
+//home page
 app.get('/',(req,res) => {
   res.render('home')
+})
+//routes
+const delivery_routes = require('./routes/delivery_routes')
+
+//register routes
+app.use('/orders', delivery_routes)
+
+//opening the port for express
+app.listen(port, ()=>{
+  console.log(`server is running on ${port}`);
 })
