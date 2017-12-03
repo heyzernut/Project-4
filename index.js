@@ -71,7 +71,6 @@ app.get('/',(req,res) => {
 })
 
 // NEW ROUTE - Suppliers
-
 app.use((req, res, next) => {
   app.locals.user = req.user
   if (req.user) {
@@ -83,7 +82,6 @@ app.use((req, res, next) => {
 
 app.use('/customer', hasLoggedOut, customer_routes)
 app.use('/suppliers', supplier_routes)
-
 
 
 // opening the port for express
