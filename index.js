@@ -79,7 +79,13 @@ app.use(session({
 app.use(cors())
 //homepage
 app.get('/',(req,res) => {
-  res.render('home')
+  // res.render('home')
+})
+app.get('/test',(req,res) => {
+  // res.render('home')
+  console.log('home entered')
+
+  res.json({test: 'proxy working'})
 })
 
 //
