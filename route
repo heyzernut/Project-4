@@ -37,8 +37,11 @@ app.use('/inventories')
   GET /:id      #show_inventory
 
 app.use('/orders')
-  GET /         #show_all
-  POST /        #create_one
+  GET /           #showAll
+  GET /new        #new
+  POST /
+
+  GET /tracking    #tracking
   PUT /:id         #edit_one
   DELETE /:id      #delete_one
 

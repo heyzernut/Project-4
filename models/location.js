@@ -6,7 +6,7 @@ const locationSchema = new Schema({
   warehouseLocation: {
     type: Schema.Types.ObjectId,
     ref: 'WarehouseLocation'
-}
+  }
 })
 
 const Location = mongoose.model('Location', locationSchema)
