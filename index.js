@@ -23,10 +23,12 @@ const location_routes = require('./routes/location_routes')
 
 const Customer = require('./models/customer')
 const Supplier = require('./models/supplier')
+const ReceivedStock = require('./models/receivedStock')
 
 // require all my route files
 const customer_routes = require('./routes/customer_routes')
 const supplier_routes = require('./routes/supplier_routes')
+const receivedstock_routes = require('./routes/receivedstock_routes')
 
 const app = express()
 
@@ -54,6 +56,10 @@ app.use(methodOverride('_method'))
 //MongoDB files
 const dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'mongodb://localhost/project4'
 const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 5100 // this is for our express server
+
+/// PASSPORT ACTIVATED
+app.use(passport.initialize())
+app.use(passport.session())
 
 // connecting to mongodb before we starting the server
 mongoose.Promise = global.Promise
@@ -97,6 +103,10 @@ const delivery_routes = require('./routes/delivery_routes')
 app.use('/orders', delivery_routes)
 app.use('/customer', hasLoggedOut, customer_routes)
 app.use('/suppliers', supplier_routes)
+<<<<<<< HEAD
+app.use('/incomingstock', receivedstock_routes)
+=======
+>>>>>>> f5a94c36ae9c18f5d3b4edae16450c36f2e529a2
 
 // opening the port for express
 app.listen(port, () => {
@@ -106,5 +116,8 @@ app.listen(port, () => {
 app.get('/',(req,res) => {
   res.render('home')
 })
+
+
+app.use('/customers',isLoggedIn, customer_routes)
 
 app.use('/inventories', inventory_routes)

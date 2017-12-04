@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const moment = require('moment')
 
 const deliveryOrderSchema = new Schema({
   date: Date,
@@ -19,6 +20,10 @@ const deliveryOrderSchema = new Schema({
     ref: 'OrderItem'
   }]
 })
+
+deliveryOrderSchema.virtual('formattedDate').get(function () {
+  return moment(this.date).format('L')
+});
 
 const DeliveryOrder = mongoose.model('DeliveryOrder', deliveryOrderSchema)
 
