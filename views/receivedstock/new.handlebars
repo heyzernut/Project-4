@@ -1,0 +1,44 @@
+<div class="header header-primary text-center">
+  <h3>Received Stock</h3>
+</div>
+
+<form action="/incomingstock" method="post">
+
+  <label for="invoice">Invoice No:</label>
+  <input type="text" class="form-control" name="stock[invoiceNo]" placeholder="invoice no"> <br>
+  <label for="batch">Batch No.</label>
+  <input type="text" class="form-control" name="stock[batchNo]" placeholder="batch no"> <br>
+  <label for="lot">Lot No:</label>
+  <input type="text" class="form-control" name="stock[lotNo]" placeholder="lot no"> <br>
+  <label for="payment-type">Payment method:</label>
+  <select type="text" class="form-control" name="stock[paymentMethod]">
+    <option value="Cheque">Cheque</option>
+    <option value="Cash">Cash</option>
+  </select>
+  <br>
+  <label for="payment-status">Payment Status</label>
+  <select type="text" class="form-control" name="stock[paymentStatus]">
+    <option value="Pending">Pending</option>
+    <option value="Imcomplete">Imcomplete</option>
+    <option value="Paid">Paid</option>
+  </select><br>
+  <label for="cheque">Cheque No</label>
+  <input type="text" class="form-control" name="stock[chqNo]" placeholder="cheque no"> <br>
+
+  <label for="supplier">Supplier</label>
+  <select type="text" class="form-control" name="stock[supplier]">
+    {{#each supplier as |supplierOne|}}
+    <option value="{{supplierOne.id}}">{{supplierOne.name}}</option>
+    {{/each}}
+  </select>
+  <br>
+  <label for="furniture-model">Furniture Model</label>
+  <select type="text" class="form-control" name="stock[furnitureModel]">
+  {{#each furnitureModel as |furnitureModelOne|}}
+  <option value="{{furnitureModelOne.id}}">{{furnitureModelOne.name}}</option>
+  {{/each}}
+  </select>
+
+  <button type="submit" name="button" class="btn btn-primary btn-round btn-lg btn-block">Create</button>
+
+</form>

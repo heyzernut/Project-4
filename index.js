@@ -17,10 +17,12 @@ const { hasLoggedOut, isLoggedIn } = require('./helpers')
 // Models
 const Customer = require('./models/customer')
 const Supplier = require('./models/supplier')
+const ReceivedStock = require('./models/receivedStock')
 
 // require all my route files
 const customer_routes = require('./routes/customer_routes')
 const supplier_routes = require('./routes/supplier_routes')
+const receivedstock_routes = require('./routes/receivedstock_routes')
 
 const app = express()
 
@@ -82,6 +84,7 @@ app.use((req, res, next) => {
 
 app.use('/customer', hasLoggedOut, customer_routes)
 app.use('/suppliers', supplier_routes)
+app.use('/incomingstock', receivedstock_routes)
 
 
 // opening the port for express
