@@ -11,12 +11,13 @@ const methodOverride = require('method-override') // for accessing PUT / DELETE
 
 const session = require('express-session') // to create session and cookies
 const MongoStore = require('connect-mongo')(session) // to store session into db
-const passport = require('./config/ppConfig') // to register passport strategies
-const { hasLoggedOut, isLoggedIn } = require('./helpers')
+// const passport = require('./config/ppConfig') // to register passport strategies
+// const { hasLoggedOut, isLoggedIn } = require('./helpers')
 
 // Models
-const User = require('./models/user')
-const Travelplan = require('./models/travel')
+const Location = require('./models/location')
+const location_routes = require('./routes/location_routes')
+
 
 const app = express()
 
@@ -41,7 +42,7 @@ app.use(methodOverride('_method'))
 
 //MongoDB files
 const dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'mongodb://localhost/project4'
-const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 4000 // this is for our express server
+const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 5100 // this is for our express server
 
 // connecting to mongodb before we starting the server
 mongoose.Promise = global.Promise
@@ -62,7 +63,11 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
+app.get('/', (req, res) => {
+  res.render('home')
+})
 
+app.use('/location', location_routes)
 
 
 // opening the port for express
