@@ -11,16 +11,27 @@ const methodOverride = require('method-override') // for accessing PUT / DELETE
 
 const session = require('express-session') // to create session and cookies
 const MongoStore = require('connect-mongo')(session) // to store session into db
-// const passport = require('./config/ppConfig') // to register passport strategies
-// const { hasLoggedOut, isLoggedIn } = require('./helpers')
+
+const passport = require('./config/ppConfig') // to register passport strategies
+const { hasLoggedOut, isLoggedIn } = require('./helpers')
+
 
 // Models
+
 const Location = require('./models/location')
 const location_routes = require('./routes/location_routes')
 
+const Customer = require('./models/customer')
+const Supplier = require('./models/supplier')
+
+// require all my route files
+const customer_routes = require('./routes/customer_routes')
+const supplier_routes = require('./routes/supplier_routes')
 
 const app = express()
 
+
+const inventory_routes = require('./routes/inventory_routes')
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -63,14 +74,37 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-app.get('/', (req, res) => {
+//homepage
+app.get('/',(req,res) => {
   res.render('home')
 })
 
 app.use('/location', location_routes)
 
+// NEW ROUTE - Suppliers
+app.use((req, res, next) => {
+  app.locals.user = req.user
+  if (req.user) {
+    app.locals.admin = req.user.type === 'admin' ? req.user : null
+  }
+  // app.locals.admin  // we'll only `req.user` if we managed to log in
+  next()
+})
+//routes
+const delivery_routes = require('./routes/delivery_routes')
+
+//register routes
+app.use('/orders', delivery_routes)
+app.use('/customer', hasLoggedOut, customer_routes)
+app.use('/suppliers', supplier_routes)
 
 // opening the port for express
 app.listen(port, () => {
   console.log(`Server is running on ${port}`)
 })
+
+app.get('/',(req,res) => {
+  res.render('home')
+})
+
+app.use('/inventories', inventory_routes)
