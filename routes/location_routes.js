@@ -4,7 +4,16 @@ const Location = require('../models/location')
 
 
 router.get('/', (req, res) => {
-  res.render('inventory/location')
+  Location
+.find()
+.then(locations => {
+  res.render('inventory/location', {
+    locations
+  })
+})
+.catch(err => {
+  console.log(err)
+})
 })
 
 router.get('/new', (req, res) => {
@@ -12,9 +21,27 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/new', (req, res) => {
+    function range (start,stop) {
+    var result=[]
+    for (var idx= start.charCodeAt(0),end= stop.charCodeAt(0); idx <=end; ++idx){
+      result.push(String.fromCharCode(idx))
+    }
+    return result
+  }
+
+  function rangeNum (start,stop) {
+  var result=[]
+  for (var idx= start , end= stop; idx <=end; idx++){
+    result.push(idx)
+  }
+  return result
+}
+
   var newLocation = new Location({
     address: req.body.address,
-    type: req.body.type
+    type: req.body.type,
+    zone: range(req.body.zone_start,req.body.zone_stop),
+    shelf: rangeNum(req.body.shelf_start,req.body.shelf_stop)
   })
   newLocation.save()
     .then(

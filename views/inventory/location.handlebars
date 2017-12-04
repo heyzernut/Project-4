@@ -1,1 +1,5 @@
 <h2>All locations</h2>
+{{!-- {{locations}} --}}
+{{#each locations as |loca|}}
+{{loca.type}} {{loca.address}} {{loca.zone}} {{loca.shelf}}
+{{/each}}
