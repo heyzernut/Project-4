@@ -7,10 +7,10 @@ const router = express.Router()
 router.get('/', (req, res) => {
   FurnitureModel.find({})
   .then(allModels => {
-    let allModelsDisplay = []
-    let promise = []
+    var allModelsDisplay = []
+    var promises = []
     allModels.forEach(model => {
-      promise.push(FurnitureStock.find({furnitureModel: model.id})
+      promises.push(FurnitureStock.find({furnitureModel: model.id})
       .then(allStock => {
         let displayModel = {
           itemCode: model.itemCode,
@@ -24,13 +24,13 @@ router.get('/', (req, res) => {
       }))
     })
 
-
-    Promise.all(promise)
-    .then(
+    Promise.all(promises)
+    .then(() => {
       res.json(allModelsDisplay)
-    )}
-  )}
-)
+
+    })
+  })
+})
 
 
 router.get('/models/new', (req, res) => {
