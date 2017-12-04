@@ -1,7 +1,21 @@
 <h1>All Orders</h1>
 
-<ul>
-  {{#each orders}}
-  <li>{{this}}</li>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Invoice No</th>
+    <th>Mode of Transport</th>
+    <th>Delivery Time</th>
+    <th>Address</th>
+    <th>&nbsp;</th>
+  </tr>
+  {{#each orders as |order|}}
+  <tr>
+    <td>{{order.formattedDate}}</td>
+    <td>{{order.invoiceNo}}</td>
+    <td>{{order.modeOfTransport}}</td>
+    <td>{{order.deliveryTime}}</td>
+    <td>{{order.deliveryAddress}}</td>
+    <td><a href="orders/{{order.id}}">View</a><a href="orders/{{order.id}}">Delete</a></tr>
   {{/each}}
-</ul>
+</table>
