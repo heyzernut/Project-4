@@ -75,7 +75,12 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-//testing
+
+//homepage
+app.get('/',(req,res) => {
+  // res.render('home')
+})
+
 app.get('/test',(req,res) => {
   // res.render('home')
   console.log('home entered')
