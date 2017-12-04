@@ -8,7 +8,6 @@ const exphbs = require('express-handlebars') // for Handlebars
 const bodyParser = require('body-parser') // for accessing POST request
 const methodOverride = require('method-override') // for accessing PUT / DELETE
 const moment = require('moment');
-const cors = require('cors')
 const session = require('express-session') // to create session and cookies
 const MongoStore = require('connect-mongo')(session) // to store session into db
 
@@ -35,6 +34,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(function (req, res, next) {
   console.log('Method: ' + req.method + ' Path: ' + req.url)
   next()
+})
+app.use(function(req, res, next){
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Expose-Headers', 'Content-Range')
 })
 
 // setup bodyParser
@@ -71,31 +74,13 @@ app.use(session({
   // store this to our db too
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
-// var corsOptions = {
-//   origin: 'http://example.com',
-//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// }
 
-app.use(cors())
-//homepage
-app.get('/',(req,res) => {
-  // res.render('home')
-})
+//testing
 app.get('/test',(req,res) => {
   // res.render('home')
   console.log('home entered')
 
   res.json({test: 'proxy working'})
-})
-
-//
-app.get('/test', (req,res)=>{
-  let hello= "hi"
-  res.json({hello})
-})
-
-app.use('/test', (req,res) => {
-  res.json({id: '789'})
 })
 
 // NEW ROUTE - Suppliers
@@ -124,8 +109,9 @@ app.use('/location', location_routes)
 app.use('/customers',isLoggedIn, customer_routes)
 app.use('/inventories', inventory_routes)
 
+//homepage
 app.get('/',(req,res) => {
-  res.render('home')
+  res.json()
 })
 
 // opening the port for express
