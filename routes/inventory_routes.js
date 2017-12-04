@@ -22,9 +22,6 @@ router.get('/', (req, res) => {
           }
           allModelsDisplay.push(displayModel)
         })
-
-
-
       })
     }
     res.render('inventory/index', {
