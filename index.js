@@ -8,7 +8,7 @@ const exphbs = require('express-handlebars') // for Handlebars
 const bodyParser = require('body-parser') // for accessing POST request
 const methodOverride = require('method-override') // for accessing PUT / DELETE
 const moment = require('moment');
-
+const cors = require('cors')
 const session = require('express-session') // to create session and cookies
 const MongoStore = require('connect-mongo')(session) // to store session into db
 
@@ -71,7 +71,12 @@ app.use(session({
   // store this to our db too
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
+// var corsOptions = {
+//   origin: 'http://example.com',
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
 
+app.use(cors())
 //homepage
 app.get('/',(req,res) => {
   res.render('home')
@@ -81,6 +86,10 @@ app.get('/',(req,res) => {
 app.get('/test', (req,res)=>{
   let hello= "hi"
   res.json({hello})
+})
+
+app.use('/test', (req,res) => {
+  res.json({id: '789'})
 })
 
 // NEW ROUTE - Suppliers
