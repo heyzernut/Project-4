@@ -4,18 +4,20 @@ const Schema = mongoose.Schema
 const deliveryOrderSchema = new Schema({
   date: Date,
   modeOfTransport: String,
+  invoiceNo: String,
+  quotationNo: String,
   deliveryTime: String,
   shippingCost: Number,
   termOfDelivery: String,
   deliveryAddress: String,
   reseller: {
     type: Schema.Types.ObjectId,
-    ref: 'Customers'
+    ref: 'Customer'
 },
-  tracking: {
+  items: [{
     type: Schema.Types.ObjectId,
-    ref: 'DeliveryOrder'
-  }
+    ref: 'OrderItem'
+  }]
 })
 
 const DeliveryOrder = mongoose.model('DeliveryOrder', deliveryOrderSchema)

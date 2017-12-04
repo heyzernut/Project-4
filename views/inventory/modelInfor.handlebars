@@ -1,0 +1,38 @@
+<table>
+  <tr>
+    <th>Item Code</th>
+    <th>Model</th>
+    <th>Color</th>
+    <th>Dimension</th>
+    <th>Stocks</th>
+  </tr>
+
+
+  <tr>
+    <td>{{ furnitureModel.itemCode }}</td>
+    <td>{{ furnitureModel.model }}</td>
+    <td>{{ furnitureModel.color }}</td>
+    <td>{{ furnitureModel.dimension }}</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>            </th>
+    <th>Location</th>
+    <th>Quantity</th>
+  </tr>
+  {{#each furnitureStocks as |stock| }}
+  <tr>
+    <td></td>
+    <td>{{ stock.location.type}}</td>
+    <td>{{ stock.quantity}}</td>
+  </tr>
+  {{/each}}
+  <tr>
+    <td>Total</td>
+    <td>       </td>
+    <td>{{total}}</td>
+  </tr>
+
+</table>
