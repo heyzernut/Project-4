@@ -40,10 +40,15 @@ app.use(function (req, res, next) {
   console.log('Method: ' + req.method + ' Path: ' + req.url)
   next()
 })
+
 app.use(function(req, res, next){
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Expose-Headers', 'Content-Range')
+  res.header({
+   'Access-Control-Allow-Origin': 'http://localhost:3000',
+   'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+   'Access-Control-Expose-Headers': 'Content-Range'})
+   next()
 })
+
 
 // setup bodyParser
 app.use(bodyParser.json())
