@@ -1,0 +1,58 @@
+<h1>Create New Order</h1>
+
+<form action="/orders" method="post">
+
+  <div class="form-group text-muted">
+    <label for="date">Date</label>
+    <input type="date" name="date" class="form-control" value="{{today}}" required>
+  </div>
+
+  <div class="form-group text-muted">
+    <label for="invoiceNo">Invoice No.</label>
+    <input type="text" name="invoiceNo" class="form-control" placeholder="Invoice Number" value="INV20171120">
+  </div>
+
+  <div class="form-group text-muted">
+    <label for="quotationNo">Quotation No.</label>
+    <input type="text" name="quotationNo" class="form-control" placeholder="Quotaion Number" value="Q20170630">
+  </div>
+
+  <div class="form-group text-muted">
+    <label for="customer">Customer</label>
+    <select name="customers">
+      <option value="customer1">Customer</option>
+    </select>
+  </div>
+
+  <div class="form-group text-muted">
+    <label for="transport">Mode of Transport</label>
+    <select name="transport">
+      <option value="Local">Local</option>
+      <option value="Air">Air</option>
+      <option value="Sea">Sea</option>
+    </select>
+  </div>
+
+  <div class="form-group text-muted">
+    <label for="delivery_time">Delivery Time</label>
+    <input type="time" name="delivery_time" value="13:30" required>
+  </div>
+
+  <div class="form-group text-muted">
+    <label for="transport_cost">Shipping Cost $</label>
+    <input type="number" name="transport_cost" value="100.10" step="0.01" min="0">
+  </div>
+
+  <div class="form-group text-muted">
+    <label for="terms">Terms of Delivery</label>
+    <textarea name="terms" rows="5" cols="50">hello</textarea>
+  </div>
+
+  <div class="form-group text-muted">
+    <label for="address">Delivery Address</label>
+    <input type="text" name="address" value="{{customer.address}}">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
