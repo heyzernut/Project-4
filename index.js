@@ -8,7 +8,6 @@ const exphbs = require('express-handlebars') // for Handlebars
 const bodyParser = require('body-parser') // for accessing POST request
 const methodOverride = require('method-override') // for accessing PUT / DELETE
 const moment = require('moment');
-const cors = require('cors')
 const session = require('express-session') // to create session and cookies
 const MongoStore = require('connect-mongo')(session) // to store session into db
 
@@ -17,23 +16,15 @@ const { hasLoggedOut, isLoggedIn } = require('./helpers')
 
 
 // Models
-
 const Location = require('./models/location')
 const location_routes = require('./routes/location_routes')
-
 const Customer = require('./models/customer')
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
 
-// require all my route files
-const customer_routes = require('./routes/customer_routes')
-const supplier_routes = require('./routes/supplier_routes')
-const receivedstock_routes = require('./routes/receivedstock_routes')
 
 const app = express()
 
-
-const inventory_routes = require('./routes/inventory_routes')
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -84,7 +75,6 @@ app.use(session({
 //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 // }
 
-app.use(cors())
 //homepage
 app.get('/',(req,res) => {
   // res.render('home')
@@ -97,7 +87,11 @@ app.get('/test',(req,res) => {
   res.json({test: 'proxy working'})
 })
 
-app.use('/location', location_routes)
+//
+app.get('/test', (req,res)=>{
+  let hello= "hi"
+  res.json({hello})
+})
 
 app.use('/test', (req,res) => {
   res.json({id: '789'})
@@ -112,8 +106,13 @@ app.use((req, res, next) => {
   // app.locals.admin  // we'll only `req.user` if we managed to log in
   next()
 })
-//routes
+
+// require all my route files
+const customer_routes = require('./routes/customer_routes')
+const supplier_routes = require('./routes/supplier_routes')
+const receivedstock_routes = require('./routes/receivedstock_routes')
 const delivery_routes = require('./routes/delivery_routes')
+const inventory_routes = require('./routes/inventory_routes')
 
 //register routes
 app.use('/orders', delivery_routes)
@@ -121,18 +120,15 @@ app.use('/customer', hasLoggedOut, customer_routes)
 app.use('/suppliers', supplier_routes)
 
 app.use('/incomingstock', receivedstock_routes)
-
-
-// opening the port for express
-app.listen(port, () => {
-  console.log(`Server is running on ${port}`)
-})
+app.use('/location', location_routes)
+app.use('/customers',isLoggedIn, customer_routes)
+app.use('/inventories', inventory_routes)
 
 app.get('/',(req,res) => {
   res.render('home')
 })
 
-
-app.use('/customers',isLoggedIn, customer_routes)
-
-app.use('/inventories', inventory_routes)
+// opening the port for express
+app.listen(port, () => {
+  console.log(`Server is running on ${port}`)
+})
