@@ -1,1 +1,15 @@
-<h1>hello suppliers</h1>
+<h2>{{ supplier.name }}</h2>
+
+<form action="/suppliers/{{ supplier.id }}?_method=PUT" method="post">
+
+<label for="title">Name:</label>
+<input type="text" name="supplier[name]" id="title" value="{{ supplier.name }}">
+<label for="address">Location:</label>
+<input type="text" class="controls" name="supplier[location]" value="{{ supplier.location }}">
+<label for="address">Contact:</label>
+<input type="tel" class="controls" name="supplier[contact]" value="{{ supplier.contact }}">
+
+<button type="submit" class="btn btn-warning btn-block" name="button>
+<span class="glyphicon glyphicon-save"></span> UPDATE SUPPLIER</button>
+
+</form>
