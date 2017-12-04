@@ -10,6 +10,7 @@ const Customer = require('../models/customer')
 router.get('/', (req,res)=>{
   DeliveryOrder.find()
   .then((orders)=>{
+    
     res.render('orders/showAll', {orders})
   })
 })
@@ -50,6 +51,12 @@ router.post('/', (req,res)=>{
   .catch((err)=> console.log(err.message))
 })
 
+//newOrder
+router.get('/newItem', (req,res)=>{
+  res.render('orders/newItem')
+})
+
+
 //tracking page
 router.get('/tracking', (req,res)=>{
   Tracking.find()
@@ -58,5 +65,7 @@ router.get('/tracking', (req,res)=>{
     res.render('orders/tracking', {track})
   })
 })
+
+
 
 module.exports = router

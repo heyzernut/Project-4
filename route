@@ -42,10 +42,13 @@ app.use('/orders')
   POST /
 
   GET /tracking    #tracking
+
+  GET /newItem     #newItem
+
+  GET /:id        #show_one_order
   PUT /:id         #edit_one
   DELETE /:id      #delete_one
 
-  GET /:id        #show_one_order
 
   //to check whether the route is an id or tracking
   GET /:id/tracking   #update delivery status
