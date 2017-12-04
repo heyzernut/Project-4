@@ -14,17 +14,24 @@ const MongoStore = require('connect-mongo')(session) // to store session into db
 const passport = require('./config/ppConfig') // to register passport strategies
 const { hasLoggedOut, isLoggedIn } = require('./helpers')
 
-
 // Models
+
 const Location = require('./models/location')
 const location_routes = require('./routes/location_routes')
+
 const Customer = require('./models/customer')
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
 
+// require all my route files
+const customer_routes = require('./routes/customer_routes')
+const supplier_routes = require('./routes/supplier_routes')
+const receivedstock_routes = require('./routes/receivedstock_routes')
 
 const app = express()
 
+
+const inventory_routes = require('./routes/inventory_routes')
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -81,20 +88,12 @@ app.get('/',(req,res) => {
 })
 app.get('/test',(req,res) => {
   // res.render('home')
-  console.log('home entered')
+  console.log('home entered');
 
   res.json({test: 'proxy working'})
 })
 
-//
-app.get('/test', (req,res)=>{
-  let hello= "hi"
-  res.json({hello})
-})
-
-app.use('/test', (req,res) => {
-  res.json({id: '789'})
-})
+app.use('/location', location_routes)
 
 // NEW ROUTE - Suppliers
 app.use((req, res, next) => {
@@ -105,28 +104,25 @@ app.use((req, res, next) => {
   // app.locals.admin  // we'll only `req.user` if we managed to log in
   next()
 })
-
-// require all my route files
-const customer_routes = require('./routes/customer_routes')
-const supplier_routes = require('./routes/supplier_routes')
-const receivedstock_routes = require('./routes/receivedstock_routes')
+//routes
 const delivery_routes = require('./routes/delivery_routes')
-const inventory_routes = require('./routes/inventory_routes')
 
 //register routes
 app.use('/orders', delivery_routes)
 app.use('/customer', hasLoggedOut, customer_routes)
 app.use('/suppliers', supplier_routes)
 app.use('/incomingstock', receivedstock_routes)
-app.use('/location', location_routes)
-app.use('/customers',isLoggedIn, customer_routes)
-app.use('/inventories', inventory_routes)
-
-app.get('/',(req,res) => {
-  res.render('home')
-})
 
 // opening the port for express
 app.listen(port, () => {
   console.log(`Server is running on ${port}`)
 })
+
+app.get('/',(req,res) => {
+  res.render('home')
+})
+
+
+app.use('/customers',isLoggedIn, customer_routes)
+
+app.use('/inventories', inventory_routes)
