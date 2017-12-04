@@ -103,10 +103,8 @@ const delivery_routes = require('./routes/delivery_routes')
 app.use('/orders', delivery_routes)
 app.use('/customer', hasLoggedOut, customer_routes)
 app.use('/suppliers', supplier_routes)
-<<<<<<< HEAD
 app.use('/incomingstock', receivedstock_routes)
-=======
->>>>>>> f5a94c36ae9c18f5d3b4edae16450c36f2e529a2
+
 
 // opening the port for express
 app.listen(port, () => {
