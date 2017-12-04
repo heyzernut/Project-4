@@ -7,13 +7,12 @@ router.get('/', (req, res) => {
   Location
 .find()
 .then(locations => {
-  res.render('inventory/location', {
-    locations
-  })
+  res.json({locations})
 })
 .catch(err => {
   console.log(err)
 })
+
 })
 
 router.get('/new', (req, res) => {
@@ -23,7 +22,7 @@ router.get('/new', (req, res) => {
 router.post('/new', (req, res) => {
     function range (start,stop) {
     var result=[]
-    for (var idx= start.charCodeAt(0),end= stop.charCodeAt(0); idx <=end; ++idx){
+    for (var idx= start.charCodeAt(0),end= stop.charCodeAt(0); idx <= end; idx++){
       result.push(String.fromCharCode(idx))
     }
     return result
@@ -31,7 +30,7 @@ router.post('/new', (req, res) => {
 
   function rangeNum (start,stop) {
   var result=[]
-  for (var idx= start , end= stop; idx <=end; idx++){
+  for (var idx= start, end= stop; idx <= end; idx++){
     result.push(idx)
   }
   return result
