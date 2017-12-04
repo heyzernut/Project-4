@@ -47,6 +47,10 @@ app.use(methodOverride('_method'))
 const dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'mongodb://localhost/project4'
 const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 4000 // this is for our express server
 
+/// PASSPORT ACTIVATED
+app.use(passport.initialize())
+app.use(passport.session())
+
 // connecting to mongodb before we starting the server
 mongoose.Promise = global.Promise
 mongoose.connect(dbUrl, {
@@ -85,4 +89,4 @@ app.get('/',(req,res) => {
   res.render('home')
 })
 
-app.use('/customer',hasLoggedOut, customer_routes)
+app.use('/customers',isLoggedIn, customer_routes)
