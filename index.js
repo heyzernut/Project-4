@@ -17,6 +17,10 @@ const { hasLoggedOut, isLoggedIn } = require('./helpers')
 
 
 // Models
+
+const Location = require('./models/location')
+const location_routes = require('./routes/location_routes')
+
 const Customer = require('./models/customer')
 const Supplier = require('./models/supplier')
 
@@ -26,6 +30,8 @@ const supplier_routes = require('./routes/supplier_routes')
 
 const app = express()
 
+
+const inventory_routes = require('./routes/inventory_routes')
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -47,7 +53,7 @@ app.use(methodOverride('_method'))
 
 //MongoDB files
 const dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'mongodb://localhost/project4'
-const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 4000 // this is for our express server
+const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 5100 // this is for our express server
 
 // connecting to mongodb before we starting the server
 mongoose.Promise = global.Promise
@@ -73,6 +79,7 @@ app.get('/',(req,res) => {
   res.render('home')
 })
 
+app.use('/location', location_routes)
 
 // NEW ROUTE - Suppliers
 app.use((req, res, next) => {
@@ -95,3 +102,9 @@ app.use('/suppliers', supplier_routes)
 app.listen(port, () => {
   console.log(`Server is running on ${port}`)
 })
+
+app.get('/',(req,res) => {
+  res.render('home')
+})
+
+app.use('/inventories', inventory_routes)
