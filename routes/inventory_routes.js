@@ -52,8 +52,8 @@ router.post('/models/new', (req, res) => {
   newModel.save()
   .then(model => {
     console.log('model save')
-    // res.redirect(`/inventories`
-    res.redirect(`/inventories/models/${model.itemCode}`)
+    // res.redirect(`/inventory`
+    res.redirect(`/inventory/models/${model.itemCode}`)
   }, err => res.direct('/models/new'))
 })
 
@@ -116,7 +116,7 @@ router.put('/models/:itemCode', (req, res) => {
     let modelItemCode = toUpdate.itemCode
 
     FurnitureModel.findByIdAndUpdate(furnitureModelId, toUpdate)
-    .then(() => res.redirect(`/inventories/models/${modelItemCode}`))
+    .then(() => res.redirect(`/inventory/models/${modelItemCode}`))
     .catch( err => res.send(err))
   })
 
@@ -143,7 +143,7 @@ router.delete('/models/:itemCode', (req, res) => {
 
         Promise.all(promises)
         .then(() => {
-          res.redirect('/inventories')
+          res.redirect('/inventory')
         })
 
       })
@@ -190,8 +190,8 @@ router.post('/models/:itemCode/newStock', (req, res) => {
   newStock.save()
   .then(stock => {
     console.log('stock save')
-    // res.redirect(`/inventories`
-    res.redirect(`/inventories/models/${itemCode}`)
+    // res.redirect(`/inventory`
+    res.redirect(`/inventory/models/${itemCode}`)
 
   }, err => res.direct(`/models/${itemCode}/newStock`))
 })
@@ -250,7 +250,7 @@ router.put('/stocks/:id', (req, res) => {
   FurnitureStock.findByIdAndUpdate(stockId, stockUpdate)
   .then( () => {
 
-    res.redirect(`/inventories/stocks/${stockId}`)
+    res.redirect(`/inventory/stocks/${stockId}`)
   })
 })
 router.delete('/stocks/:id', (req, res) => {
@@ -258,7 +258,7 @@ router.delete('/stocks/:id', (req, res) => {
 
   FurnitureStock.findByIdAndRemove(stockId)
   .then( () => {
-    res.redirect('/inventories/stocks')
+    res.redirect('/inventory/stocks')
   })
 })
 

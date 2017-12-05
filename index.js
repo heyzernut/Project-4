@@ -127,4 +127,4 @@ app.get('/',(req,res) => {
 
 app.use('/customers',isLoggedIn, customer_routes)
 
-app.use('/inventories', inventory_routes)
+app.use('/inventory', inventory_routes)

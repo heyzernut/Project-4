@@ -1,6 +1,6 @@
 <h3>Edit {{ furnitureModel.model }} ({{ furnitureModel.itemCode }})</h3>
 
-<form action="/inventories/models/{{furnitureModel.itemCode}}?_method=PUT" method="post">
+<form action="/inventory/models/{{furnitureModel.itemCode}}?_method=PUT" method="post">
   <label for="lblItemCode">Item Code: </label>
   <input type="text" name="model[itemCode]" placeholder="Enter Item Code" value="{{ furnitureModel.itemCode }}">
 
@@ -17,6 +17,6 @@
 
 </form>
 
-<form class="" action="/inventories/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
+<form class="" action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
   <button class="btn btn-info" type="submit" name="button">Delete</button>
 </form>
