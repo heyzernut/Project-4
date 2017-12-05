@@ -29,9 +29,8 @@ router.get('/',(req,res) => {
   Customer.find()
   .then(customers => {
 
-    res.render('customers/allCustomers', {
-      customers
-    })
+    res.json({customers})
+
   })
   .catch(err => {
     console.log(err)

@@ -8,7 +8,6 @@ const exphbs = require('express-handlebars') // for Handlebars
 const bodyParser = require('body-parser') // for accessing POST request
 const methodOverride = require('method-override') // for accessing PUT / DELETE
 const moment = require('moment');
-const cors = require('cors')
 const session = require('express-session') // to create session and cookies
 const MongoStore = require('connect-mongo')(session) // to store session into db
 
@@ -76,7 +75,7 @@ app.use(session({
 //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 // }
 
-app.use(cors())
+// app.use(cors())
 //homepage
 app.get('/',(req,res) => {
   // res.render('home')
