@@ -22,8 +22,15 @@ const Customer = require('./models/customer')
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
 
+const cors = require('cors')
 
 const app = express()
+
+const corsOption = {
+  exposedHeaders: ['X-Total-Count']
+}
+
+app.use(cors(corsOption))
 
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
@@ -35,9 +42,9 @@ app.use(function (req, res, next) {
   console.log('Method: ' + req.method + ' Path: ' + req.url)
   next()
 })
-app.use(function(req, res, next){
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Expose-Headers', 'Content-Range')
+app.use(function(req, res, next) {
+  res.header('X-Total-Count', '319')
+  next()
 })
 
 // setup bodyParser
@@ -75,12 +82,6 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-
-//homepage
-app.get('/',(req,res) => {
-  // res.render('home')
-})
-
 app.get('/test',(req,res) => {
   // res.render('home')
   console.log('home entered')
@@ -116,7 +117,8 @@ app.use('/inventories', inventory_routes)
 
 //homepage
 app.get('/',(req,res) => {
-  res.json()
+  console.log('enter')
+  res.render('home')
 })
 
 // opening the port for express
