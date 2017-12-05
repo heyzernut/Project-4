@@ -10,6 +10,7 @@ const methodOverride = require('method-override') // for accessing PUT / DELETE
 const moment = require('moment');
 const session = require('express-session') // to create session and cookies
 const MongoStore = require('connect-mongo')(session) // to store session into db
+const cors = require('cors')
 
 const passport = require('./config/ppConfig') // to register passport strategies
 const { hasLoggedOut, isLoggedIn } = require('./helpers')
@@ -28,6 +29,12 @@ const receivedstock_routes = require('./routes/receivedstock_routes')
 
 const app = express()
 
+const corsOption = {
+  exposedHeaders: ['Content-Range', '0-24/319']
+}
+
+app.use(cors(corsOption))
+
 
 const inventory_routes = require('./routes/inventory_routes')
 // VIEW ENGINES aka handlebars setup
@@ -39,14 +46,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(function (req, res, next) {
   console.log('Method: ' + req.method + ' Path: ' + req.url)
   next()
-})
-
-app.use(function(req, res, next){
-  res.header({
-   'Access-Control-Allow-Origin': 'http://localhost:3000',
-   'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
-   'Access-Control-Expose-Headers': 'Content-Range'})
-   next()
 })
 
 
@@ -112,11 +111,10 @@ const delivery_routes = require('./routes/delivery_routes')
 
 //register routes
 app.use('/orders', delivery_routes)
-app.use('/customer', hasLoggedOut, customer_routes)
 app.use('/suppliers', supplier_routes)
 app.use('/incomingstock', receivedstock_routes)
 app.use('/location', location_routes)
-app.use('/customers',isLoggedIn, customer_routes)
+app.use('/customers', customer_routes)
 app.use('/inventories', inventory_routes)
 
 // opening the port for express
