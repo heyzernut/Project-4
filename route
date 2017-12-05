@@ -22,7 +22,7 @@ app.use('/suppliers')
 
 
 
-app.use('/inventories')
+app.use('/inventory')
   GET /         #show
 
   POST /models/new #create

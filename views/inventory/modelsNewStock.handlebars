@@ -1,6 +1,6 @@
 <h3>Add Stock information for {{ furnitureModel.model }} ({{ furnitureModel.itemCode }})</h3>
 
-<form action="/inventories/models/{{furnitureModel.itemCode}}/newStock" method="post">
+<form action="/inventory/models/{{furnitureModel.itemCode}}/newStock" method="post">
   <label for="lblLocation">Location: </label>
   <select name="stock[location]">
     {{#each locations as |location|}}
