@@ -20,13 +20,7 @@ app.use('/suppliers')
 
   GET /:id      #show_suppliers
 
-app.use('/model')
-  GET /         #show
-  POST /        #create
-  PUT /:id         #update
-  DELETE /:id      #delete
 
-  GET /:id      #show_model
 
 app.use('/inventories')
   GET /         #show
@@ -36,6 +30,12 @@ app.use('/inventories')
   DELETE /models/:id  #delete
 
   POST /models/:id/newStock
+
+  Get /stocks
+
+  Get /stocks/:id
+  PUT /stocks/:id
+  Delete /stocks/:id
 
 app.use('/orders')
   GET /           #showAll
