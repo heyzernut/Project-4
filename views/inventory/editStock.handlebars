@@ -1,0 +1,28 @@
+<h3>Edit stock for {{ furnitureStock.furnitureModel.model }} ({{ furnitureStock.furnitureModel.itemCode }})</h3>
+<h4>Location: {{furnitureStock.location.type}}</h4>
+<form action="/inventories/stocks/{{furnitureStock.id}}?_method=PUT" method="post">
+  <label for="lblLocation">Location: </label>
+  <select name="stock[location]">
+    {{#each locations as |location|}}
+    <option  value="{{ location.id }}">{{ location.type }} </option>
+    {{/each}}
+  </select>
+  {{!-- <label for="lblZone and Shelf">Zone and Shelf: </label>
+
+  <select>
+    {{#each warehouseLocations as |warehouseLocation|}}
+    <option name="stock[warehouse]" value="{{ warehouseLocation.id }}">{{ warehouseLocation.zone }} {{ warehouseLocation.shelf }}</option>
+    {{/each}}
+  </select> --}}
+
+  <label for="lblQuantity">Quantity:: </label>
+  <input type="text" name="stock[quantity]" placeholder="Enter Quantity" value="{{furnitureStock.quantity}}">
+
+
+  <button type="submit" name="btn">Submit</button>
+
+</form>
+
+<form class="" action="/inventories/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
+  <button class="btn btn-info" type="submit" name="button">Delete</button>
+</form>

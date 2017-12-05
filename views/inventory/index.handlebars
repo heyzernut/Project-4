@@ -15,11 +15,22 @@
     <td rowspan="{{furnitureModel.stocksAmt}}">{{ furnitureModel.color }}</td>
     <td rowspan="{{furnitureModel.stocksAmt}}">{{ furnitureModel.dimension }}</td>
     <td rowspan="{{furnitureModel.stocksAmt}}"><a href="/inventories/models/{{furnitureModel.itemCode}}"><button type="button" name="button">View Infor</button></a></td>
+    <td rowspan="{{furnitureModel.stocksAmt}}">
+      <form class="" action="/inventories/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
+        <button class="btn btn-info" type="submit" name="button">Delete</button>
+      </form>
+    </td>
+
     <td>
       {{#each furnitureModel.stocks as |stock| }}
       <tr>
         {{!-- <td>{{ stock.locatione}}</td> --}}
         <td>{{ stock.quantity}}</td>
+        <td>
+          <form class="" action="/inventories/stocks/{{stock.id}}?_method=DELETE" method="post">
+            <button class="btn btn-info" type="submit" name="button">Delete</button>
+          </form>
+        </td>
       </tr>
       {{/each}}
     </td>

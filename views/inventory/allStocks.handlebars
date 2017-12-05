@@ -1,0 +1,28 @@
+
+<table>
+  <tr>
+    <th>Location</th>
+    <th>Quantity</th>
+    <th>Detail View</th>
+    <th>Model</th>
+    <th>Item Code</th>
+    <th>Color</th>
+    <th>Dimension</th>
+    <th>View model</th>
+  </tr>
+
+  {{#each furnitureStocks as |furnitureStock| }}
+  <tr>
+    <td>{{ furnitureStock.location.type}}</td>
+    <td>{{ furnitureStock.quantity}}</td>
+    <td ><a href="/inventories/stocks/{{ furnitureStock.id}}"><button type="button" name="button">View Infor</button></a></td>
+    <td >{{ furnitureStock.furnitureModel.model }}</td>
+    <td >{{ furnitureStock.furnitureModel.itemCode }}</td>
+    <td >{{ furnitureStock.furnitureModel.color }}</td>
+    <td >{{ furnitureStock.furnitureModel.dimension }}</td>
+    <td ><a href="/inventories/models/{{ furnitureStock.furnitureModel.itemCode}}"><button type="button" name="button">View Model</button></a></td>
+  </tr>
+  {{/each}}
+
+
+</table>
