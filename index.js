@@ -21,22 +21,22 @@ const Customer = require('./models/customer')
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
 
-// require all my route files
-const customer_routes = require('./routes/customer_routes')
-const supplier_routes = require('./routes/supplier_routes')
-const receivedstock_routes = require('./routes/receivedstock_routes')
 const cors = require('cors')
 
 const app = express()
 
 const corsOption = {
-  exposedHeaders: ['Content-Range', 'suppliers 0-24/319']
+  exposedHeaders: ['X-Total-Count']
 }
 
 app.use(cors(corsOption))
 
-
+// require all my route files
+const customer_routes = require('./routes/customer_routes')
+const supplier_routes = require('./routes/supplier_routes')
+const receivedstock_routes = require('./routes/receivedstock_routes')
 const inventory_routes = require('./routes/inventory_routes')
+
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -47,10 +47,13 @@ app.use(function (req, res, next) {
   console.log('Method: ' + req.method + ' Path: ' + req.url)
   next()
 })
-// app.use(function(req, res, next){
-//   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-//   res.header('Access-Control-Expose-Headers', 'Content-Range')
-// })
+
+app.use(function(req, res, next) {
+  res.header('X-Total-Count', '319')
+  next()
+
+})
+
 
 // setup bodyParser
 app.use(bodyParser.json())
@@ -120,6 +123,12 @@ app.use('/incomingstock', receivedstock_routes)
 app.use('/location', location_routes)
 app.use('/customers',isLoggedIn, customer_routes)
 app.use('/inventories', inventory_routes)
+
+//homepage
+app.get('/',(req,res) => {
+  console.log('enter')
+  res.render('home')
+})
 
 // opening the port for express
 app.listen(port, () => {
