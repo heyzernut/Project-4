@@ -3,7 +3,6 @@ require('dotenv').config({ silent: true })
 // installing all modules
 const express = require('express')
 const mongoose = require('mongoose') // for DB
-mongoose.plugin(require('meanie-mongoose-to-json'))
 const path = require('path') // for Public files
 const exphbs = require('express-handlebars') // for Handlebars
 const bodyParser = require('body-parser') // for accessing POST request
@@ -23,6 +22,7 @@ const location_routes = require('./routes/location_routes')
 
 const Customer = require('./models/customer')
 const Role = require('./models/role')
+const Staff = require('./models/staff')
 
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
@@ -30,9 +30,11 @@ const ReceivedStock = require('./models/receivedStock')
 
 // require all my route files
 const customer_routes = require('./routes/customer_routes')
+const role_routes = require('./routes/role_routes')
+const staff_routes = require('./routes/staff_routes')
 const supplier_routes = require('./routes/supplier_routes')
 const receivedstock_routes = require('./routes/receivedstock_routes')
-const role_routes = require('./routes/role_routes')
+
 
 const app = express()
 
@@ -109,7 +111,10 @@ app.use('/orders', delivery_routes)
 app.use('/suppliers', supplier_routes)
 app.use('/incomingstock', receivedstock_routes)
 app.use('/location', location_routes)
-app.use('/customers',isLoggedIn, customer_routes)
+app.use('/customers', customer_routes)
+app.use('/roles', role_routes)
+app.use('/staffs', staff_routes)
+app.use('/inventory', inventory_routes)
 app.use('/inventories', inventory_routes)
 
 //homepage
@@ -126,9 +131,3 @@ app.listen(port, () => {
 app.get('/',(req,res) => {
   res.render('home')
 })
-
-
-app.use('/customers', customer_routes)
-app.use('/roles', role_routes)
-
-app.use('/inventory', inventory_routes)

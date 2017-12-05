@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const toJson = require('meanie-mongoose-to-json')
 
 const locationSchema = new mongoose.Schema({
   address: String,
@@ -16,8 +15,6 @@ const locationSchema = new mongoose.Schema({
     ref: 'WarehouseLocation'
   }
 })
-
-locationSchema.plugin(toJson)
 
 const Location = mongoose.model('Location', locationSchema)
 

@@ -1,20 +1,20 @@
-<h3>Create Roles</h3>
+<h3>Create Staff</h3>
 
 <form action="/staffs" method="post">
   <label for="lblName">Name : </label>
-  <input type="text" name="role[txtName]" placeholder="Enter Name">
+  <input type="text" name="staff[txtName]" placeholder="Enter Name">
   <br>
 
   <label for="lblPassword">Password : </label>
-  <input type="text" name="role[txtPassword]" placeholder="Enter Password">
+  <input type="password" name="staff[txtPassword]" placeholder="Enter Password">
   <br>
 
-  {{!-- <label for="lblRole">Role : </label>
-  <select name="">
-
-  </select> --}}
-
-
+  <label for="lblRole">Role : </label>
+  <select name="staff[role]">
+    {{#each role as |role|}}
+    <option value={{role.id}}>{{role.name}}</option>
+    {{/each}}
+  </select>
 
   <button type="submit" name="btnStaff">Submit</button>
 
