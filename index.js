@@ -3,6 +3,7 @@ require('dotenv').config({ silent: true })
 // installing all modules
 const express = require('express')
 const mongoose = require('mongoose') // for DB
+mongoose.plugin(require('meanie-mongoose-to-json'))
 const path = require('path') // for Public files
 const exphbs = require('express-handlebars') // for Handlebars
 const bodyParser = require('body-parser') // for accessing POST request
@@ -15,7 +16,6 @@ const cors = require('cors')
 
 const passport = require('./config/ppConfig') // to register passport strategies
 const { hasLoggedOut, isLoggedIn } = require('./helpers')
-
 
 // Models
 const Location = require('./models/location')
@@ -48,6 +48,7 @@ app.use(function (req, res, next) {
   console.log('Method: ' + req.method + ' Path: ' + req.url)
   next()
 })
+
 
 // setup bodyParser
 app.use(bodyParser.json())
@@ -107,6 +108,15 @@ const delivery_routes = require('./routes/delivery_routes')
 app.use('/orders', delivery_routes)
 app.use('/suppliers', supplier_routes)
 app.use('/incomingstock', receivedstock_routes)
+app.use('/location', location_routes)
+app.use('/customers',isLoggedIn, customer_routes)
+app.use('/inventories', inventory_routes)
+
+//homepage
+app.get('/',(req,res) => {
+  console.log('enter')
+  res.render('home')
+})
 
 // opening the port for express
 app.listen(port, () => {
@@ -121,4 +131,4 @@ app.get('/',(req,res) => {
 app.use('/customers', customer_routes)
 app.use('/roles', role_routes)
 
-app.use('/inventories', inventory_routes)
+app.use('/inventory', inventory_routes)

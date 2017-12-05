@@ -1,1 +1,10 @@
 <h2>All locations</h2>
+<div class="card" style="width: 20rem;">
+  {{#each locations as |loca|}}
+  <div class="card-body">
+    <h4 class="card-title">{{ loca.type }}</h4>
+    <p class="card-text">{{ loca.address }}{{loca.zone}}{{loca.shelf}}</p>
+    <a href="/location/{{loca._id}}" class="btn btn-primary">Edit/Delete</a>
+  </div>
+  {{/each}}
+</div>
