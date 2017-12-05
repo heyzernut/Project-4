@@ -14,7 +14,6 @@ const MongoStore = require('connect-mongo')(session) // to store session into db
 const passport = require('./config/ppConfig') // to register passport strategies
 const { hasLoggedOut, isLoggedIn } = require('./helpers')
 
-
 // Models
 const Location = require('./models/location')
 const location_routes = require('./routes/location_routes')
@@ -22,6 +21,7 @@ const Customer = require('./models/customer')
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
 
+<<<<<<< HEAD
 const cors = require('cors')
 
 const app = express()
@@ -32,6 +32,17 @@ const corsOption = {
 
 app.use(cors(corsOption))
 
+=======
+// require all my route files
+const customer_routes = require('./routes/customer_routes')
+const supplier_routes = require('./routes/supplier_routes')
+const receivedstock_routes = require('./routes/receivedstock_routes')
+
+const app = express()
+
+
+const inventory_routes = require('./routes/inventory_routes')
+>>>>>>> 969e8856edac33e3c0853763d7c5caeea4f3a871
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -42,10 +53,21 @@ app.use(function (req, res, next) {
   console.log('Method: ' + req.method + ' Path: ' + req.url)
   next()
 })
+<<<<<<< HEAD
 app.use(function(req, res, next) {
   res.header('X-Total-Count', '319')
   next()
+=======
+
+app.use(function(req, res, next){
+  res.header({
+   'Access-Control-Allow-Origin': 'http://localhost:3000',
+   'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+   'Access-Control-Expose-Headers': 'Content-Range'})
+   next()
+>>>>>>> 969e8856edac33e3c0853763d7c5caeea4f3a871
 })
+
 
 // setup bodyParser
 app.use(bodyParser.json())
@@ -82,9 +104,14 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
+//homepage
+app.get('/',(req,res) => {
+  // res.render('home')
+})
+
 app.get('/test',(req,res) => {
   // res.render('home')
-  console.log('home entered')
+  console.log('home entered');
 
   res.json({test: 'proxy working'})
 })
@@ -99,12 +126,8 @@ app.use((req, res, next) => {
   next()
 })
 
-// require all my route files
-const customer_routes = require('./routes/customer_routes')
-const supplier_routes = require('./routes/supplier_routes')
-const receivedstock_routes = require('./routes/receivedstock_routes')
+//routes
 const delivery_routes = require('./routes/delivery_routes')
-const inventory_routes = require('./routes/inventory_routes')
 
 //register routes
 app.use('/orders', delivery_routes)
@@ -115,12 +138,15 @@ app.use('/location', location_routes)
 app.use('/customers',isLoggedIn, customer_routes)
 app.use('/inventories', inventory_routes)
 
+<<<<<<< HEAD
 //homepage
 app.get('/',(req,res) => {
   console.log('enter')
   res.render('home')
 })
 
+=======
+>>>>>>> 969e8856edac33e3c0853763d7c5caeea4f3a871
 // opening the port for express
 app.listen(port, () => {
   console.log(`Server is running on ${port}`)
