@@ -10,8 +10,7 @@ const Customer = require('../models/customer')
 router.get('/', (req,res)=>{
   DeliveryOrder.find()
   .then((orders)=>{
-    
-    res.render('orders/showAll', {orders})
+    res.json({orders})
   })
 })
 
@@ -22,7 +21,7 @@ router.get('/new', (req,res)=>{
 
   //get customer
   let customer = Customer.find()
-  res.render('orders/new', {today, customer})
+  res.json({today, customer})
 })
 router.post('/', (req,res)=>{
   let orderData = req.body
