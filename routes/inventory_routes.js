@@ -7,28 +7,30 @@ const router = express.Router()
 router.get('/', (req, res) => {
   FurnitureModel.find({})
   .then(allModels => {
-    let allModelsDisplay = []
-    if (allModels){
-      allModels.forEach(model => {
-        FurnitureStock.find({furnitureModel: model.id})
-        .then(allStock => {
-          let displayModel = {
-            itemCode: model.itemCode,
-            model: model.model,
-            color: model.color,
-            dimension: model.dimension,
-            stocks: allStock,
-            stocksAmt: allStock.length + 1
-          }
-          allModelsDisplay.push(displayModel)
-        })
-      })
-    }
-    res.render('inventory/index', {
-      allModelsDisplay})
-    }
-  )}
-)
+    var allModelsDisplay = []
+    var promises = []
+    allModels.forEach(model => {
+      promises.push(FurnitureStock.find({furnitureModel: model.id})
+      .then(allStock => {
+        let displayModel = {
+          itemCode: model.itemCode,
+          model: model.model,
+          color: model.color,
+          dimension: model.dimension,
+          stocks: allStock,
+          stocksAmt: allStock.length + 1
+        }
+        allModelsDisplay.push(displayModel)
+      }))
+    })
+
+    Promise.all(promises)
+    .then(() => {
+      res.json(allModelsDisplay)
+
+    })
+  })
+})
 
 
 router.get('/models/new', (req, res) => {
@@ -67,9 +69,11 @@ router.get('/models/:itemCode', (req, res) => {
       furnitureStocks.forEach(stock => {
         total += stock.quantity
       })
-      res.render('inventory/modelInfor', {
-        furnitureModel, furnitureStocks, total
-      })
+      res.json({furnitureModel: furnitureModel,furnitureStocks: furnitureStocks,  total: total})
+
+      // res.render('inventory/modelInfor', {
+      //   furnitureModel, furnitureStocks, total
+      // })
     })
     .catch(err => {
       res.render('inventory/modelInfor', {
