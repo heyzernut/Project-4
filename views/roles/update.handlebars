@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+            <p class="card-title">Role :{{ role.name }}</p>
+      </div>
+
+            <h3 class="card-title text-center">Update Role</h3>
+            <form action="/roles/update/{{ role.id }}?_method=PUT" method="post">
+
+
+              <label for="lblRoleName">Role Name : </label>
+              <input type="text" class="form-control" name="role[txtRole]"placeholder="Enter Role Name" value="{{ role.name }}">
+              <br/>
+
+              <div class="text-center">
+                <button type="submit" name="button" class="btn bg-warning">Submit</button>
+              </div>
+            </form>
+
+            <h3 class="card-title text-center">Delete Supplier</h3>{{!-- Same thing, different request type --}}
+            <form action="/roles/update/{{ role.id }}?_method=DELETE" method="post">
+              <div class="text-center">
+                <button type="submit" class="btn bg-warning" name="button">Delete</button>
+              </div>
+            </form>
+
+
+    </div>

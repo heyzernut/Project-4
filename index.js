@@ -18,18 +18,21 @@ const { hasLoggedOut, isLoggedIn } = require('./helpers')
 
 
 // Models
-
 const Location = require('./models/location')
 const location_routes = require('./routes/location_routes')
 
 const Customer = require('./models/customer')
+const Role = require('./models/role')
+
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
+
 
 // require all my route files
 const customer_routes = require('./routes/customer_routes')
 const supplier_routes = require('./routes/supplier_routes')
 const receivedstock_routes = require('./routes/receivedstock_routes')
+const role_routes = require('./routes/role_routes')
 
 const app = express()
 
@@ -115,6 +118,7 @@ app.get('/',(req,res) => {
 })
 
 
-app.use('/customers',isLoggedIn, customer_routes)
+app.use('/customers', customer_routes)
+app.use('/roles', role_routes)
 
 app.use('/inventories', inventory_routes)
