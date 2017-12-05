@@ -25,8 +25,15 @@ const ReceivedStock = require('./models/receivedStock')
 const customer_routes = require('./routes/customer_routes')
 const supplier_routes = require('./routes/supplier_routes')
 const receivedstock_routes = require('./routes/receivedstock_routes')
+const cors = require('cors')
 
 const app = express()
+
+const corsOption = {
+  exposedHeaders: ['Content-Range', 'suppliers 0-24/319']
+}
+
+app.use(cors(corsOption))
 
 
 const inventory_routes = require('./routes/inventory_routes')
@@ -40,10 +47,10 @@ app.use(function (req, res, next) {
   console.log('Method: ' + req.method + ' Path: ' + req.url)
   next()
 })
-app.use(function(req, res, next){
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Expose-Headers', 'Content-Range')
-})
+// app.use(function(req, res, next){
+//   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+//   res.header('Access-Control-Expose-Headers', 'Content-Range')
+// })
 
 // setup bodyParser
 app.use(bodyParser.json())
