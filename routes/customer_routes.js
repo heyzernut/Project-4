@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/new',(req,res) => {
-  res.json()
+  res.render('customers/new')
 })
 
 //create a new customer
@@ -29,8 +29,9 @@ router.get('/',(req,res) => {
   Customer.find()
   .then(customers => {
 
-    res.json({customers})
-
+    res.render('customers/allCustomers', {
+      customers
+    })
   })
   .catch(err => {
     console.log(err)
@@ -49,7 +50,6 @@ router.get('/updateCustomer/:id', (req, res) => {
 
     // PITSTOP: look at the views folders here, compare it with the res.render
     // first argument
-
     res.render('customers/updateCustomer', {
       customer
     })
@@ -58,9 +58,6 @@ router.get('/updateCustomer/:id', (req, res) => {
     console.log(err)
   })
 })
-
-
-
 
 router.put('/updateCustomer/:id', (req, res) => {
   // thankfully since we're using mongoose
