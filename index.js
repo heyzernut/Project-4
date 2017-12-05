@@ -22,21 +22,21 @@ const Customer = require('./models/customer')
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
 
-// require all my route files
-const customer_routes = require('./routes/customer_routes')
-const supplier_routes = require('./routes/supplier_routes')
-const receivedstock_routes = require('./routes/receivedstock_routes')
 
 const app = express()
 
 const corsOption = {
-  exposedHeaders: ['Content-Range', '0-24/319']
+  exposedHeaders: ['X-Total-Count']
 }
 
 app.use(cors(corsOption))
 
-
+// require all my route files
+const customer_routes = require('./routes/customer_routes')
+const supplier_routes = require('./routes/supplier_routes')
+const receivedstock_routes = require('./routes/receivedstock_routes')
 const inventory_routes = require('./routes/inventory_routes')
+
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -46,6 +46,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(function (req, res, next) {
   console.log('Method: ' + req.method + ' Path: ' + req.url)
   next()
+})
+
+app.use(function(req, res, next) {
+  res.header('X-Total-Count', '319')
+  next()
+
 })
 
 
@@ -116,6 +122,12 @@ app.use('/incomingstock', receivedstock_routes)
 app.use('/location', location_routes)
 app.use('/customers', customer_routes)
 app.use('/inventories', inventory_routes)
+
+//homepage
+app.get('/',(req,res) => {
+  console.log('enter')
+  res.render('home')
+})
 
 // opening the port for express
 app.listen(port, () => {

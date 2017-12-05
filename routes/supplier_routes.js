@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   Supplier.find()
   .then((supplier) => {
     // at this point we got our data so we can render our page
-    res.json({supplier})
+    res.json(supplier)
   })
   .catch(err => {
     console.log(err)
