@@ -1209,6 +1209,10 @@ longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
+loopback3-xtotalcount@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/loopback3-xtotalcount/-/loopback3-xtotalcount-0.1.2.tgz#e92f62e5e4ee5039aaf288e4df1103cfbb9bc637"
+
 lowercase-keys@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-1.0.0.tgz#4e3366b39e7f5457e35f1324bdf6f88d0bfc7306"
