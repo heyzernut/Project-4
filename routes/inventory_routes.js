@@ -5,7 +5,7 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  FurnitureModel.find({})
+  FurnitureModel.find()
   .then(allModels => {
     var allModelsDisplay = []
     var promises = []
@@ -26,7 +26,10 @@ router.get('/', (req, res) => {
 
     Promise.all(promises)
     .then(() => {
-      res.json(allModelsDisplay)
+      res.render('inventory/index', {
+        allModelsDisplay
+      })
+      // res.json(allModelsDisplay)
 
     })
   })
@@ -69,11 +72,11 @@ router.get('/models/:itemCode', (req, res) => {
       furnitureStocks.forEach(stock => {
         total += stock.quantity
       })
-      res.json({furnitureModel: furnitureModel,furnitureStocks: furnitureStocks,  total: total})
+      // res.json({furnitureModel: furnitureModel,furnitureStocks: furnitureStocks,  total: total})
 
-      // res.render('inventory/modelInfor', {
-      //   furnitureModel, furnitureStocks, total
-      // })
+      res.render('inventory/modelInfor', {
+        furnitureModel, furnitureStocks, total
+      })
     })
     .catch(err => {
       res.render('inventory/modelInfor', {
@@ -83,6 +86,71 @@ router.get('/models/:itemCode', (req, res) => {
   })
   .catch(err => { res.send('error') })
 })
+
+router.get('/models/:itemCode/edit', (req, res) => {
+  const itemCode = req.params.itemCode
+  FurnitureModel.find({itemCode : itemCode})
+  .then(foundModel => {
+    let furnitureModel = foundModel[0]
+    res.render('inventory/modelsEdit', {
+      furnitureModel
+    })
+  })
+})
+
+router.put('/models/:itemCode', (req, res) => {
+  const itemCode = req.params.itemCode
+  const editFurnitureModel = req.body.model
+
+  FurnitureModel.find({itemCode : itemCode})
+  .then(foundModel => {
+    let furnitureModel = foundModel[0]
+    let furnitureModelId = furnitureModel.id
+    let toUpdate = {
+      itemCode: editFurnitureModel.itemCode || furnitureModel.itemCode,
+      model: editFurnitureModel.model || furnitureModel.model,
+      color: editFurnitureModel.color || furnitureModel.color,
+      dimension: editFurnitureModel.dimension || furnitureModel.dimension,
+    }
+
+    let modelItemCode = toUpdate.itemCode
+
+    FurnitureModel.findByIdAndUpdate(furnitureModelId, toUpdate)
+    .then(() => res.redirect(`/inventories/models/${modelItemCode}`))
+    .catch( err => res.send(err))
+  })
+
+})
+
+router.delete('/models/:itemCode', (req, res) => {
+  const itemCode = req.params.itemCode
+
+  FurnitureModel.find({itemCode : itemCode})
+  .then(foundModel => {
+    let furnitureModel = foundModel[0]
+    let furnitureModelId = furnitureModel.id
+
+
+    FurnitureModel.findByIdAndRemove(furnitureModelId)
+    .then(() => {
+      FurnitureStock.find({furnitureModel:  furnitureModelId})
+      .then(furnitureStocks => {
+        let promises = []
+        furnitureStocks.forEach( (stock) => {
+          stockId = stock.id
+          promises.push(FurnitureStock.findByIdAndRemove(stockId))
+        })
+
+        Promise.all(promises)
+        .then(() => {
+          res.redirect('/inventories')
+        })
+
+      })
+    })
+  })
+})
+
 
 router.get('/models/:itemCode/newStock', (req, res) => {
 
@@ -127,6 +195,75 @@ router.post('/models/:itemCode/newStock', (req, res) => {
 
   }, err => res.direct(`/models/${itemCode}/newStock`))
 })
+
+router.get('/stocks', (req, res) => {
+  const stockId = req.params.id
+
+  FurnitureStock.find()
+  .populate('location')
+  .populate('furnitureModel')
+  .then( furnitureStocks => {
+    res.render('inventory/allStocks', {
+      furnitureStocks
+    })
+  })
+})
+
+router.get('/stocks/:id', (req, res) => {
+  const stockId = req.params.id
+
+  FurnitureStock.findById(stockId)
+  .populate('location')
+  .populate('furnitureModel')
+  .then( furnitureStock => {
+
+    res.render('inventory/stock', {
+      furnitureStock
+    })
+  })
+})
+
+router.get('/stocks/:id/edit', (req, res) => {
+  const stockId = req.params.id
+
+  FurnitureStock.findById(stockId)
+  .populate('location')
+  .populate('furnitureModel')
+  .then( furnitureStock => {
+
+    Location.find({})
+    .then(locations => {
+      res.render('inventory/editStock', {
+        furnitureStock, locations
+      })
+    })
+  })
+})
+router.put('/stocks/:id', (req, res) => {
+  const stockId = req.params.id
+  const editFurnitureStocks = req.body.stock
+  let stockUpdate = {
+    location:  editFurnitureStocks.location,
+    quantity:  editFurnitureStocks.quantity
+  }
+
+  FurnitureStock.findByIdAndUpdate(stockId, stockUpdate)
+  .then( () => {
+
+    res.redirect(`/inventories/stocks/${stockId}`)
+  })
+})
+router.delete('/stocks/:id', (req, res) => {
+  const stockId = req.params.id
+
+  FurnitureStock.findByIdAndRemove(stockId)
+  .then( () => {
+    res.redirect('/inventories/stocks')
+  })
+})
+
+
+
 
 
 
