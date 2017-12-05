@@ -37,3 +37,9 @@
 
 </table>
 <a href="/inventories/models/{{furnitureModel.itemCode}}/newStock"><button type="button" name="button">Add new stock</button></a>
+<a href="/inventories/models/{{furnitureModel.itemCode}}/edit"><button type="button" name="button">Edit</button></a>
+
+
+<form class="" action="/inventories/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
+  <button class="btn btn-info" type="submit" name="button">Delete</button>
+</form>
