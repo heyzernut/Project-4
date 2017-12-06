@@ -3,6 +3,8 @@
   <tr>
     <th>Location</th>
     <th>Quantity</th>
+    <th>Zone</th>
+    <th>shelf</th>
     <th>Detail View</th>
     <th>Remove</th>
     <th>Model</th>
@@ -14,8 +16,13 @@
 
   {{#each furnitureStocks as |furnitureStock| }}
   <tr>
-    <td>{{ furnitureStock.location.type}}</td>
+    <td>{{ furnitureStock.location.address}} ({{ furnitureStock.location.type}})</td>
     <td>{{ furnitureStock.quantity}}</td>
+    <td>{{ furnitureStock.zone}}</td>
+    <td>{{ furnitureStock.shelf}}</td>
+
+
+
     <td ><a href="/inventory/stocks/{{ furnitureStock.id}}"><button type="button" name="button">View Infor</button></a></td>
     <td>
       <form class="" action="/inventory/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
