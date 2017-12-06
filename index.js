@@ -11,29 +11,31 @@ const moment = require('moment');
 
 const session = require('express-session') // to create session and cookies
 const MongoStore = require('connect-mongo')(session) // to store session into db
+const cors = require('cors')
 
 const passport = require('./config/ppConfig') // to register passport strategies
 const { hasLoggedOut, isLoggedIn } = require('./helpers')
 
-
 // Models
-
 const Location = require('./models/location')
 const location_routes = require('./routes/location_routes')
-
 const Customer = require('./models/customer')
+const Role = require('./models/role')
+const Staff = require('./models/staff')
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
-
-// require all my route files
-const customer_routes = require('./routes/customer_routes')
-const supplier_routes = require('./routes/supplier_routes')
-const receivedstock_routes = require('./routes/receivedstock_routes')
 
 const app = express()
 
 
+// require all my route files
+const customer_routes = require('./routes/customer_routes')
+const role_routes = require('./routes/role_routes')
+const staff_routes = require('./routes/staff_routes')
+const supplier_routes = require('./routes/supplier_routes')
+const receivedstock_routes = require('./routes/receivedstock_routes')
 const inventory_routes = require('./routes/inventory_routes')
+
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -50,6 +52,23 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
 }))
+
+//overwrite the delete request
+app.use( function( req, res, next ) {
+    // this middleware will call for each requested
+    // and we checked for the requested query properties
+    // if _method was existed
+    // then we know, clients need to call DELETE request instead
+    if ( req.query._method == 'DELETE' ) {
+        // change the original METHOD
+        // into DELETE method
+        req.method = 'DELETE';
+        // and set requested url to /user/12
+        req.url = req.path;
+    }
+    next();
+});
+
 // setup methodOverride
 app.use(methodOverride('_method'))
 
@@ -85,7 +104,6 @@ app.get('/',(req,res) => {
   res.render('home')
 })
 
-app.use('/location', location_routes)
 
 // NEW ROUTE - Suppliers
 app.use((req, res, next) => {
@@ -100,21 +118,23 @@ app.use((req, res, next) => {
 const delivery_routes = require('./routes/delivery_routes')
 
 //register routes
+app.use('/location', location_routes)
 app.use('/orders', delivery_routes)
-app.use('/customer', hasLoggedOut, customer_routes)
 app.use('/suppliers', supplier_routes)
 app.use('/incomingstock', receivedstock_routes)
+app.use('/location', location_routes)
+app.use('/customers', customer_routes)
+app.use('/roles', role_routes)
+app.use('/staffs', staff_routes)
+app.use('/inventory', inventory_routes)
+
+//homepage
+// app.get('/',(req,res) => {
+//   console.log('enter')
+//   res.render('home')
+// })
 
 // opening the port for express
 app.listen(port, () => {
   console.log(`Server is running on ${port}`)
 })
-
-app.get('/',(req,res) => {
-  res.render('home')
-})
-
-
-app.use('/customers',isLoggedIn, customer_routes)
-
-app.use('/inventories', inventory_routes)

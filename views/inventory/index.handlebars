@@ -1,4 +1,4 @@
-<a href="/inventories/models/new"><button type="button" name="button">Add new furniture model</button></a>
+<a href="/inventory/models/new"><button type="button" name="button">Add new furniture model</button></a>
 <table>
   <tr>
     <th>Item Code</th>
@@ -14,12 +14,23 @@
     <td rowspan="{{furnitureModel.stocksAmt}}">{{ furnitureModel.model }}</td>
     <td rowspan="{{furnitureModel.stocksAmt}}">{{ furnitureModel.color }}</td>
     <td rowspan="{{furnitureModel.stocksAmt}}">{{ furnitureModel.dimension }}</td>
-    <td rowspan="{{furnitureModel.stocksAmt}}"><a href="/inventories/models/{{furnitureModel.itemCode}}"><button type="button" name="button">View Infor</button></a></td>
+    <td rowspan="{{furnitureModel.stocksAmt}}"><a href="/inventory/models/{{furnitureModel.itemCode}}"><button type="button" name="button">View Infor</button></a></td>
+    <td rowspan="{{furnitureModel.stocksAmt}}">
+      <form class="" action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
+        <button class="btn btn-info" type="submit" name="button">Delete</button>
+      </form>
+    </td>
+
     <td>
       {{#each furnitureModel.stocks as |stock| }}
       <tr>
         {{!-- <td>{{ stock.locatione}}</td> --}}
         <td>{{ stock.quantity}}</td>
+        <td>
+          <form class="" action="/inventory/stocks/{{stock.id}}?_method=DELETE" method="post">
+            <button class="btn btn-info" type="submit" name="button">Delete</button>
+          </form>
+        </td>
       </tr>
       {{/each}}
     </td>

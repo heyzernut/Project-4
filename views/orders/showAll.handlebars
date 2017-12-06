@@ -16,6 +16,8 @@
     <td>{{order.modeOfTransport}}</td>
     <td>{{order.deliveryTime}}</td>
     <td>{{order.deliveryAddress}}</td>
-    <td><a href="orders/{{order.id}}">View</a><a href="orders/{{order.id}}">Delete</a></tr>
+    <td><a href="orders/{{order.id}}">View</a>
+        <a href="orders/{{order.id}}?_method=DELETE">Delete</a>
+        <a href="orders/tracking">Track</a>
   {{/each}}
 </table>

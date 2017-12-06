@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+      {{#each roles as |role|}}
+        <div class="col-sm-4 ">
+          <div class="text-center">
+            <div class="card card-plain">
+              <br>
+              <p class="card-title">Roles : {{ role.name }}</p>
+
+              <p>
+                <form action="/roles/{{ role.id }}?_method=DELETE" method="post">
+                  <a href="/roles/update/{{ role.id }}" class="btn bg-warning">View Role</a>
+                  {{!-- {{#if ../admin}}
+                    <a href="/Customer/updateCustomer/{{ cust.id }}" class="btn bg-warning">Edit Customer</a>
+                  {{/if}} --}}
+                </form>
+              </p>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>

@@ -15,6 +15,7 @@
     <td>{{ furnitureModel.dimension }}</td>
   </tr>
 </table>
+<a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" name="button">Edit</button></a>
 
 <table>
   <tr>
@@ -27,6 +28,12 @@
     <td></td>
     <td>{{ stock.location.type}}</td>
     <td>{{ stock.quantity}}</td>
+    <td ><a href="/inventory/stocks/{{ stock.id}}"><button type="button" name="button">View Infor</button></a></td>
+    <td>
+      <form class="" action="/inventory/stocks/{{stock.id}}?_method=DELETE" method="post">
+        <button class="btn btn-info" type="submit" name="button">Delete</button>
+      </form>
+    </td>
   </tr>
   {{/each}}
   <tr>
@@ -36,4 +43,9 @@
   </tr>
 
 </table>
-<a href="/inventories/models/{{furnitureModel.itemCode}}/newStock"><button type="button" name="button">Add new stock</button></a>
+<a href="/inventory/models/{{furnitureModel.itemCode}}/newStock"><button type="button" name="button">Add new stock</button></a>
+
+
+<form class="" action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
+  <button class="btn btn-info" type="submit" name="button">Delete</button>
+</form>

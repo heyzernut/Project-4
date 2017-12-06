@@ -1,0 +1,27 @@
+.bodyContainer {
+margin-left: 150px;
+margin-top: 50px;
+}
+.leftNav {
+  height: 100%;
+  margin-top: 55px;
+  width: 150px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0; }
+
+.badge {
+  margin: 10%;
+}
+.reveal-if-active {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+input[type="radio"]:checked ~ .reveal-if-active {
+  opacity: 1;
+  max-height: 100px; /* little bit of a magic number :( */
+    overflow: visible;
+  }

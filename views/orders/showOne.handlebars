@@ -1,0 +1,15 @@
+<h1>{{order.invoiceNo}}</h1>
+
+<ul>
+  <li>{{order.formattedDate}}</li>
+  <li>{{order.quotationNo}}</li>
+  <li>{{order.deliveryTime}}</li>
+  <li>{{order.shippingCost}}</li>
+  <li>{{order.termOfDelivery}}</li>
+  <li>{{order.deliveryAddress}}</li>
+  <li>{{order.reseller}}</li>
+  <li>{{order.items}}</li>
+</ul>
+
+<a href="/orders">Go Back</a><br>
+<a href="/orders/{{order.id}}/tracking/{{tracking.id  }}">Track Delivery</a>
