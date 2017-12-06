@@ -115,7 +115,6 @@ app.use('/customers', customer_routes)
 app.use('/roles', role_routes)
 app.use('/staffs', staff_routes)
 app.use('/inventory', inventory_routes)
-app.use('/inventories', inventory_routes)
 
 //homepage
 app.get('/',(req,res) => {

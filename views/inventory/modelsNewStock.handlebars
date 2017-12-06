@@ -1,22 +1,43 @@
 <h3>Add Stock information for {{ furnitureModel.model }} ({{ furnitureModel.itemCode }})</h3>
 
 <form action="/inventory/models/{{furnitureModel.itemCode}}/newStock" method="post">
-  <label for="lblLocation">Location: </label>
-  <select name="stock[location]">
-    {{#each locations as |location|}}
-    <option  value="{{ location.id }}">{{ location.type }} </option>
-    {{/each}}
-  </select>
-  {{!-- <label for="lblZone and Shelf">Zone and Shelf: </label>
 
-  <select>
-    {{#each warehouseLocations as |warehouseLocation|}}
-    <option name="stock[warehouse]" value="{{ warehouseLocation.id }}">{{ warehouseLocation.zone }} {{ warehouseLocation.shelf }}</option>
-    {{/each}}
-  </select> --}}
 
   <label for="lblQuantity">Quantity:: </label>
   <input type="text" name="stock[quantity]" placeholder="Enter Quantity">
+
+  <label for="lblLocation">Location: </label>
+  {{!-- <select name="stock[location]">
+    {{#each locations as |location|}}
+    <option  value="{{ location.id }}">{{ location.address }}({{ location.type }}) </option>
+    {{/each}}
+  </select> --}}
+  {{#each locations as |location|}}
+  <div class="">
+    <input type="radio" id="location"
+     name="stock[location]" value="{{location.id}}">
+    <h5>{{ location.address }}({{ location.type }})</h5>
+    <div class="reveal-if-active">
+      <label for="lblZone">Zone: </label>
+      <select class="require-if-active" name="stock[zone]">
+        <option  value=""></option>
+        {{#each location.zone as |zone|}}
+        <option  value="{{ zone }}">{{ zone }} </option>
+        {{/each}}
+      </select>
+
+      <label for="lblShelf">Shelf: </label>
+      <select class="require-if-active" name="stock[shelf]">
+        <option  value=""></option>
+        {{#each location.shelf as |shelf|}}
+        <option  value="{{ shelf }}">{{ shelf }} </option>
+        {{/each}}
+      </select>
+    </div>
+
+  </div>
+  {{/each}}
+
   <input type="hidden" name="stock[furnitureModel]" value="{{furnitureModel.id}}">
 
   <button type="submit" name="btn">Submit</button>

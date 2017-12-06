@@ -8,7 +8,7 @@ const orderItemSchema = new Schema({
   furnitureStockId: {
     type: Schema.Types.ObjectId,
     ref: 'FurnitureStock'
-},
+  },
   deliveryOrderId: {
     type: Schema.Types.ObjectId,
     ref: 'DeliveryOrder'
