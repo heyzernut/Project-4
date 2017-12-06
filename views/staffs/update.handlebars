@@ -1,9 +1,4 @@
 <div class="container">
-    <div class="row">
-            <p class="card-title">Staff Name :{{ staff.name }}</p>
-            <p class="card-title">Staff Role :{{ staff.role }}</p>
-      </div>
-
             <h3 class="card-title text-center">Update Staff</h3>
             <form action="/staffs/update/{{ staff.id }}?_method=PUT" method="post">
 
@@ -18,8 +13,9 @@
 
               <label for="lblRole">Role : </label>
               <select name="staff[role]">
+                <option value={{selected.name}} selected>{{ selected.name }}</option>
                 {{#each role as |roleEach|}}
-                <option value={{roleEach.name}}>{{roleEach.name}}</option>
+                <option value={{roleEach.name}}>{{ roleEach.name }}</option>
                 {{/each}}
               </select>
 
