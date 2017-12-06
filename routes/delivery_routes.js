@@ -79,6 +79,7 @@ router.get('/tracking', (req, res)=>{
 //read & delete individual order
 router.get('/:id', (req, res)=>{
   DeliveryOrder.findById(req.params.id)
+  .populate('items')
   .then((order)=>{
 
     res.render('orders/showOne',{order})

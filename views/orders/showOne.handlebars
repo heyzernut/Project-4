@@ -40,7 +40,11 @@
       <tr>
         <th scope="row">1</th>
         <td>{{item.furnitureStockId}}</td>
+        {{#if item.return_date}}
+        <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg-{{item.id}}">{{item.order_type}}</td>
+        {{else}}
         <td>{{item.order_type}}</td>
+        {{/if}}
         <td>{{item.quantity_ordered}}</td>
         <td>{{!-- item.price --}}</td>
         <td>{{!-- item.price * item.quantity_ordered --}}</td>
@@ -51,3 +55,29 @@
   <a href="/orders">Go Back</a><br>
   <a href="/orders/{{order.id}}/tracking/{{tracking.id  }}">Track Delivery</a>
 </div>
+
+
+{{#each order.items as |item| }}
+<div class="modal fade bd-example-modal-lg-{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel"> Detail:</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <div>
+           Return Date: {{ item.formattedDate}}
+         </div>
+
+
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+</div>
+{{/each}}
