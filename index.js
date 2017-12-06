@@ -15,7 +15,7 @@ const cors = require('cors')
 
 const passport = require('./config/ppConfig') // to register passport strategies
 const { hasLoggedOut, isLoggedIn } = require('./helpers')
-const helpers = require('handlebars-helpers')();
+const helpers = require('handlebars-helpers');
 
 
 // Models

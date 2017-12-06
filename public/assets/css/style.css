@@ -367,6 +367,10 @@ input[type="radio"]:checked ~ .reveal-if-active {
     border-radius: 50px;
   }
 
+  .col-lg-12 {
+    padding-left: 0px;
+  }
+
   /*
   * ==========================================================
   *     SIDEBAR
