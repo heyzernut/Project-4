@@ -1,15 +1,15 @@
 <header class="page-header">
   <div class="container-fluid">
     <div class="clearfix">
-    <h2 class="no-margin-bottom float-left" >Role:</h2>
-    <a href="/roles/new" class="btn btn-primary active float-right" role="button" aria-pressed="true">+ Create</a>
+    <h2 class="no-margin-bottom float-left" >All Category:</h2>
+    <a href="/category/new" class="btn btn-primary active float-right" role="button" aria-pressed="true">+ Create new furniture model</a>
     </div>
   </div>
 </header>
 <nav aria-label="breadcrumb" role="navigation">
   <ol class="breadcrumb" style="margin-bottom:30px;">
     <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Role</li>
+    <li class="breadcrumb-item active" aria-current="page">Category</li>
   </ol>
 </nav>
 
@@ -19,17 +19,17 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Name</th>
+      <th scope="col">Category Name</th>
       <th scope="col">Edit/Delete</th>
     </tr>
   </thead>
   <tbody>
-    {{#each roles as |role|}}
+    {{#each category as |cat|}}
     <tr>
       <th scope="row">{{@index}}</th>
-      <td>{{role.name}}</td>
+      <td>{{cat.name}}</td>
       <td>
-        <a href="/roles/update/{{role._id}}" class="btn btn-primary">Edit/Delete</a>
+        <a href="/category/update/{{cat._id}}" class="btn btn-primary">Edit/Delete</a>
       </td>
     </tr>
     {{/each}}

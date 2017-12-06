@@ -63,7 +63,7 @@ router.post('/', (req,res)=>{
     newTracking.save()
 
     newOrder.save()
-    .then(()=> res.json(newOrder))
+    .then(()=> res.json(orderData))
     .catch((err)=> console.log(err.message))
   })
 
@@ -79,12 +79,6 @@ router.get('/:id/tracking', (req, res)=>{
     .catch(err => {
       console.log(err)
     })
-
-    // res.json(req)
-  // Tracking.find()
-  // .then((track) => {
-  //   res.render('orders/tracking',{track})
-  // })
 })
 
 //read & delete individual order
@@ -102,26 +96,6 @@ router.delete('/:id', (req, res)=>{
   .then(()=> res.redirect('/orders'))
   .catch((err)=> console.log(err))
 })
-
-// router.put('/:id/tracking', (req, res)=>{
-//     let trackingData = req.body
-//     let updateTrack = Tracking.find({order: req.params.id})
-    // .then((track)=>{
-    //   status: trackingData.trackStatus,
-    //   comment: trackingData.trackingComment,
-    //   order: req.params.id
-    // })
-    // var newTracking = new Tracking({
-    //   status: trackingData.trackStatus,
-    //   comment: trackingData.trackingComment,
-    //   order: req.params.id
-    // })
-//     updateTrack.save()
-//     .then(
-//       () => res.redirect('/tracking'),
-//       err => res.send(err)
-//     )
-// })
 
 
 router.put('/:id/tracking', (req, res) => {
