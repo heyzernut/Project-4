@@ -43,7 +43,7 @@ router.post('/', (req,res)=>{
     shippingCost: orderData.transport_cost,
     termOfDelivery: orderData.terms,
     deliveryAddress: orderData.address,
-    reseller: orderData.reseller
+    reseller: orderData.customers
   })
   //Add orderItem
   const newItem = new Item({
@@ -79,8 +79,8 @@ router.get('/tracking', (req, res)=>{
 //read & delete individual order
 router.get('/:id', (req, res)=>{
   DeliveryOrder.findById(req.params.id)
-  .populate('items')
   .then((order)=>{
+
     res.render('orders/showOne',{order})
   })
   .catch((err)=>console.log(err))
