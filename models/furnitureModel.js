@@ -5,7 +5,8 @@ const furnitureModelSchema = new Schema({
   itemCode: String,
   model: String,
   color: String,
-  dimension: String
+  dimension: String,
+  barcode: String
 })
 
 const FurnitureModel = mongoose.model('FurnitureModel', furnitureModelSchema)
