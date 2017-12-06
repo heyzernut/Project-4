@@ -5,38 +5,37 @@
 
   <label for="lblQuantity">Quantity:: </label>
   <input type="text" name="stock[quantity]" placeholder="Enter Quantity">
-
-  <label for="lblLocation">Location: </label>
-  {{!-- <select name="stock[location]">
+  <div>
+    <label for="lblLocation">Location: </label>
     {{#each locations as |location|}}
-    <option  value="{{ location.id }}">{{ location.address }}({{ location.type }}) </option>
-    {{/each}}
-  </select> --}}
-  {{#each locations as |location|}}
-  <div class="">
-    <input type="radio" id="location"
-     name="stock[location]" value="{{location.id}}">
-    <h5>{{ location.address }}({{ location.type }})</h5>
-    <div class="reveal-if-active">
-      <label for="lblZone">Zone: </label>
-      <select class="require-if-active" name="stock[zone]">
-        <option  value=""></option>
-        {{#each location.zone as |zone|}}
-        <option  value="{{ zone }}">{{ zone }} </option>
-        {{/each}}
-      </select>
+    <div class="">
+      <input type="radio" id="location"
+      name="stock[location]" value="{{location.id}}">
+      <h5>{{ location.address }}({{ location.type }})</h5>
 
-      <label for="lblShelf">Shelf: </label>
-      <select class="require-if-active" name="stock[shelf]">
-        <option  value=""></option>
-        {{#each location.shelf as |shelf|}}
-        <option  value="{{ shelf }}">{{ shelf }} </option>
-        {{/each}}
-      </select>
+      <div class="reveal-if-active">
+        {{#if location.zone}}
+        <label for="lblZone">Zone: </label>
+        <select class="require-if-active" name="stock[zone]">
+          <option  value=""></option>
+          {{#each location.zone as |zone|}}
+          <option  value="{{ zone }}">{{ zone }} </option>
+          {{/each}}
+        </select>
+
+        <label for="lblShelf">Shelf: </label>
+        <select class="require-if-active" name="stock[shelf]">
+          <option  value=""></option>
+          {{#each location.shelf as |shelf|}}
+          <option  value="{{ shelf }}">{{ shelf }} </option>
+          {{/each}}
+        </select>
+        {{/if}}
+      </div>
     </div>
+    {{/each}}
 
   </div>
-  {{/each}}
 
   <input type="hidden" name="stock[furnitureModel]" value="{{furnitureModel.id}}">
 

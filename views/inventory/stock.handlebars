@@ -1,7 +1,9 @@
 <table>
   <tr>
-    <th>Location</th>
     <th>Quantity</th>
+    <th>Location</th>
+    <th>Zone</th>
+    <th>Self</th>
     <th>Item Code</th>
     <th>Model</th>
     <th>Color</th>
@@ -10,8 +12,10 @@
 
 
   <tr>
-    <td>{{ furnitureStock.location.type }} </td>
-    <td>{{ furnitureStock.quantity }} </td>
+    <td>{{ furnitureStock.quantity}}</td>
+    <td>{{ furnitureStock.location.address}} ({{ furnitureStock.location.type}})</td>
+    <td>{{ furnitureStock.zone}}</td>
+    <td>{{ furnitureStock.shelf}}</td>
     <td><a href="/inventory/models/{{ furnitureStock.furnitureModel.itemCode }}">{{ furnitureStock.furnitureModel.itemCode }}</a></td>
     <td>{{ furnitureStock.furnitureModel.model }}</td>
     <td>{{ furnitureStock.furnitureModel.color }}</td>

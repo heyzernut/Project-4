@@ -11,12 +11,14 @@ router.get('/', (req, res) => {
     var promises = []
     allModels.forEach(model => {
       promises.push(FurnitureStock.find({furnitureModel: model.id})
+      .populate('location')
       .then(allStock => {
         let displayModel = {
           itemCode: model.itemCode,
           model: model.model,
           color: model.color,
           dimension: model.dimension,
+          barcode: model.barcode,
           stocks: allStock,
           stocksAmt: allStock.length + 1
         }
@@ -43,15 +45,14 @@ router.get('/', (req, res) => {
 router.get('/models/new', (req, res) => {
   res.render('inventory/modelsNew')
 })
-
-
 router.post('/models/new', (req, res) => {
   const modelData = req.body.model
   let newModel = new FurnitureModel({
     itemCode: modelData.itemCode,
     model: modelData.model,
     color: modelData.color,
-    dimension: modelData.dimension
+    dimension: modelData.dimension,
+    barcode: modelData.barcode
   })
   newModel.save()
   .then(model => {
@@ -90,7 +91,6 @@ router.get('/models/:itemCode', (req, res) => {
   })
   .catch(err => { res.send('error') })
 })
-
 router.get('/models/:itemCode/edit', (req, res) => {
   const itemCode = req.params.itemCode
   FurnitureModel.find({itemCode : itemCode})
@@ -101,7 +101,6 @@ router.get('/models/:itemCode/edit', (req, res) => {
     })
   })
 })
-
 router.put('/models/:itemCode', (req, res) => {
   const itemCode = req.params.itemCode
   const editFurnitureModel = req.body.model
@@ -115,6 +114,7 @@ router.put('/models/:itemCode', (req, res) => {
       model: editFurnitureModel.model || furnitureModel.model,
       color: editFurnitureModel.color || furnitureModel.color,
       dimension: editFurnitureModel.dimension || furnitureModel.dimension,
+      barcode: editFurnitureModel.barcode || furnitureModel.barcode
     }
 
     let modelItemCode = toUpdate.itemCode
@@ -125,7 +125,6 @@ router.put('/models/:itemCode', (req, res) => {
   })
 
 })
-
 router.delete('/models/:itemCode', (req, res) => {
   const itemCode = req.params.itemCode
 
@@ -180,18 +179,20 @@ router.get('/models/:itemCode/newStock', (req, res) => {
   })
   .catch(err => {res.send("error")})
 })
-
-
 router.post('/models/:itemCode/newStock', (req, res) => {
   const stockData = req.body.stock
   const itemCode = req.params.itemCode
+  let dataZone = stockData.zone.join(",").replace(/[,]/g, "")
+  let dataShelf = stockData.shelf.join(",").replace(/[,]/g, "")
+
+
 
   let newStock = new FurnitureStock({
     furnitureModel: stockData.furnitureModel,
     quantity: stockData.quantity,
     location: stockData.location,
-    zone: stockData.zone,
-    shelf: stockData.shelf
+    zone: dataZone,
+    shelf: dataShelf
   })
   newStock.save()
   .then(stock => {
@@ -214,7 +215,6 @@ router.get('/stocks', (req, res) => {
     })
   })
 })
-
 router.get('/stocks/:id', (req, res) => {
   const stockId = req.params.id
 
@@ -228,7 +228,6 @@ router.get('/stocks/:id', (req, res) => {
     })
   })
 })
-
 router.get('/stocks/:id/edit', (req, res) => {
   const stockId = req.params.id
 
@@ -248,16 +247,25 @@ router.get('/stocks/:id/edit', (req, res) => {
 router.put('/stocks/:id', (req, res) => {
   const stockId = req.params.id
   const editFurnitureStocks = req.body.stock
-  let stockUpdate = {
-    location:  editFurnitureStocks.location,
-    quantity:  editFurnitureStocks.quantity
-  }
+  FurnitureStock.findById(stockId)
+  .then(stock => {
 
-  FurnitureStock.findByIdAndUpdate(stockId, stockUpdate)
-  .then( () => {
+    let dataZone = editFurnitureStocks.zone.join(",").replace(/[,]/g, "")
+    let dataShelf = editFurnitureStocks.shelf.join(",").replace(/[,]/g, "")
 
-    res.redirect(`/inventory/stocks/${stockId}`)
+    let stockUpdate = {
+      quantity:  editFurnitureStocks.quantity || stock.quantity,
+      location:  editFurnitureStocks.location || stock.location,
+      zone: dataZone || stock.zone,
+      shelf: dataShelf || stock.shelf
+    }
+    FurnitureStock.findByIdAndUpdate(stockId, stockUpdate)
+    .then( () => {
+      res.redirect(`/inventory/stocks/${stockId}`)
+    })
+
   })
+
 })
 router.delete('/stocks/:id', (req, res) => {
   const stockId = req.params.id
@@ -267,9 +275,6 @@ router.delete('/stocks/:id', (req, res) => {
     res.redirect('/inventory/stocks')
   })
 })
-
-
-
 
 
 
