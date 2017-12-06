@@ -15,7 +15,7 @@ $(document).ready(function(){
   });
   //add rows
   $( "#addRow" ).click(function() {
-    const markup = '<tr><td><input type="text" id="row-1-itemName" name="row-1-itemName" placeholder="Item Name"></td><td><select size="1" id="row-1-orderType" class="orderType" name="row-1-orderType"><option value="sales" selected="selected">Sales</option><option value="demo">Demo</option></select></td><td><input type="date" id="row-1-returnDate" class="returnDate" name="row-1-returnDate" value="{{today}}" disabled></td><td><input type="number" id="row-1-orderQuantity" name="row-1-orderQuantity" value="1"></td><td></td></tr>';
+    const markup = '<tr><td><input type="text" id="row-1-model" name="row-1-model" placeholder="Model"></td><td><select size="1" id="row-1-orderType" class="orderType" name="row-1-orderType"><option value="sales" selected="selected">Sales</option><option value="demo">Demo</option></select></td><td><input type="date" id="row-1-returnDate" class="returnDate" name="row-1-returnDate" value="{{today}}" disabled></td><td><input type="number" id="row-1-orderQuantity" name="row-1-orderQuantity" value="1"></td><td></td></tr>';
     $("#orderItems>tbody").append(markup);
   });
 

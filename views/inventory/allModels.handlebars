@@ -1,9 +1,19 @@
+<header class="page-header">
+  <div class="container-fluid">
+    <div class="clearfix">
+    <h2 class="no-margin-bottom float-left" >Inventory List:</h2>
+    <a href="/inventory/models/new" class="btn btn-primary active float-right" role="button" aria-pressed="true">+ Create new furniture model</a>
+    </div>
+  </div>
+</header>
 <nav aria-label="breadcrumb" role="navigation">
-  <ol class="breadcrumb">
+  <ol class="breadcrumb" style="margin-bottom:30px;">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Inventory</li>
-    <li class="breadcrumb-item"><a href="/inventory/models/new">new furniture model</a></li>
   </ol>
 </nav>
+
+<div class="container">
 
 <a href="/inventory/stocks"><button type="button" name="button">Stocks View</button></a>
 
@@ -63,8 +73,6 @@
                  {{ stock.quantity}} qty :
                  {{ stock.location.address}} ({{ stock.location.type}} {{ stock.zone}}{{ stock.shelf}})
                </div>
-                {{!-- <td>{{ stock.zone}}</td>
-               <td>{{ stock.shelf}}</td>  --}}
            {{/each}}
 
        </div>

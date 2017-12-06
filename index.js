@@ -24,6 +24,7 @@ const Role = require('./models/role')
 const Staff = require('./models/staff')
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
+const Category = require('./models/category')
 
 const app = express()
 
@@ -32,6 +33,7 @@ const app = express()
 const customer_routes = require('./routes/customer_routes')
 const role_routes = require('./routes/role_routes')
 const staff_routes = require('./routes/staff_routes')
+const category_routes = require('./routes/category_routes')
 const supplier_routes = require('./routes/supplier_routes')
 const receivedstock_routes = require('./routes/receivedstock_routes')
 const inventory_routes = require('./routes/inventory_routes')
@@ -126,6 +128,7 @@ app.use('/location', location_routes)
 app.use('/customers', customer_routes)
 app.use('/roles', role_routes)
 app.use('/staffs', staff_routes)
+app.use('/category', category_routes)
 app.use('/inventory', inventory_routes)
 
 //homepage

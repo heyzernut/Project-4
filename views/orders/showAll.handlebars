@@ -1,14 +1,19 @@
+<header class="page-header">
+  <div class="container-fluid">
+    <div class="clearfix">
+    <h2 class="no-margin-bottom float-left" >All Orders:</h2>
+    <a href="/orders/new" class="btn btn-primary active float-right" role="button" aria-pressed="true">+ Create</a>
+    </div>
+  </div>
+</header>
 <nav aria-label="breadcrumb" role="navigation">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page">Orders</li>
-    <li class="breadcrumb-item active"><a href="/orders/new">new</a></li>
+  <ol class="breadcrumb" style="margin-bottom:30px;">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Orders</li>
   </ol>
 </nav>
 
 <div class="container">
-  <h3 class="display-4 text-center">
-    <p>All Order</p>
-  </h3>
 
   <table id="example" class="display table-striped" cellspacing="0" width="100%">
     <thead>
@@ -34,6 +39,7 @@
           <a href="orders/tracking">Track</a>
         </tr>
         {{/each}}
-      </tbody>
-    </table>
+    </tbody>
+</table>
+
 </div>

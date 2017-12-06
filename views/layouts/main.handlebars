@@ -6,56 +6,95 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
   </head>
+
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand mb-0" href="/">Inventory management</a>
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Login <span class="sr-only">(current)</span></a>
-          </li>
-          {{!-- <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li> --}}
-        </ul>
-        {{!-- <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> --}}
+    <div class="page home-page">
+      <!-- Main Navbar-->
+      <header class="header">
+        <nav class="navbar">
+          <!-- Search Box-->
+          <div class="search-box">
+            <button class="dismiss"><i class="icon-close"></i></button>
+            <form id="searchForm" action="#" role="search">
+              <input type="search" placeholder="What are you looking for..." class="form-control">
+            </form>
+          </div>
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+              <!-- Navbar Header-->
+              <div class="navbar-header">
+                <!-- Navbar Brand --><a href="/" class="navbar-brand">
+                  <div class="brand-text brand-big"><span>Inventory </span><strong>Management</strong></div>
+                  <div class="brand-text brand-small"><strong>IM</strong></div></a>
+                <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+              </div>
+              <!-- Navbar Menu -->
+              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                <!-- Logout    -->
+                <li class="nav-item"><a href="login.html" class="nav-link logout">Logout<i class="ion-arrow-return-right"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+          <!-- Sidebar Header-->
+          <div class="sidebar-header d-flex align-items-center">
+            <div class="title">
+              <h1 class="h4">Admin Name Here</h1>
+              <p>Role here</p>
+              <hr>
+            </div>
+          </div>
+          <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+          <ul class="list-unstyled">
+            <li class="active"> <a href="/"><i class="icon-home"></i>Dashboad</a></li>
+            <li> <a href="/orders"> <i class="icon-padnote"></i>Orders </a></li>
+            <li> <a href="/suppliers"> <i class="icon-grid"></i>Suppliers </a></li>
+            <li> <a href="/inventory"> <i class="fa fa-bar-chart"></i>Inventory </a></li>
+            <li><a href="#cusdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Customers </a>
+              <ul id="cusdown" class="collapse list-unstyled">
+                <li><a href="/customers">Customers List</a></li>
+                <li><a href="/customers/new">Add Customers</a></li>
+              </ul>
+            </li>
+            <li> <a href="/roles"> <i class="icon-interface-windows"></i>Roles</a></li>
+            <li> <a href="/staffs"> <i class="icon-interface-windows"></i>Staffs</a></li>
+            <li> <a href="/category"> <i class="icon-interface-windows"></i>Category</a></li>
+            <li> <a href="/incomingstock"> <i class="icon-interface-windows"></i>Stock</a></li>
+          </ul>
+        </nav>
+        <div class="content-inner">
+
+          {{{ body }}}
+          <!-- Page Footer-->
+          <footer class="main-footer">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-6">
+                  <p>Your company &copy; 2017-2019</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                  <p>Design by <a href="#" class="external">Wdi 12</a></p>
+                  <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                </div>
+              </div>
+            </div>
+          </footer>
+        </div>
       </div>
-    </nav>
+    </div>
 
-    <nav class="navbar bg-dark leftNav ">
-
-  <!-- Links -->
-  <ul class="navbar-nav leftNav">
-    <a href="/location" class="badge badge-primary badge-pill">Location</a>
-    <a href="/suppliers" class="badge badge-secondary badge-pill">Suppliers</a>
-    <a href="/inventory" class="badge badge-success badge-pill">Inventory</a>
-    <a href="/orders" class="badge badge-danger badge-pill">Orders</a>
-    <a href="/customers" class="badge badge-warning badge-pill">Customers</a>
-    <a href="/roles" class="badge badge-warning badge-pill">Roles</a>
-    <a href="/staffs" class="badge badge-warning badge-pill">Staffs</a>
-    <a href="/incomingstock" class="badge badge-primary badge-pill">Incoming Stock</a>
-  </ul>
-
-</nav>
-
-  <div class="bodyContainer">
-    {{{ body }}}
-  </div>
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-      <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" charset="utf-8"></script>
-      <script src="/assets/js/script.js"></script>
+    <!-- Javascript files-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script src="/assets/js/script.js"></script>
   </body>
 </html>
