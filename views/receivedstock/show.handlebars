@@ -25,12 +25,16 @@
 
   <label for="supplier">Supplier</label>
   <select type="text" class="form-control">
-    <option value="{{ incomingstock.supplier.name }}">{{incomingstock.supplier.name}}</option>
+    {{#each supplier as |supplierEach|}}
+    <option value="{{ supplierEach.name }}">{{supplierEach.name}}</option>
+    {{/each}}
   </select>
   <br>
   <label for="furniture-model">Furniture Model</label>
   <select type="text" class="form-control" name="stock[furnitureModel]">
-    <option value="{{incomingstock.furnitureModel.model}}">{{incomingstock.furnitureModel.model}}</option>
+    {{#each furnitureModel as |fModel|}}
+    <option value="{{fModel.model}}">{{fModel.model}}</option>
+    {{/each}}
   </select>
 
 <button type="submit" class="btn btn-warning btn-block" name="button>
