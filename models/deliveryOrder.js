@@ -14,7 +14,7 @@ const deliveryOrderSchema = new Schema({
   reseller: {
     type: Schema.Types.ObjectId,
     ref: 'Customer'
-},
+  },
   items: [{
     type: Schema.Types.ObjectId,
     ref: 'OrderItem'

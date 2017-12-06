@@ -107,7 +107,7 @@ app.use('/suppliers', supplier_routes)
 app.use('/incomingstock', receivedstock_routes)
 app.use('/location', location_routes)
 app.use('/customers',isLoggedIn, customer_routes)
-app.use('/inventories', inventory_routes)
+app.use('/inventory', inventory_routes)
 
 //homepage
 app.get('/',(req,res) => {
@@ -123,8 +123,3 @@ app.listen(port, () => {
 app.get('/',(req,res) => {
   res.render('home')
 })
-
-
-app.use('/customers',isLoggedIn, customer_routes)
-
-app.use('/inventory', inventory_routes)

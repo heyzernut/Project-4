@@ -183,9 +183,11 @@ router.post('/models/:itemCode/newStock', (req, res) => {
   const itemCode = req.params.itemCode
 
   let newStock = new FurnitureStock({
-    location: stockData.location,
     furnitureModel: stockData.furnitureModel,
     quantity: stockData.quantity,
+    location: stockData.location,
+    zone: stockData.zone,
+    shelf: stockData.shelf
   })
   newStock.save()
   .then(stock => {
