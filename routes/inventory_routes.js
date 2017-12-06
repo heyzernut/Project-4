@@ -32,10 +32,6 @@ router.get('/', (req, res) => {
         allModelsDisplay
       })
       // res.json(allModelsDisplay)
-<<<<<<< HEAD
-
-=======
->>>>>>> a90bec2736cd9ecf20bf762c4a3b38a440d1af98
     })
   })
 })
