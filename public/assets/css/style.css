@@ -156,6 +156,12 @@ input[type="radio"]:checked ~ .reveal-if-active {
     outline: none !important;
   }
 
+  .btn {
+    /*border-radius: 0px;*/
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
   .card {
     border-radius: 0;
     border: none;
