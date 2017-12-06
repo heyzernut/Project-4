@@ -68,17 +68,23 @@ router.post('/', (req,res)=>{
   })
 
 //delivery trackingSchema
-router.get('/tracking', (req, res)=>{
-    // res.json(req)
-  // Tracking.find()
-  // .then((track) => {
-  //   res.render('orders/tracking',{track})
-  // })
+router.get('/:id/tracking', (req, res)=>{
+    var id = req.params.id
+    DeliveryOrder.findOne({_id: id})
+    .then(delivery => {
+      res.render('orders/tracking', {
+        delivery
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
 })
 
 //read & delete individual order
 router.get('/:id', (req, res)=>{
   DeliveryOrder.findById(req.params.id)
+  .populate('items')
   .then((order)=>{
 
     res.render('orders/showOne',{order})
@@ -90,6 +96,17 @@ router.delete('/:id', (req, res)=>{
   DeliveryOrder.findByIdAndRemove(req.params.id)
   .then(()=> res.redirect('/orders'))
   .catch((err)=> console.log(err))
+})
+
+
+router.put('/:id/tracking', (req, res) => {
+  var formData = req.body
+  Tracking.update({order: req.params.id}, {
+      status: formData.trackStatus,
+      comment: formData.trackingComment
+  })
+  .then(() => res.redirect(`/tracking`))
+  .catch(err => console.log(err))
 })
 
 

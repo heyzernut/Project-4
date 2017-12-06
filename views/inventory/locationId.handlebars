@@ -1,42 +1,44 @@
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/location">Location</a></li>
+    <li class="breadcrumb-item"><a href="/location/new">new</a></li>
+    <li class="breadcrumb-item active" aria-current="page">edit,delete</li>
+  </ol>
+</nav>
+
 <h3 class="display-4 text-center">
 <p>Update/Delete location</p>
 </h3>
 
-<form action="/location/{{location._id}}?_method=PUT" method="POST">
-  <div class="form-group row">
-    <label for="addressfield" class="col-sm-2 col-form-label">Address</label>
-    <div class="col-sm-10">
-      <input type="address" class="form-control" name="address">
+<div class="container">
+  <form action="/location/{{location._id}}?_method=PUT" method="POST">
+    <div class="form-group">
+      <label for="addressfield">Address</label>
+      <input type="address" class="form-control" name="address" placeholder="8 Claymore Hill" value="{{location.address}}">
     </div>
-  </div>
-  <div class="form-group">
-    <label for="exampleFormControlSelect1">Location</label>
-    <select class="form-control" id="selectLocation" name="type">
-      <option>Retail store</option>
-      <option>Warehouse</option>
-    </select>
-  </div>
-
-  <div class="form-group row" id="otherType" style="display:none">
-    <label for="Zone" class="col-sm-2 col-form-label">Start zone</label>
-    <div class="col-sm-10">
-      <input type="address" class="form-control" name="zone_start" id="Zone" placeholder="eg. A-Z">
+    {{#contains location.type "Warehouse"}}
+    <div class="form-group" id="otherType">
+      <label for="Zone" class="col-sm-2 col-form-label">Start zone</label>
+      <div class="col-sm-10">
+        <input type="address" class="form-control" name="zone_start" id="Zone" placeholder="eg. A-Z">
+      </div>
+      <label for="Zone" class="col-sm-2 col-form-label">End zone</label>
+      <div class="col-sm-10">
+        <input type="address" class="form-control" name="zone_stop" id="Zone" placeholder="eg. A-Z">
+      </div>
+      <label for="Shelf" class="col-sm-2 col-form-label">Start shelf</label>
+      <div class="col-sm-10">
+        <input type="address" class="form-control" name="shelf_start" id="Shelf" placeholder="eg. 1-100">
+      </div>
+      <label for="Shelf" class="col-sm-2 col-form-label">End shelf</label>
+      <div class="col-sm-10">
+        <input type="address" class="form-control" name="shelf_stop" id="Shelf" placeholder="eg. 1-100">
+      </div>
     </div>
-    <label for="Zone" class="col-sm-2 col-form-label">End zone</label>
-    <div class="col-sm-10">
-      <input type="address" class="form-control" name= "zone_stop" id="Zone" placeholder="eg. A-Z">
-    </div>
-    <label for="Shelf" class="col-sm-2 col-form-label">Start shelf</label>
-    <div class="col-sm-10">
-      <input type="address" class="form-control" name= "shelf_start" id="Shelf" placeholder="eg. 1-100">
-    </div>
-    <label for="Shelf" class="col-sm-2 col-form-label">End shelf</label>
-    <div class="col-sm-10">
-      <input type="address" class="form-control" name= "shelf_stop" id="Shelf" placeholder="eg. 1-100">
-    </div>
-  </div>
-  <button type="submit" class="btn btn-warning">Update</button>
-</form>
-<form action="/location/{{location._id}}?_method=DELETE" method="POST">
-  <button type="submit" class="btn btn-danger">Delete</button>
-</form>
+    {{/contains}}
+    <button type="submit" class="btn btn-warning" name="button">Update</button>
+  </form>
+  <form action="/location/{{location._id}}?_method=DELETE" method="POST">
+    <button type="submit" class="btn btn-danger">Delete</button>
+  </form>
+</div>

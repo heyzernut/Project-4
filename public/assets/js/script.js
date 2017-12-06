@@ -1,6 +1,16 @@
 $(document).ready(function(){
   $('#example').DataTable();
 
+$('#selectLocation').on('change',function(){
+     if( $(this).val()==="Warehouse"){
+     $("#otherType").show()
+     }
+     else{
+     $("#otherType").hide()
+     $("#Zone").val('')
+     $("#Shelf").val('')
+     }
+ });
   //orderform function
   $('.orderType').on('change',function(){
     if( $(this).val()==="demo"){
@@ -30,6 +40,16 @@ $(document).ready(function(){
   });
 
 });
+
+  $('#trackingStatus').on('change',function(){
+       if( $(this).val()==="Received with issues"){
+       $("#trackingComment").show()
+       }
+       else{
+       $("#trackingComment").hide()
+       $("#textAreaForTrackingComment").val('')
+       }
+   });
 
   // var FormStuff = {
   //

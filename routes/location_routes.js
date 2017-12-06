@@ -18,8 +18,6 @@ function range (start,stop) {
   return result
 }
 
-
-
 router.get('/', (req, res) => {
   Location
   .find()
@@ -44,6 +42,7 @@ router.post('/new', (req, res) => {
     zone: range(req.body.zone_start,req.body.zone_stop),
     shelf: rangeNum(req.body.shelf_start,req.body.shelf_stop)
   })
+
   newLocation.save()
   .then(
     () => res.redirect('/location'),
@@ -71,10 +70,9 @@ router.get('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
   var formData = req.body
   Location.findByIdAndUpdate(req.params.id, {
-    address: formData.address,
-    location: formData.location,
-    zone: range(formData.zone_start,formData.zone_stop),
-    shelf: rangeNum(formData.shelf_start,formData.shelf_stop)
+    address: formData.address
+    // zone: range(formData.zone_start,formData.zone_stop),
+    // shelf: rangeNum(formData.shelf_start,formData.shelf_stop)
   })
   .then(() => res.redirect(`/location`))
   .catch(err => console.log(err))
