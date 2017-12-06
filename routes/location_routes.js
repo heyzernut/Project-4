@@ -44,6 +44,9 @@ router.post('/new', (req, res) => {
     zone: range(req.body.zone_start,req.body.zone_stop),
     shelf: rangeNum(req.body.shelf_start,req.body.shelf_stop)
   })
+  // if(req.body.type === "Warehouse") {
+  //
+  // }
   newLocation.save()
   .then(
     () => res.redirect('/location'),

@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
   $('#example').DataTable();
 });
@@ -9,6 +8,8 @@ $('#selectLocation').on('change',function(){
      }
      else{
      $("#otherType").hide()
+     $("#Zone").val('')
+     $("#Shelf").val('')
      }
  });
 
