@@ -4,7 +4,7 @@
     <th>Model</th>
     <th>Color</th>
     <th>Dimension</th>
-    <th>Stocks</th>
+    <th>Barcode</th>
   </tr>
 
 
@@ -13,22 +13,27 @@
     <td>{{ furnitureModel.model }}</td>
     <td>{{ furnitureModel.color }}</td>
     <td>{{ furnitureModel.dimension }}</td>
+    <td>{{ furnitureModel.barcode }}</td>
   </tr>
 </table>
 <a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" name="button">Edit</button></a>
 
 <table>
   <tr>
-    <th>            </th>
-    <th>Location</th>
+    <th></th>
     <th>Quantity</th>
+    <th>Location</th>
+    <th>Zone</th>
+    <th>Shelf</th>
   </tr>
   {{#each furnitureStocks as |stock| }}
   <tr>
     <td></td>
-    <td>{{ stock.location.type}}</td>
     <td>{{ stock.quantity}}</td>
-    <td ><a href="/inventory/stocks/{{ stock.id}}"><button type="button" name="button">View Infor</button></a></td>
+    <td>{{ stock.location.address}} ({{ stock.location.type}})</td>
+    <td>{{ stock.zone}}</td>
+    <td>{{ stock.shelf}}</td>
+    <td><a href="/inventory/stocks/{{ stock.id}}"><button type="button" name="button">View Infor</button></a></td>
     <td>
       <form class="" action="/inventory/stocks/{{stock.id}}?_method=DELETE" method="post">
         <button class="btn btn-info" type="submit" name="button">Delete</button>
@@ -38,7 +43,6 @@
   {{/each}}
   <tr>
     <td>Total</td>
-    <td>       </td>
     <td>{{total}}</td>
   </tr>
 

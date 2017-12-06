@@ -9,11 +9,7 @@ const locationSchema = new Schema({
   zone: [String],
   shelf_start: Number,
   shelf_stop: Number,
-  shelf: [Number],
-  warehouseLocation: {
-    type: Schema.Types.ObjectId,
-    ref: 'WarehouseLocation'
-  }
+  shelf: [Number]
 })
 
 const Location = mongoose.model('Location', locationSchema)

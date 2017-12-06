@@ -5,7 +5,14 @@
     <th>Model</th>
     <th>Color</th>
     <th>Dimension</th>
-    <th>Stocks</th>
+    <th>Barcode</th>
+    <th>View</th>
+    <th>Delete</th>
+    <th>Location</th>
+    <th>Quantity</th>
+    <th>Zone</th>
+    <th>Self</th>
+    <th>Remove</th>
   </tr>
 
   {{#each allModelsDisplay as |furnitureModel| }}
@@ -14,6 +21,7 @@
     <td rowspan="{{furnitureModel.stocksAmt}}">{{ furnitureModel.model }}</td>
     <td rowspan="{{furnitureModel.stocksAmt}}">{{ furnitureModel.color }}</td>
     <td rowspan="{{furnitureModel.stocksAmt}}">{{ furnitureModel.dimension }}</td>
+    <td rowspan="{{furnitureModel.stocksAmt}}">{{ furnitureModel.barcode }}</td>
     <td rowspan="{{furnitureModel.stocksAmt}}"><a href="/inventory/models/{{furnitureModel.itemCode}}"><button type="button" name="button">View Infor</button></a></td>
     <td rowspan="{{furnitureModel.stocksAmt}}">
       <form class="" action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
@@ -24,8 +32,10 @@
     <td>
       {{#each furnitureModel.stocks as |stock| }}
       <tr>
-        {{!-- <td>{{ stock.locatione}}</td> --}}
+        <td>{{ stock.location.address}} ({{ stock.location.type}})</td>
         <td>{{ stock.quantity}}</td>
+        <td>{{ stock.zone}}</td>
+        <td>{{ stock.shelf}}</td>
         <td>
           <form class="" action="/inventory/stocks/{{stock.id}}?_method=DELETE" method="post">
             <button class="btn btn-info" type="submit" name="button">Delete</button>
