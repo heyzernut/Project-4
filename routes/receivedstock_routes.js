@@ -1,5 +1,6 @@
 const ReceivedStock = require('../models/receivedStock')
 const Supplier = require('../models/supplier')
+const FurnitureModel = require('../models/furnitureModel')
 const express = require('express')
 const router = express.Router()
 const moment = require('moment')
@@ -7,9 +8,10 @@ const moment = require('moment')
 // Display all supplier
 router.get('/', (req, res) => {
   // the return of then
-  ReceivedStock.find().limit(20).sort({name: -1})
+  ReceivedStock.find().limit().sort({name: -1})
+  .populate("supplier")
+  .populate("furnitureModel")
   .then(incomingstock => {
-    // at this point we got our data so we can render our page
     res.render('receivedstock/stock', {
       incomingstock
     })
@@ -23,17 +25,29 @@ router.get('/', (req, res) => {
 router.get('/new', (req, res) => {
   Supplier.find()
   .then((supplier)=>{
-    res.render('receivedstock/new', {supplier})
+    FurnitureModel.find()
+    .then((allModels)=>{
+      res.render('receivedstock/new', {supplier, allModels})
+    })
   })
   .catch(err => {
     console.log(err)
   })
 })
 
-router.get('/new', (req, res) => {
-  Supplier.find()
-  .then((furnitureModel)=>{
-    res.render('receivedstock/new', {furnitureModel})
+router.get('/:id', (req, res) => {
+  ReceivedStock
+  .findById(req.params.id) // no need limit since there's only one
+  .then(incomingstock => {
+    Supplier.find()
+    .then((supplier)=> {
+      FurnitureModel.find()
+      .then((furnitureModel)=> {
+        res.render('receivedstock/show',
+        {incomingstock,supplier,furnitureModel})
+
+        })
+    })
   })
   .catch(err => {
     console.log(err)
@@ -60,6 +74,34 @@ router.post('/', (req, res) => {
     err => res.send(err)
   )
 })
+
+// Update with the input from form
+router.put('/:id', (req, res) => {
+
+  var formData = req.body.stock
+
+  ReceivedStock.findByIdAndUpdate(req.params.id, {
+    invoiceNo: formData.invoiceNo,
+    batchNo: formData.batchNo,
+    lotNo: formData.lotNo,
+    paymentMethod: formData.paymentMethod,
+    paymentStatus: formData.paymentStatus,
+    chqNo: formData.chqNo,
+    supplier: formData.supplier,
+    furnitureModel: formData.furnitureModel
+  })
+  .then(() => res.redirect(`/incomingstock`))
+  .catch(err => console.log(err))
+})
+
+// Detele file
+router.delete('/:id', (req, res) => {
+
+  ReceivedStock.findByIdAndRemove(req.params.id)
+  .then(() => res.redirect(`/incomingstock`))
+  .catch(err => console.log(err))
+})
+
 
 
 module.exports = router
