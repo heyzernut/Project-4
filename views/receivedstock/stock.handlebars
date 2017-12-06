@@ -1,27 +1,49 @@
-<h2>Incoming Stock List:</h2>
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Incoming Stock</li>
+    <li class="breadcrumb-item"><a href="/incomingstock/new">new</a></li>
+  </ol>
+</nav>
 
-{{#each incomingstock as | stocklist |}}
-
-Invoice No: {{ stocklist.invoiceNo }} |
-Batch No. {{ stocklist.batchNo }} |
-Lot No: {{ stocklist.lotNo }} |
-Payment method: {{ stocklist.paymentMethod }} |
-Payment Status: {{ stocklist.paymentStatus }} |
-Cheque No: {{ stocklist.chqNo }} |
-Supplier: {{ stocklist.supplier }} |
-Furniture Model: {{ stocklist.furnitureModel }} |
-
-<form
-  class="form-inline"
-  action="/incomingstock/{{ stocklist.id }}?_method=DELETE"
-  method="post">
-    <a href="/incomingstock/{{ stocklist.id }}" class="btn btn-warning">Update</a>
-    <button class="btn btn-danger" type="submit" name="button">Delete</button>
-</form>
-
-<hr/>
-{{/each}}
+<div class="container">
 
 <h3 class="display-4 text-center">
-  <a href="/incomingstock/new">Create New</a>
+  <p>Incoming Stock List:</p>
 </h3>
+
+<table class="table display" id="example">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Invoice No:</th>
+      <th scope="col">Batch No:</th>
+      <th scope="col">Lot No:</th>
+      <th scope="col">Payment method:</th>
+      <th scope="col">Payment Status:</th>
+      <th scope="col">Cheque No:</th>
+      <th scope="col">Supplier:</th>
+      <th scope="col">Furniture Model:</th>
+      <th scope="col">Edit/Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each incomingstock as | stocklist |}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{ stocklist.invoiceNo }}</td>
+      <td>{{ stocklist.batchNo }}</td>
+      <td>{{ stocklist.lotNo }}</td>
+      <td>{{ stocklist.paymentMethod }}</td>
+      <td>{{ stocklist.paymentStatus }}</td>
+      <td>{{ stocklist.chqNo }}</td>
+      <td>{{ stocklist.supplier.name }}</td>
+      <td>{{ stocklist.furnitureModel.model }}</td>
+      <td>
+        <a href="/incomingstock/{{ stocklist.id }}" class="btn btn-primary">Edit/Delete</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+</div>

@@ -1,5 +1,6 @@
 <h2>{{ supplier.name }}</h2>
 
+
 <form action="/suppliers/{{ supplier.id }}?_method=PUT" method="post">
 
 <label for="title">Name:</label>
@@ -10,6 +11,10 @@
 <input type="tel" class="controls" name="supplier[contact]" value="{{ supplier.contact }}">
 
 <button type="submit" class="btn btn-warning btn-block" name="button>
-<span class="glyphicon glyphicon-save"></span> UPDATE SUPPLIER</button>
+<span class="glyphicon glyphicon-save"> UPDATE SUPPLIER</span></button>
 
+</form>
+
+<form action="/suppliers/{{ supplier.id }}?_method=DELETE" method="post">
+    <button class="btn btn-danger" type="submit" name="button">Delete</button>
 </form>

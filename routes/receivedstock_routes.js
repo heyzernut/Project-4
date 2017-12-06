@@ -9,8 +9,9 @@ const moment = require('moment')
 router.get('/', (req, res) => {
   // the return of then
   ReceivedStock.find().limit().sort({name: -1})
+  .populate("supplier")
+  .populate("furnitureModel")
   .then(incomingstock => {
-    // at this point we got our data so we can render our page
     res.render('receivedstock/stock', {
       incomingstock
     })
@@ -34,19 +35,11 @@ router.get('/new', (req, res) => {
   })
 })
 
-// router.get('/new', (req, res) => {
-//   FurnitureModel.find()
-//   .then((allModels)=>{
-//     res.render('receivedstock/new', {allModels})
-//   })
-//   .catch(err => {
-//     console.log(err)
-//   })
-// })
-
 router.get('/:id', (req, res) => {
   ReceivedStock
   .findById(req.params.id) // no need limit since there's only one
+  .populate("supplier")
+  .populate("furnitureModel")
   .then(incomingstock => {
     res.render('receivedstock/show', {
       incomingstock
@@ -77,23 +70,6 @@ router.post('/', (req, res) => {
     err => res.send(err)
   )
 })
-
-// // Update with the input from form
-// router.put('/:id', (req, res) => {
-//
-//   var formData = req.body.stock
-//
-//   ReceivedStock.findByIdAndUpdate(req.params.id, {
-//     invoice: formData.invoiceNo,
-//     batchNo: formData.batchNo,
-//     lotNo: formData.lotNo,
-//     paymentMethod: formData.paymentMethod,
-//     paymentStatus: formData.paymentStatus,
-//     chqNo: formData.chqNo
-//   })
-//   .then(() => res.redirect(`/incomingstock`))
-//   .catch(err => console.log(err))
-// })
 
 // Detele file
 router.delete('/:id', (req, res) => {
