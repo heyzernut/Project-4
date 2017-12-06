@@ -15,28 +15,28 @@
 
 <div class="container">
 
-<table id="example" class="display table-striped" cellspacing="0" width="100%">
+  <table id="example" class="display table-striped" cellspacing="0" width="100%">
     <thead>
-        <tr>
-            <th>Date</th>
-            <th>Invoice No</th>
-            <th>Mode of Transport</th>
-            <th>Delivery Time</th>
-            <th>Address</th>
-            <th>&nbsp;</th>
-        </tr>
+      <tr>
+        <th>Date</th>
+        <th>Invoice No</th>
+        <th>Mode of Transport</th>
+        <th>Delivery Time</th>
+        <th>Address</th>
+        <th>&nbsp;</th>
+      </tr>
     </thead>
     <tbody>
       {{#each orders as |order|}}
-        <tr>
-          <td>{{order.formattedDate}}</td>
-          <td><a href="orders/{{order.id}}">{{order.invoiceNo}}</a></td>
-          <td>{{order.modeOfTransport}}</td>
-          <td>{{order.deliveryTime}}</td>
-          <td>{{order.deliveryAddress}}</td>
-          <td>
-              <a href="orders/{{order.id}}?_method=DELETE">Delete</a>
-              <a href="orders/tracking">Track</a>
+      <tr>
+        <td>{{order.formattedDate}}</td>
+        <td><a href="orders/{{order.id}}">{{order.invoiceNo}}</a></td>
+        <td>{{order.modeOfTransport}}</td>
+        <td>{{order.deliveryTime}}</td>
+        <td>{{order.deliveryAddress}}</td>
+        <td>
+          <a href="orders/{{order.id}}?_method=DELETE">Delete</a>
+          <a href="orders/tracking">Track</a>
         </tr>
         {{/each}}
     </tbody>

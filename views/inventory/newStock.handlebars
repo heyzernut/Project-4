@@ -1,18 +1,29 @@
-<h3>Add Stock information for {{ furnitureModel.model }} ({{ furnitureModel.itemCode }})</h3>
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page"><a href="/inventory">Inventory</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="/inventory/stocks">stocks</a></li>
+    <li class="breadcrumb-item">new</li>
 
-<form action="/inventory/models/{{furnitureModel.itemCode}}/newStock" method="post">
+  </ol>
+</nav>
 
+<h3>Add Stock</h3>
 
-  <label for="lblQuantity">Quantity:: </label>
+<form action="/inventory/stocks/new" method="post">
+  <label for="lblQuantity">Furniture Model</label>
+  <select name="stock[furnitureModel]">
+    {{#each furnitureModels as |furnitureModel| }}
+    <option  value="{{furnitureModel.id}}">{{ furnitureModel.model }}({{ furnitureModel.itemCode }})</option>
+    {{/each}}
+  </select>
+  <label for="lblQuantity">Quantity: </label>
   <input type="text" name="stock[quantity]" placeholder="Enter Quantity">
   <div>
     <label for="lblLocation">Location: </label>
     {{#each locations as |location|}}
     <div class="">
-      <input type="radio" id="location"
-      name="stock[location]" value="{{location.id}}">
+      <input type="radio" id="location" name="stock[location]" value="{{location.id}}">
       <h5>{{ location.address }}({{ location.type }})</h5>
-
       <div class="reveal-if-active">
         {{#if location.zone}}
         <label for="lblZone">Zone: </label>
@@ -36,8 +47,6 @@
     {{/each}}
 
   </div>
-
-  <input type="hidden" name="stock[furnitureModel]" value="{{furnitureModel.id}}">
 
   <button type="submit" name="btn">Submit</button>
 
