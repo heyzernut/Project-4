@@ -1,0 +1,33 @@
+<div class="container">
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Category</li>
+    <li class="breadcrumb-item"><a href="/category/new">new</a></li>
+  </ol>
+</nav>
+
+<h3 class="display-4 text-center">
+<p>All Category</p>
+</h3>
+
+<table class="table display" id="example">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Category Name</th>
+      <th scope="col">Edit/Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each category as |cat|}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{cat.name}}</td>
+      <td>
+        <a href="/category/update/{{cat._id}}" class="btn btn-primary">Edit/Delete</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
