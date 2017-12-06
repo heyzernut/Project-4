@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+            <p class="card-title">Staff Name :{{ staff.name }}</p>
+            <p class="card-title">Staff Role :{{ staff.role }}</p>
+      </div>
+
+            <h3 class="card-title text-center">Update Staff</h3>
+            <form action="/staffs/update/{{ staff.id }}?_method=PUT" method="post">
+
+
+              <label for="lblRoleName">Staff Name : </label>
+              <input type="text" class="form-control" name="staff[txtName]"placeholder="Enter Staff Name" value="{{ staff.name }}">
+              <br/>
+
+              <label for="lblPassword">Password : </label>
+              <input type="password" class="form-control" name="staff[txtPassword]" placeholder="Enter Password" value="{{ staff.password }}">
+              <br>
+
+              <label for="lblRole">Role : </label>
+              <select name="staff[role]">
+                {{#each role as |roleEach|}}
+                <option value={{roleEach.name}}>{{roleEach.name}}</option>
+                {{/each}}
+              </select>
+
+              <div class="text-center">
+                <button type="submit" name="button" class="btn bg-warning">Submit</button>
+              </div>
+            </form>
+
+            <h3 class="card-title text-center">Delete Supplier</h3>{{!-- Same thing, different request type --}}
+            <form action="/staffs/update/{{ staff.id }}?_method=DELETE" method="post">
+              <div class="text-center">
+                <button type="submit" class="btn bg-warning" name="button">Delete</button>
+              </div>
+            </form>
+
+
+    </div>

@@ -27,10 +27,49 @@ router.post('/', (req, res, next) => {
     () => res.redirect('/staffs'),
     err => res.send(err)
   )
-
 })
 
+//get all staffs
+router.get('/', (req, res) => {
+  // the return of then
+  Staff.find()
+  .then(staffs => {
+    res.render('staffs/view', {
+      staffs
+    })
+  })
+  .catch(err => {
+    console.log(err)
+  })
+})
 
+router.get('/update/:id', (req, res) => {
 
+  Staff
+    .findById(req.params.id)
+    .then(staff => {
+      Role.find()
+      .then((role) => {
+        res.render('staffs/update', {staff, role})
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+})
+
+router.put('/update/:id', (req, res) => {
+
+  var formData = req.body.staff
+  Staff
+  .findByIdAndUpdate(req.params.id, {
+      name: formData.txtName,
+      role: formData.role,
+      password: formData.txtPassword
+    })
+    .then(() => res.redirect(`/roles`))
+    .catch(err => console.log(err))
+
+})
 
 module.exports = router

@@ -1,22 +1,33 @@
 <div class="container">
-    <div class="row">
-      {{#each roles as |role|}}
-        <div class="col-sm-4 ">
-          <div class="text-center">
-            <div class="card card-plain">
-              <br>
-              <p class="card-title">Roles : {{ role.name }}</p>
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Role</li>
+    <li class="breadcrumb-item"><a href="/roles/new">new</a></li>
+  </ol>
+</nav>
 
-              <p>
-                <form action="/roles/{{ role.id }}?_method=DELETE" method="post">
-                  <a href="/roles/update/{{ role.id }}" class="btn bg-warning">View Role</a>
-                  {{!-- {{#if ../admin}}
-                    <a href="/Customer/updateCustomer/{{ cust.id }}" class="btn bg-warning">Edit Customer</a>
-                  {{/if}} --}}
-                </form>
-              </p>
-            </div>
-          </div>
-        </div>
-      {{/each}}
-    </div>
+<h3 class="display-4 text-center">
+<p>All Roles</p>
+</h3>
+
+<table class="table display" id="example">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Edit/Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each roles as |role|}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{role.name}}</td>
+      <td>
+        <a href="/roles/update/{{role._id}}" class="btn btn-primary">Edit/Delete</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
