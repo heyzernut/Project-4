@@ -63,7 +63,7 @@ router.post('/', (req,res)=>{
     newTracking.save()
 
     newOrder.save()
-    .then(()=> res.json(newOrder))
+    .then(()=> res.json(orderData))
     .catch((err)=> console.log(err.message))
   })
 
