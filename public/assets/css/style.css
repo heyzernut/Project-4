@@ -2,7 +2,6 @@
 margin-left: 150px;
 margin-top: 50px;
 }
-
 .leftNav {
   height: 100%;
   margin-top: 55px;
@@ -15,3 +14,14 @@ margin-top: 50px;
 .badge {
   margin: 10%;
 }
+.reveal-if-active {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+input[type="radio"]:checked ~ .reveal-if-active {
+  opacity: 1;
+  max-height: 100px; /* little bit of a magic number :( */
+    overflow: visible;
+  }

@@ -12,20 +12,20 @@
   <tr>
     <td>{{ furnitureStock.location.type }} </td>
     <td>{{ furnitureStock.quantity }} </td>
-    <td><a href="/inventories/models/{{ furnitureStock.furnitureModel.itemCode }}">{{ furnitureStock.furnitureModel.itemCode }}</a></td>
+    <td><a href="/inventory/models/{{ furnitureStock.furnitureModel.itemCode }}">{{ furnitureStock.furnitureModel.itemCode }}</a></td>
     <td>{{ furnitureStock.furnitureModel.model }}</td>
     <td>{{ furnitureStock.furnitureModel.color }}</td>
     <td>{{ furnitureStock.furnitureModel.dimension }}</td>
   </tr>
 </table>
 
-<a href="/inventories/stocks/{{furnitureStock.id}}/edit"><button type="button" name="button">Edit</button></a>
+<a href="/inventory/stocks/{{furnitureStock.id}}/edit"><button type="button" name="button">Edit</button></a>
 
-<form class="" action="/inventories/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
+<form class="" action="/inventory/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
   <button class="btn btn-info" type="submit" name="button">Delete</button>
 </form>
 {{!--
-<a href="/inventories/models/{{furnitureModel.itemCode}}/newStock"><button type="button" name="button">Add new stock</button></a>
-<form class="" action="/inventories/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
+<a href="/inventory/models/{{furnitureModel.itemCode}}/newStock"><button type="button" name="button">Add new stock</button></a>
+<form class="" action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
   <button class="btn btn-info" type="submit" name="button">Delete</button>
 </form> --}}
