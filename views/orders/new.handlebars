@@ -4,87 +4,104 @@
     <li class="breadcrumb-item active">new</li>
   </ol>
 </nav>
+<div class="container">
+{{models}}
 
-<h3 class="display-4 text-center">
-<p>Create New Order</p>
-</h3>
+  <h3 class="display-4 text-center">
+    <p>Create New Order</p>
+  </h3>
+    <form action="/orders" method="post">
+      <div class="form-group row">
+        <label for="date" class="col-2 col-form-label">Date</label>
+        <div class="col-8">
+          <input type="date" name="date" class="form-control" value="{{today}}" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="invoiceNo" class="col-2 col-form-label">Invoice No.</label>
+        <div class="col-8">
+          <input type="text" name="invoiceNo" class="form-control" placeholder="Invoice Number" value="INV20171120">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="quotationNo" class="col-2 col-form-label">Quotation No.</label>
+        <div class="col-8">
+          <input type="text" name="quotationNo" class="form-control" placeholder="Quotaion Number" value="Q20170630">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="customer" class="col-2 col-form-label">Customer</label>
+        <div class="col-8">
+          <select class="form-control" name="customers">
+            {{#each customers as |customer|}}
+              <option value="{{customer._id}}">{{customer.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="transport" class="col-2 col-form-label">Mode of Transport</label>
+        <div class="col-8">
+          <select class="form-control" name="transport">
+            <option value="Local">Local</option>
+            <option value="Air">Air</option>
+            <option value="Sea">Sea</option>
+          </select>
+        </div>
+      </div>
 
-<form action="/orders" method="post">
+      <div class="form-group row">
+        <label for="delivery_time" class="col-2 col-form-label">Delivery Time</label>
+        <div class="col-8">
+          <input type="time" name="delivery_time" value="13:30" class="form-control" required>
+        </div>
+      </div>
 
-  <div class="form-group text-muted">
-    <label for="date">Date</label>
-    <input type="date" name="date" class="form-control" value="{{today}}" required>
-  </div>
+      <div class="form-group row">
+        <label for="transport_cost" class="col-2 col-form-label">Shipping Cost $</label>
+        <div class="col-8">
+          <input type="number" name="transport_cost" class="form-control" value="100.10" step="0.01" min="0">
+        </div>
+      </div>
 
-  <div class="form-group text-muted">
-    <label for="invoiceNo">Invoice No.</label>
-    <input type="text" name="invoiceNo" class="form-control" placeholder="Invoice Number" value="INV20171120">
-  </div>
+      <div class="form-group row">
+        <label for="terms" class="col-2 col-form-label">Terms of Delivery</label>
+        <div class="col-8">
+          <textarea name="terms" class="form-control" rows="2" cols="50">hello</textarea>
+        </div>
+      </div>
 
-  <div class="form-group text-muted">
-    <label for="quotationNo">Quotation No.</label>
-    <input type="text" name="quotationNo" class="form-control" placeholder="Quotaion Number" value="Q20170630">
-  </div>
-
-  <div class="form-group text-muted">
-    <label for="customer">Customer</label>
-    <select name="customers">
-      <option value="customer1">Customer</option>
-    </select>
-  </div>
-
-  <div class="form-group text-muted">
-    <label for="transport">Mode of Transport</label>
-    <select name="transport">
-      <option value="Local">Local</option>
-      <option value="Air">Air</option>
-      <option value="Sea">Sea</option>
-    </select>
-  </div>
-
-  <div class="form-group text-muted">
-    <label for="delivery_time">Delivery Time</label>
-    <input type="time" name="delivery_time" value="13:30" required>
-  </div>
-
-  <div class="form-group text-muted">
-    <label for="transport_cost">Shipping Cost $</label>
-    <input type="number" name="transport_cost" value="100.10" step="0.01" min="0">
-  </div>
-
-  <div class="form-group text-muted">
-    <label for="terms">Terms of Delivery</label>
-    <textarea name="terms" rows="5" cols="50">hello</textarea>
-  </div>
-
-  <div class="form-group text-muted">
-    <label for="address">Delivery Address</label>
-    <input type="text" name="address" value="{{customer.address}}">
-  </div>
-
-  <div class="form-group text-muted">
-    <label for="itemName">Item Name</label>
-    <input type="text" name="itemName" value="">
-  </div>
-
-  <div class="form-group text-muted">
-    <label for="orderType">Order Type</label>
-    <select id="orderType" name="orderType">
-      <option value="sales">Sales</option>
-      <option value="demo">Demo</option>
-    </select>
-  </div>
-
-  <div id="returnDate" class="form-group text-muted" style="display:none">
-    <label for="returnDate">Return Date</label>
-    <input type="date" name="returnDate" class="form-control" value="{{today}}">
-  </div>
-
-  <div class="form-group text-muted">
-    <label for="orderQuantity">Quantity</label>
-    <input type="number" name="orderQuantity" class="form-control" >
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+      <div class="form-group row">
+        <label for="address" class="col-2 col-form-label">Delivery Address</label>
+        <div class="col-8">
+          <input type="text" name="address" class="form-control" value="{{customer.address}}">
+        </div>
+      </div>
+      <table id="orderItems" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Order Type</th>
+            <th>ReturnDate</th>
+            <th>Quantity</th>
+            <th><button type="button" name="button" id="addRow">+</button></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" id="row-1-model" name="row-1-model" placeholder="Model"></td>
+            <td><select size="1" id="row-1-orderType" class="orderType" name="row-1-orderType">
+              <option value="sales" selected="selected">Sales</option>
+              <option value="demo">Demo</option>
+            </select>
+          </td>
+          <td><input type="date" id="row-1-returnDate" class="returnDate" name="row-1-returnDate" disabled></td>
+          <td><input type="number" id="row-1-orderQuantity" name="row-1-orderQuantity" value="1"></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 </div>

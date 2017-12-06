@@ -1,25 +1,35 @@
-
 $(document).ready(function(){
   $('#example').DataTable();
-});
 
-$('#selectLocation').on('change',function(){
-     if( $(this).val()==="Warehouse"){
-     $("#otherType").show()
-     }
-     else{
-     $("#otherType").hide()
-     }
- });
+  //orderform function
+  $('.orderType').on('change',function(){
+    if( $(this).val()==="demo"){
+      $(".returnDate").prop('disabled', false)
+      // $("#row-1-returnDate").show()
+    }
+    else{
+      $( ".returnDate" ).prop('disabled', true);
+      // $("#row-1-returnDate").hide()
 
- $('#orderType').on('change',function(){
-      if( $(this).val()==="demo"){
-      $("#returnDate").show()
-      }
-      else{
-      $("#returnDate").hide()
-      }
+    }
   });
+  //add rows
+  $( "#addRow" ).click(function() {
+    const markup = '<tr><td><input type="text" id="row-1-model" name="row-1-model" placeholder="Model"></td><td><select size="1" id="row-1-orderType" class="orderType" name="row-1-orderType"><option value="sales" selected="selected">Sales</option><option value="demo">Demo</option></select></td><td><input type="date" id="row-1-returnDate" class="returnDate" name="row-1-returnDate" value="{{today}}" disabled></td><td><input type="number" id="row-1-orderQuantity" name="row-1-orderQuantity" value="1"></td><td></td></tr>';
+    $("#orderItems>tbody").append(markup);
+  });
+
+  //location form
+  $('#selectLocation').on('change',function(){
+    if( $(this).val()==="Warehouse"){
+      $("#otherType").show()
+    }
+    else{
+      $("#otherType").hide()
+    }
+  });
+
+});
 
   // var FormStuff = {
   //
