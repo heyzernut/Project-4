@@ -25,3 +25,6 @@ input[type="radio"]:checked ~ .reveal-if-active {
   max-height: 100px; /* little bit of a magic number :( */
     overflow: visible;
   }
+
+
+.Retailstore 

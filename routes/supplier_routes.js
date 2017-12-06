@@ -7,7 +7,7 @@ const moment = require('moment')
 // Display all supplier
 router.get('/', (req, res) => {
   // the return of then
-  Supplier.find().limit(20).sort({name: -1})
+  Supplier.find().limit().sort({name: -1})
   .then((supplier) => {
     // at this point we got our data so we can render our page
     res.render('suppliers/suppliers',{

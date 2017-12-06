@@ -34,8 +34,8 @@
   <br>
   <label for="furniture-model">Furniture Model</label>
   <select type="text" class="form-control" name="stock[furnitureModel]">
-  {{#each furnitureModel as |furnitureModelOne|}}
-  <option value="{{furnitureModelOne.id}}">{{furnitureModelOne.name}}</option>
+  {{#each allModels as |furnitureModelOne|}}
+  <option value="{{furnitureModelOne.id}}">{{furnitureModelOne.model}}</option>
   {{/each}}
   </select>
 
