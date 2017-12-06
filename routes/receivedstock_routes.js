@@ -79,20 +79,48 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
 
   var formData = req.body.stock
-
-  ReceivedStock.findByIdAndUpdate(req.params.id, {
-    invoiceNo: formData.invoiceNo,
-    batchNo: formData.batchNo,
-    lotNo: formData.lotNo,
-    paymentMethod: formData.paymentMethod,
-    paymentStatus: formData.paymentStatus,
-    chqNo: formData.chqNo,
-    supplier: formData.supplier,
-    furnitureModel: formData.furnitureModel
+  ReceivedStock.findById(req.params.id)
+    .populate('supplier')
+    .populate('furnitureModel')
+    .then((incomingstock)=> {
+      Supplier.find({name: formData.supplier})
+        .then((supplier)=> {
+          console.log('supplier', supplier)
+          FurnitureModel.find({model: formData.furnitureModel})
+          .then((furnitureModel)=>{
+            incomingstock.set({
+              supplier: supplier[0].id,
+              furnitureModel: furnitureModel[0].id,
+              invoiceNo: formData.invoiceNo,
+              batchNo: formData.batchNo,
+              lotNo: formData.lotNo,
+              paymentMethod: formData.paymentMethod,
+              paymentStatus: formData.paymentStatus,
+              chqNo: formData.chqNo
+          })
+          incomingstock.save()
+            .then(
+            (updatedIncomingstock) => res.redirect('/incomingstock'),
+            (err) => res.send(err)
+            )
+          })
+        })
+    })
   })
-  .then(() => res.redirect(`/incomingstock`))
-  .catch(err => console.log(err))
-})
+
+//   ReceivedStock.findByIdAndUpdate(req.params.id, {
+//     invoiceNo: formData.invoiceNo,
+//     batchNo: formData.batchNo,
+//     lotNo: formData.lotNo,
+//     paymentMethod: formData.paymentMethod,
+//     paymentStatus: formData.paymentStatus,
+//     chqNo: formData.chqNo,
+//     supplier: formData.supplier,
+//     furnitureModel: formData.furnitureModel
+//   })
+//   .then(() => res.redirect(`/incomingstock`))
+//   .catch(err => console.log(err))
+// })
 
 // Detele file
 router.delete('/:id', (req, res) => {
