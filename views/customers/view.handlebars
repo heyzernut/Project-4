@@ -20,11 +20,8 @@
               </p>
 
               <p>
-                <form action="/customer/{{ cust.id }}?_method=DELETE" method="post">
-                  <a href="/customers/updateCustomer/{{ cust.id }}" class="btn bg-warning">View Customer</a>
-                  {{!-- {{#if ../admin}}
-                    <a href="/Customer/updateCustomer/{{ cust.id }}" class="btn bg-warning">Edit Customer</a>
-                  {{/if}} --}}
+                <form action="/customers/{{ cust.id }}?_method=DELETE" method="post">
+                  <a href="/customers/update/{{ cust.id }}" class="btn bg-warning">View Customer</a>
                 </form>
               </p>
             </div>
