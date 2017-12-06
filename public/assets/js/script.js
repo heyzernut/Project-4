@@ -52,4 +52,4 @@ $('#selectLocation').on('change',function(){
   // };
   // FormStuff.init();
 
-}
+// }
