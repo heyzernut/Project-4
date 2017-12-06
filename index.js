@@ -26,6 +26,8 @@ const Role = require('./models/role')
 const Staff = require('./models/staff')
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
+const Tracking = require('./models/tracking')
+
 
 const app = express()
 
@@ -37,6 +39,8 @@ const staff_routes = require('./routes/staff_routes')
 const supplier_routes = require('./routes/supplier_routes')
 const receivedstock_routes = require('./routes/receivedstock_routes')
 const inventory_routes = require('./routes/inventory_routes')
+const tracking_routes = require('./routes/tracking_routes')
+
 
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
@@ -129,6 +133,8 @@ app.use('/customers', customer_routes)
 app.use('/roles', role_routes)
 app.use('/staffs', staff_routes)
 app.use('/inventory', inventory_routes)
+app.use('/tracking', tracking_routes)
+
 
 //homepage
 // app.get('/',(req,res) => {

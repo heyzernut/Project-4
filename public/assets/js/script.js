@@ -22,6 +22,16 @@ $('#selectLocation').on('change',function(){
       }
   });
 
+  $('#trackingStatus').on('change',function(){
+       if( $(this).val()==="Received with issues"){
+       $("#trackingComment").show()
+       }
+       else{
+       $("#trackingComment").hide()
+       $("#textAreaForTrackingComment").val('')
+       }
+   });
+
   // var FormStuff = {
   //
   //   init: function() {

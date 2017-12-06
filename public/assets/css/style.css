@@ -20,6 +20,11 @@ margin-top: 50px;
   overflow: hidden;
 }
 
+.bottom-row {
+  margin-top: 5%;
+  margin-left: -2.8%;
+}
+
 input[type="radio"]:checked ~ .reveal-if-active {
   opacity: 1;
   max-height: 100px; /* little bit of a magic number :( */
@@ -27,4 +32,4 @@ input[type="radio"]:checked ~ .reveal-if-active {
   }
 
 
-.Retailstore 
+.Retailstore
