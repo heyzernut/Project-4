@@ -1,19 +1,27 @@
 <h2>Incoming Stock List:</h2>
 
-{{#each supplier as | supplierlist |}}
+{{#each incomingstock as | stocklist |}}
 
-Supplier Name: {{ supplierlist.name }} |
-Address: {{ supplierlist.location }} |
-Contact No: {{ supplierlist.contact }}
+Invoice No: {{ stocklist.invoiceNo }} |
+Batch No. {{ stocklist.batchNo }} |
+Lot No: {{ stocklist.lotNo }} |
+Payment method: {{ stocklist.paymentMethod }} |
+Payment Status: {{ stocklist.paymentStatus }} |
+Cheque No: {{ stocklist.chqNo }} |
+Supplier: {{ stocklist.supplier }} |
+Furniture Model: {{ stocklist.furnitureModel }} |
 
 <form
   class="form-inline"
-  action="/suppliers/{{ supplierlist.id }}?_method=DELETE"
+  action="/incomingstock/{{ stocklist.id }}?_method=DELETE"
   method="post">
-    <a href="/suppliers/{{ supplierlist.id }}" class="btn btn-warning">Update</a>
+    <a href="/incomingstock/{{ stocklist.id }}" class="btn btn-warning">Update</a>
     <button class="btn btn-danger" type="submit" name="button">Delete</button>
 </form>
 
 <hr/>
-
 {{/each}}
+
+<h3 class="display-4 text-center">
+  <a href="/incomingstock/new">Create New</a>
+</h3>

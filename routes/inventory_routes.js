@@ -27,7 +27,6 @@ router.get('/', (req, res) => {
     Promise.all(promises)
     .then(() => {
       res.json(allModelsDisplay)
-
     })
   })
 })

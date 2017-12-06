@@ -1,0 +1,43 @@
+<h2>{{ incomingstock.supplier }}</h2>
+
+<form action="/incomingstock/{{ incomingstock.id }}?_method=PUT" method="post">
+
+  <label for="invoice">Invoice No:</label>
+  <input type="text" class="form-control" name="stock[invoiceNo]" value="{{ incomingstock.invoiceNo }}"> <br>
+  <label for="batch">Batch No.</label>
+  <input type="text" class="form-control" name="stock[batchNo]" value="{{ incomingstock.batchNo }}"> <br>
+  <label for="lot">Lot No:</label>
+  <input type="text" class="form-control" name="stock[lotNo]" value="{{ incomingstock.lotNo }}"> <br>
+  <label for="payment-type">Payment method:</label>
+  <select type="text" class="form-control" name="stock[paymentMethod]" value="{{ incomingstock.paymentMethod }}">
+    <option value="Cheque">Cheque</option>
+    <option value="Cash">Cash</option>
+  </select>
+  <br>
+  <label for="payment-status">Payment Status</label>
+  <select type="text" class="form-control" name="stock[paymentStatus]" value="{{ incomingstock.paymentStatus }}">
+    <option value="Pending">Pending</option>
+    <option value="Imcomplete">Imcomplete</option>
+    <option value="Paid">Paid</option>
+  </select><br>
+  <label for="cheque">Cheque No</label>
+  <input type="text" class="form-control" name="stock[chqNo]" value="{{ incomingstock.chqNo }}"> <br>
+
+  <label for="supplier">Supplier</label>
+  <select type="text" class="form-control">
+    {{#each supplier as |supplierOnes|}}
+    <option value="{{supplierOnes.id}}">{{supplierOnes.name}}</option>
+    {{/each}}
+  </select>
+  <br>
+  <label for="furniture-model">Furniture Model</label>
+  <select type="text" class="form-control" name="stock[furnitureModel]">
+  {{#each allModelsDisplay as |furnitureModelOne|}}
+  <option value="{{furnitureModelOne.id}}">{{furnitureModelOne.model}}</option>
+  {{/each}}
+  </select>
+
+<button type="submit" class="btn btn-warning btn-block" name="button>
+<span class="glyphicon glyphicon-save"></span> UPDATE STOCK</button>
+
+</form>
