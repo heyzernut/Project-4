@@ -21,28 +21,14 @@ const Customer = require('./models/customer')
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
 
-<<<<<<< HEAD
-const cors = require('cors')
-
 const app = express()
 
-const corsOption = {
-  exposedHeaders: ['X-Total-Count']
-}
-
-app.use(cors(corsOption))
-
-=======
 // require all my route files
 const customer_routes = require('./routes/customer_routes')
 const supplier_routes = require('./routes/supplier_routes')
 const receivedstock_routes = require('./routes/receivedstock_routes')
-
-const app = express()
-
-
 const inventory_routes = require('./routes/inventory_routes')
->>>>>>> 969e8856edac33e3c0853763d7c5caeea4f3a871
+
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -53,27 +39,29 @@ app.use(function (req, res, next) {
   console.log('Method: ' + req.method + ' Path: ' + req.url)
   next()
 })
-<<<<<<< HEAD
-app.use(function(req, res, next) {
-  res.header('X-Total-Count', '319')
-  next()
-=======
-
-app.use(function(req, res, next){
-  res.header({
-   'Access-Control-Allow-Origin': 'http://localhost:3000',
-   'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
-   'Access-Control-Expose-Headers': 'Content-Range'})
-   next()
->>>>>>> 969e8856edac33e3c0853763d7c5caeea4f3a871
-})
-
 
 // setup bodyParser
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
 }))
+
+//overwrite the delete request
+app.use( function( req, res, next ) {
+    // this middleware will call for each requested
+    // and we checked for the requested query properties
+    // if _method was existed
+    // then we know, clients need to call DELETE request instead
+    if ( req.query._method == 'DELETE' ) {
+        // change the original METHOD
+        // into DELETE method
+        req.method = 'DELETE';
+        // and set requested url to /user/12
+        req.url = req.path;
+    }
+    next();
+});
+
 // setup methodOverride
 app.use(methodOverride('_method'))
 
@@ -138,15 +126,12 @@ app.use('/location', location_routes)
 app.use('/customers',isLoggedIn, customer_routes)
 app.use('/inventories', inventory_routes)
 
-<<<<<<< HEAD
 //homepage
 app.get('/',(req,res) => {
   console.log('enter')
   res.render('home')
 })
 
-=======
->>>>>>> 969e8856edac33e3c0853763d7c5caeea4f3a871
 // opening the port for express
 app.listen(port, () => {
   console.log(`Server is running on ${port}`)
