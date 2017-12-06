@@ -38,11 +38,15 @@ router.get('/new', (req, res) => {
 router.get('/:id', (req, res) => {
   ReceivedStock
   .findById(req.params.id) // no need limit since there's only one
-  .populate("supplier")
-  .populate("furnitureModel")
   .then(incomingstock => {
-    res.render('receivedstock/show', {
-      incomingstock
+    Supplier.find()
+    .then((supplier)=> {
+      FurnitureModel.find()
+      .then((furnitureModel)=> {
+        res.render('receivedstock/show',
+        {incomingstock,supplier,furnitureModel})
+
+        })
     })
   })
   .catch(err => {
@@ -69,6 +73,25 @@ router.post('/', (req, res) => {
     () => res.redirect(`/incomingstock`),
     err => res.send(err)
   )
+})
+
+// Update with the input from form
+router.put('/:id', (req, res) => {
+
+  var formData = req.body.stock
+
+  ReceivedStock.findByIdAndUpdate(req.params.id, {
+    invoiceNo: formData.invoiceNo,
+    batchNo: formData.batchNo,
+    lotNo: formData.lotNo,
+    paymentMethod: formData.paymentMethod,
+    paymentStatus: formData.paymentStatus,
+    chqNo: formData.chqNo,
+    supplier: formData.supplier,
+    furnitureModel: formData.furnitureModel
+  })
+  .then(() => res.redirect(`/incomingstock`))
+  .catch(err => console.log(err))
 })
 
 // Detele file
