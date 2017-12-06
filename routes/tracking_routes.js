@@ -14,7 +14,10 @@ router.get('/', (req,res) => {
     },
       populate: {
         path: 'deliveryOrderId'
-      }
+      },
+       populate: {
+         path: 'reseller'
+       }
   })
   .then(trackings => {
     res.render('tracking/showAll', {

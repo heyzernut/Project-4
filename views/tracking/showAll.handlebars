@@ -1,87 +1,57 @@
 <h3 class="display-4 text-center">
 <p>All trackings</p>
 </h3>
-{{!-- {{#forIn trackings.items }}
-  {{trackings}}
-{{/forIn}} --}}
-{{#each trackings as |tracko|}}
-  <p>{{tracko.order}}</p>
+
+{{#each trackings as |tracka|}}
+{{tracka}}
 {{/each}}
-{{!-- {{trackings.modeOfTransport}} --}}
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="container">
-
   <table class="table display" id="example">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Address</th>
-        <th scope="col">Type</th>
-        <th scope="col">Zone</th>
-        <th scope="col">Shelf</th>
-        <th scope="col">Edit/Delete</th>
+        <th scope="col">Invoice Number</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Phone no.</th>
+        <th scope="col">Email</th>
+        <th scope="col">Status</th>
+        <th scope="col">Feedback(if any)</th>
       </tr>
     </thead>
     <tbody>
       {{#each trackings as |tracka|}}
         <tr>
           <th scope="row">{{@index}}</th>
-          <td>{{loca.address}}</td>
-          <td>{{loca.type}}</td>
-          <div id="exampleAccordion" data-children=".item">
-            <td>
-              {{#each loca.zone}}
-                {{#if loca.zone.length}}
-                  {{#if @first}}
-                    {{ this }} to
-                  {{/if}}
-                  {{#if @last}}
-                    {{ this }}
-                  {{/if}}
-                {{/if}}
-              {{/each}}
-            </td>
-            <td>
-              {{#contains loca.type "Warehouse"}}
-                {{#each loca.shelf}}
-                  {{#if @first}}
-                    {{ this }} to
-                  {{/if}}
-                  {{#if @last}}
-                    {{ this }}
-                  {{/if}}
-                {{/each}}
-              {{/contains}}
-            </td>
-          </div>
+          <td><a href="/orders/{{tracka.order._id}}/tracking">{{tracka.order.invoiceNo}}</a></td>
+          <td>{{tracka.order.reseller.contactPerson}}</td>
+          <td>{{tracka.order.reseller.contactNo}}</td>
+          <td>{{tracka.order.reseller.email}}</td>
+          {{#if tracka.status}}
+            <td>{{tracka.status}}</td>
+          {{else}}
+            <td>No status</td>
+          {{/if}}
           <td>
-            <a href="/location/{{loca._id}}" class="btn btn-primary">Edit/Delete</a>
+            {{#if tracka.comment}}
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Show</button>
+
+              <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Feedback</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                    </div>
+                    <div class="modal-body">
+                      {{tracka.comment}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {{/if}}
           </td>
         </tr>
       {{/each}}

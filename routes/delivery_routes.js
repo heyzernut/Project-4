@@ -43,7 +43,7 @@ router.post('/', (req,res)=>{
     shippingCost: orderData.transport_cost,
     termOfDelivery: orderData.terms,
     deliveryAddress: orderData.address,
-    reseller: orderData.reseller
+    reseller: orderData.customers
   })
   //Add orderItem
   const newItem = new Item({
@@ -90,8 +90,8 @@ router.get('/:id/tracking', (req, res)=>{
 //read & delete individual order
 router.get('/:id', (req, res)=>{
   DeliveryOrder.findById(req.params.id)
-  .populate('items')
   .then((order)=>{
+
     res.render('orders/showOne',{order})
   })
   .catch((err)=>console.log(err))
@@ -103,24 +103,35 @@ router.delete('/:id', (req, res)=>{
   .catch((err)=> console.log(err))
 })
 
-router.post('/:id/tracking', (req, res)=>{
-    let trackingData = req.body
-    var newTracking = new Tracking({
-      status: trackingData.trackStatus,
-      comment: trackingData.trackingComment,
-      order: req.params.id
-    })
-    newTracking.save()
-    .then(
-      () => res.redirect('/orders'),
-      err => res.send(err)
-    )
+// router.put('/:id/tracking', (req, res)=>{
+//     let trackingData = req.body
+//     let updateTrack = Tracking.find({order: req.params.id})
+    // .then((track)=>{
+    //   status: trackingData.trackStatus,
+    //   comment: trackingData.trackingComment,
+    //   order: req.params.id
+    // })
+    // var newTracking = new Tracking({
+    //   status: trackingData.trackStatus,
+    //   comment: trackingData.trackingComment,
+    //   order: req.params.id
+    // })
+//     updateTrack.save()
+//     .then(
+//       () => res.redirect('/tracking'),
+//       err => res.send(err)
+//     )
+// })
 
-    // res.json(req)
-  // Tracking.find()
-  // .then((track) => {
-  //   res.render('orders/tracking',{track})
-  // })
+
+router.put('/:id/tracking', (req, res) => {
+  var formData = req.body
+  Tracking.update({order: req.params.id}, {
+      status: formData.trackStatus,
+      comment: formData.trackingComment
+  })
+  .then(() => res.redirect(`/tracking`))
+  .catch(err => console.log(err))
 })
 
 

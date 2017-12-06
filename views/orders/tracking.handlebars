@@ -10,7 +10,7 @@
   <p class="lead">Shipping Cost: ${{delivery.shippingCost}}</p>
   <hr class="my-4">
   <p>Quotation number: {{delivery.quotationNo}}</p>
-  <form action="/orders/{{delivery._id}}/tracking" method="POST">
+  <form action="/orders/{{delivery._id}}/tracking?_method=PUT" method="POST">
     <div class="form-group">
       <label for="exampleFormControlSelect1">Status</label>
       <select class="form-control" id="trackingStatus" name="trackStatus">
