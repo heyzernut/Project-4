@@ -47,10 +47,10 @@ router.get('/update/:id', (req, res) => {
 
   Staff
     .findById(req.params.id)
-    .populate("role")
     .then(staff => {
-      res.render('staffs/update', {
-        staff
+      Role.find()
+      .then((role) => {
+        res.render('staffs/update', {staff, role})
       })
     })
     .catch(err => {

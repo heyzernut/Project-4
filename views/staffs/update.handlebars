@@ -18,7 +18,9 @@
 
               <label for="lblRole">Role : </label>
               <select name="staff[role]">
-                <option value={{staff.role.name}}>{{role.name}}</option>
+                {{#each role as |roleEach|}}
+                <option value={{roleEach.name}}>{{roleEach.name}}</option>
+                {{/each}}
               </select>
 
               <div class="text-center">
