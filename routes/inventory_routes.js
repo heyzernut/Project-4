@@ -28,15 +28,10 @@ router.get('/', (req, res) => {
 
     Promise.all(promises)
     .then(() => {
-<<<<<<< HEAD
-      res.json(allModelsDisplay)
-=======
       res.render('inventory/index', {
         allModelsDisplay
       })
       // res.json(allModelsDisplay)
-
->>>>>>> 5e826dc49648d23bd321eb391bf0519fb08e116a
     })
   })
 })
