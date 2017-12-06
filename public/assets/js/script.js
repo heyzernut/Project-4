@@ -12,16 +12,14 @@ $('#selectLocation').on('change',function(){
      }
  });
 
-// $(function(){
-  $('#orderType').on('change',function(){
-    if( $(this).val()==="demo"){
+ $('#orderType').on('change',function(){
+      if( $(this).val()==="demo"){
       $("#returnDate").show()
-    }
-    else{
+      }
+      else{
       $("#returnDate").hide()
-    }
+      }
   });
-
 
   // var FormStuff = {
   //

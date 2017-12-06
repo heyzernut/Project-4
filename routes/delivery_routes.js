@@ -4,13 +4,13 @@ const DeliveryOrder = require('../models/deliveryOrder')
 const Tracking = require('../models/tracking')
 const moment = require('moment')
 const Customer = require('../models/customer')
-
+const Item =require('../models/orderItem')
 
 //show all delivery order
 router.get('/', (req,res)=>{
   DeliveryOrder.find()
   .then((orders)=>{
-    res.json(orders)
+    res.render('orders/showAll', {orders})
   })
 })
 
@@ -21,7 +21,7 @@ router.get('/new', (req,res)=>{
 
   //get customer
   let customer = Customer.find()
-  res.json({today, customer})
+  res.render('orders/new', {today, customer})
 })
 router.post('/', (req,res)=>{
   let orderData = req.body
@@ -38,33 +38,52 @@ router.post('/', (req,res)=>{
     deliveryAddress: orderData.address,
     reseller: orderData.reseller
   })
+  //Add orderItem
+  const newItem = new Item({
+    quantity_ordered: orderData.orderQuantity,
+    return_date: orderData.returnDate,
+    order_type: orderData.orderType,
+    // furnitureStockId: ,
+    deliveryOrderId: newOrder.id
+  })
+  newItem.save()
+  newOrder.items.push(newItem.id)
 
   //create a tracking id
   const newTracking = new Tracking({
     order: newOrder.id
   })
-  newTracking.save()
+    newTracking.save()
 
-  newOrder.save()
-  .then(()=> res.redirect('orders/new'))
-  .catch((err)=> console.log(err.message))
-})
-
-//newOrder
-router.get('/newItem', (req,res)=>{
-  res.render('orders/newItem')
-})
-
-
-//tracking page
-router.get('/tracking', (req,res)=>{
-  Tracking.find()
-  .populate('order')
-  .then((track)=>{
-    res.render('orders/tracking', {track})
+    newOrder.save()
+    .then(()=> res.redirect('orders/new'))
+    .catch((err)=> console.log(err.message))
   })
+
+//delivery trackingSchema
+router.get('/tracking', (req, res)=>{
+    // res.json(req)
+  // Tracking.find()
+  // .then((track) => {
+  //   res.render('orders/tracking',{track})
+  // })
 })
 
+//read & delete individual order
+router.get('/:id', (req, res)=>{
+  DeliveryOrder.findById(req.params.id)
+  .populate('items')
+  .then((order)=>{
+    res.render('orders/showOne',{order})
+  })
+  .catch((err)=>console.log(err))
+})
+router.delete('/:id', (req, res)=>{
+  console.log('delete')
+  DeliveryOrder.findByIdAndRemove(req.params.id)
+  .then(()=> res.redirect('/orders'))
+  .catch((err)=> console.log(err))
+})
 
 
 module.exports = router

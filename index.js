@@ -19,13 +19,13 @@ const { hasLoggedOut, isLoggedIn } = require('./helpers')
 // Models
 const Location = require('./models/location')
 const location_routes = require('./routes/location_routes')
-
 const Customer = require('./models/customer')
 const Role = require('./models/role')
 const Staff = require('./models/staff')
-
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
+
+const app = express()
 
 
 // require all my route files
@@ -34,12 +34,8 @@ const role_routes = require('./routes/role_routes')
 const staff_routes = require('./routes/staff_routes')
 const supplier_routes = require('./routes/supplier_routes')
 const receivedstock_routes = require('./routes/receivedstock_routes')
-
-
-const app = express()
-
-
 const inventory_routes = require('./routes/inventory_routes')
+
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -51,12 +47,28 @@ app.use(function (req, res, next) {
   next()
 })
 
-
 // setup bodyParser
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
 }))
+
+//overwrite the delete request
+app.use( function( req, res, next ) {
+    // this middleware will call for each requested
+    // and we checked for the requested query properties
+    // if _method was existed
+    // then we know, clients need to call DELETE request instead
+    if ( req.query._method == 'DELETE' ) {
+        // change the original METHOD
+        // into DELETE method
+        req.method = 'DELETE';
+        // and set requested url to /user/12
+        req.url = req.path;
+    }
+    next();
+});
+
 // setup methodOverride
 app.use(methodOverride('_method'))
 
