@@ -1,4 +1,46 @@
 <div class="container">
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Customer</li>
+    <li class="breadcrumb-item"><a href="/customers/new">new</a></li>
+  </ol>
+</nav>
+
+<h3 class="display-4 text-center">
+<p>All Customers</p>
+</h3>
+
+<table class="table display" id="example">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Company Name</th>
+      <th scope="col">Company Address</th>
+      <th scope="col">Contact Person</th>
+      <th scope="col">Contact No</th>
+      <th scope="col">Email</th>
+      <th scope="col">Edit/Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each customers as |cust|}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{cust.name}}</td>
+      <td>{{cust.companyAddress}}</td>
+      <td>{{cust.contactPerson}}</td>
+      <td>{{cust.contactNo}}</td>
+      <td>{{cust.email}}</td>
+      <td>
+        <a href="/customers/update/{{cust._id}}" class="btn btn-primary">Edit/Delete</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+</div>
+{{!-- <div class="container">
     <div class="row">
       {{#each customers as |cust|}}
         <div class="col-sm-4 ">
@@ -28,4 +70,4 @@
           </div>
         </div>
       {{/each}}
-    </div>
+    </div> --}}
