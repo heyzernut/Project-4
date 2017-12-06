@@ -1,7 +1,9 @@
 
 $(document).ready(function(){
   $('#example').DataTable();
-});
+
+
+
 
 $('#selectLocation').on('change',function(){
      if( $(this).val()==="Warehouse"){
@@ -21,6 +23,7 @@ $('#selectLocation').on('change',function(){
       }
   });
 
+});
   // var FormStuff = {
   //
   //   init: function() {
