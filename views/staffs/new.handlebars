@@ -1,21 +1,32 @@
-<h3>Create Staff</h3>
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb" style="margin-bottom:30px;">
+    <li class="breadcrumb-item"><a href="/staffs">Staff</a></li>
+    <li class="breadcrumb-item active" aria-current="page">New</li>
+  </ol>
+</nav>
 
-<form action="/staffs" method="post">
-  <label for="lblName">Name : </label>
-  <input type="text" name="staff[txtName]" placeholder="Enter Name">
-  <br>
+<div class="container">
 
-  <label for="lblPassword">Password : </label>
-  <input type="password" name="staff[txtPassword]" placeholder="Enter Password">
-  <br>
+  <h3>Create Staff</h3>
 
-  <label for="lblRole">Role : </label>
-  <select name="staff[role]">
-    {{#each role as |role|}}
-    <option value={{role.id}}>{{role.name}}</option>
-    {{/each}}
-  </select>
+  <form action="/staffs" method="post">
+    <label for="lblName">Name : </label>
+    <input type="text" name="staff[txtName]" placeholder="Enter Name">
+    <br>
 
-  <button type="submit" name="btnStaff">Submit</button>
+    <label for="lblPassword">Password : </label>
+    <input type="password" name="staff[txtPassword]" placeholder="Enter Password">
+    <br>
 
-</form>
+    <label for="lblRole">Role : </label>
+    <select name="staff[role]">
+      {{#each role as |role|}}
+      <option value={{role.id}}>{{role.name}}</option>
+      {{/each}}
+    </select>
+
+    <button type="submit" name="btnStaff">Submit</button>
+
+  </form>
+
+</div>

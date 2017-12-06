@@ -1,11 +1,21 @@
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb" style="margin-bottom:30px;">
+    <li class="breadcrumb-item"><a href="/category">Category</a></li>
+    <li class="breadcrumb-item active" aria-current="page">New</li>
+  </ol>
+</nav>
 
-<h3>Create Category</h3>
+<div class="container">
 
-<form action="/category" method="post">
-  <label for="lblCompanyName">Category Name : </label>
-  <input type="text" name="category[txtName]" placeholder="Enter Category Name">
-  <br>
+  <h3>Create Category</h3>
 
-  <button type="submit" name="btn">Submit</button>
+  <form action="/category" method="post">
+    <label for="lblCompanyName">Category Name : </label>
+    <input type="text" name="category[txtName]" placeholder="Enter Category Name">
+    <br>
 
-</form>
+    <button type="submit" name="btn">Submit</button>
+
+  </form>
+
+</div>

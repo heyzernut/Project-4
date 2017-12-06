@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css?family=Paytone+One|Poppins');
 
 input[type="radio"]:checked ~ .reveal-if-active {
   opacity: 1;
@@ -59,12 +59,17 @@ input[type="radio"]:checked ~ .reveal-if-active {
   }
 
   header.page-header {
-    padding: 20px 0;
+    padding: 20px 0 10px;
   }
 
   table {
     font-size: 0.9em;
     color: #666;
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 600;
   }
 
   .card-close {
@@ -122,6 +127,11 @@ input[type="radio"]:checked ~ .reveal-if-active {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 8;
+  }
+
+  .table-link {
+    cursor: pointer;
+    color: blue;
   }
 
   *[class*="icon-"] {
