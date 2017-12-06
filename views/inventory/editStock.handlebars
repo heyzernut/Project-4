@@ -1,3 +1,12 @@
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page"><a href="/inventory">Inventory</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="/inventory/stocks">stocks</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="/inventory/stocks">individual stock</a></li>
+    <li class="breadcrumb-item">edit</li>
+  </ol>
+</nav>
+
 <h3>Edit stock for {{ furnitureStock.furnitureModel.model }} ({{ furnitureStock.furnitureModel.itemCode }})</h3>
 <h4>Location: {{furnitureStock.location.address}} ({{furnitureStock.location.type}})</h4>
 <form action="/inventory/stocks/{{furnitureStock.id}}?_method=PUT" method="post">

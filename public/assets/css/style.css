@@ -24,6 +24,10 @@ margin-top: 50px;
   margin-top: 5%;
   margin-left: -2.8%;
 }
+.table-link {
+  cursor:pointer;
+  color: blue;
+}
 
 input[type="radio"]:checked ~ .reveal-if-active {
   opacity: 1;

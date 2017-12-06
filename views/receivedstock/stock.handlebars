@@ -36,7 +36,7 @@
       <td>{{ stocklist.paymentMethod }}</td>
       <td>{{ stocklist.paymentStatus }}</td>
       <td>{{ stocklist.chqNo }}</td>
-      <td>{{ stocklist.supplier.name }}</td>
+      <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg">{{ stocklist.supplier.name }}</td>
       <td>{{ stocklist.furnitureModel.model }}</td>
       <td>
         <a href="/incomingstock/{{ stocklist.id }}" class="btn btn-primary">Edit/Delete</a>
@@ -46,4 +46,27 @@
   </tbody>
 </table>
 
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Supplier Detail:</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         {{#each incomingstock as | stocklist |}}
+          Name: {{ stocklist.supplier.name }} <hr>
+          Contact: {{ stocklist.supplier.contact }} <hr>
+          Location: {{ stocklist.supplier.location }}
+         {{/each}}
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
 </div>

@@ -5,6 +5,7 @@ const Tracking = require('../models/tracking')
 const moment = require('moment')
 const Customer = require('../models/customer')
 const Item =require('../models/orderItem')
+const FurnitureModel = require('../models/furnitureModel')
 
 //show all delivery order
 router.get('/', (req,res)=>{
@@ -18,10 +19,16 @@ router.get('/', (req,res)=>{
 router.get('/new', (req,res)=>{
   //today's data
   let today = moment().format("YYYY-MM-DD")
+  //get customerm & furniture
+  FurnitureModel.find()
+  .then((models)=>{
+    Customer.find()
+    .then((customers)=>{
+      console.log(customers)
+      res.render('orders/new', {today, customers, models})
+    })
+  })
 
-  //get customer
-  let customer = Customer.find()
-  res.render('orders/new', {today, customer})
 })
 router.post('/', (req,res)=>{
   let orderData = req.body
@@ -56,7 +63,7 @@ router.post('/', (req,res)=>{
     newTracking.save()
 
     newOrder.save()
-    .then(()=> res.redirect('orders/new'))
+    .then(()=> res.json(newOrder))
     .catch((err)=> console.log(err.message))
   })
 
