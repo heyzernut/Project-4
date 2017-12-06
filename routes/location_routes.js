@@ -33,6 +33,10 @@ router.get('/', (req, res) => {
 })
 })
 
+router.get('/new', (req, res) => {
+  res.render('inventory/newLocation')
+})
+
 router.get('/:id', (req, res) => {
   var id = req.params.id
   Location
@@ -67,9 +71,6 @@ router.delete('/:id', (req, res) => {
   .catch(err => console.log(err))
 })
 
-router.get('/new', (req, res) => {
-  res.render('inventory/newLocation')
-})
 
 router.post('/new', (req, res) => {
 

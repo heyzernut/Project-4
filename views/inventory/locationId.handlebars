@@ -1,7 +1,6 @@
-<form action="/location/{{location._id}}?_method=DELETE" method="POST">
-  <button type="submit" class="btn btn-danger">Delete</button>
-</form>
-
+<h3 class="display-4 text-center">
+<p>Update/Delete location</p>
+</h3>
 
 <form action="/location/{{location._id}}?_method=PUT" method="POST">
   <div class="form-group row">
@@ -36,5 +35,8 @@
       <input type="address" class="form-control" name= "shelf_stop" id="Shelf" placeholder="eg. 1-100">
     </div>
   </div>
-  <button type="submit" class="btn btn-danger">Update</button>
+  <button type="submit" class="btn btn-warning">Update</button>
+</form>
+<form action="/location/{{location._id}}?_method=DELETE" method="POST">
+  <button type="submit" class="btn btn-danger">Delete</button>
 </form>

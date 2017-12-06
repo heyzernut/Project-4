@@ -3,7 +3,6 @@ require('dotenv').config({ silent: true })
 // installing all modules
 const express = require('express')
 const mongoose = require('mongoose') // for DB
-mongoose.plugin(require('meanie-mongoose-to-json'))
 const path = require('path') // for Public files
 const exphbs = require('express-handlebars') // for Handlebars
 const bodyParser = require('body-parser') // for accessing POST request
@@ -87,7 +86,6 @@ app.get('/',(req,res) => {
   res.render('home')
 })
 
-app.use('/location', location_routes)
 
 // NEW ROUTE - Suppliers
 app.use((req, res, next) => {
@@ -102,6 +100,7 @@ app.use((req, res, next) => {
 const delivery_routes = require('./routes/delivery_routes')
 
 //register routes
+app.use('/location', location_routes)
 app.use('/orders', delivery_routes)
 app.use('/suppliers', supplier_routes)
 app.use('/incomingstock', receivedstock_routes)
@@ -110,21 +109,12 @@ app.use('/customers',isLoggedIn, customer_routes)
 app.use('/inventories', inventory_routes)
 
 //homepage
-app.get('/',(req,res) => {
-  console.log('enter')
-  res.render('home')
-})
+// app.get('/',(req,res) => {
+//   console.log('enter')
+//   res.render('home')
+// })
 
 // opening the port for express
 app.listen(port, () => {
   console.log(`Server is running on ${port}`)
 })
-
-app.get('/',(req,res) => {
-  res.render('home')
-})
-
-
-app.use('/customers',isLoggedIn, customer_routes)
-
-app.use('/inventories', inventory_routes)
