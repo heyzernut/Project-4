@@ -9,8 +9,9 @@ const moment = require('moment')
 router.get('/', (req, res) => {
   // the return of then
   ReceivedStock.find().limit().sort({name: -1})
+  .populate("supplier")
+  .populate("furnitureModel")
   .then(incomingstock => {
-    // at this point we got our data so we can render our page
     res.render('receivedstock/stock', {
       incomingstock
     })
@@ -34,22 +35,18 @@ router.get('/new', (req, res) => {
   })
 })
 
-// router.get('/new', (req, res) => {
-//   FurnitureModel.find()
-//   .then((allModels)=>{
-//     res.render('receivedstock/new', {allModels})
-//   })
-//   .catch(err => {
-//     console.log(err)
-//   })
-// })
-
 router.get('/:id', (req, res) => {
   ReceivedStock
   .findById(req.params.id) // no need limit since there's only one
   .then(incomingstock => {
-    res.render('receivedstock/show', {
-      incomingstock
+    Supplier.find()
+    .then((supplier)=> {
+      FurnitureModel.find()
+      .then((furnitureModel)=> {
+        res.render('receivedstock/show',
+        {incomingstock,supplier,furnitureModel})
+
+        })
     })
   })
   .catch(err => {
@@ -78,18 +75,48 @@ router.post('/', (req, res) => {
   )
 })
 
-// // Update with the input from form
-// router.put('/:id', (req, res) => {
-//
-//   var formData = req.body.stock
-//
+// Update with the input from form
+router.put('/:id', (req, res) => {
+
+  var formData = req.body.stock
+  ReceivedStock.findById(req.params.id)
+    .populate('supplier')
+    .populate('furnitureModel')
+    .then((incomingstock)=> {
+      Supplier.find({name: formData.supplier})
+        .then((supplier)=> {
+          console.log('supplier', supplier)
+          FurnitureModel.find({model: formData.furnitureModel})
+          .then((furnitureModel)=>{
+            incomingstock.set({
+              supplier: supplier[0].id,
+              furnitureModel: furnitureModel[0].id,
+              invoiceNo: formData.invoiceNo,
+              batchNo: formData.batchNo,
+              lotNo: formData.lotNo,
+              paymentMethod: formData.paymentMethod,
+              paymentStatus: formData.paymentStatus,
+              chqNo: formData.chqNo
+          })
+          incomingstock.save()
+            .then(
+            (updatedIncomingstock) => res.redirect('/incomingstock'),
+            (err) => res.send(err)
+            )
+          })
+        })
+    })
+  })
+
 //   ReceivedStock.findByIdAndUpdate(req.params.id, {
-//     invoice: formData.invoiceNo,
+//     invoiceNo: formData.invoiceNo,
 //     batchNo: formData.batchNo,
 //     lotNo: formData.lotNo,
 //     paymentMethod: formData.paymentMethod,
 //     paymentStatus: formData.paymentStatus,
-//     chqNo: formData.chqNo
+//     chqNo: formData.chqNo,
+//     supplier: formData.supplier,
+//     furnitureModel: formData.furnitureModel
 //   })
 //   .then(() => res.redirect(`/incomingstock`))
 //   .catch(err => console.log(err))

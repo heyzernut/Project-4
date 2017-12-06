@@ -1,0 +1,35 @@
+<div class="container">
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Staff</li>
+    <li class="breadcrumb-item"><a href="/staffs/new">new</a></li>
+  </ol>
+</nav>
+
+<h3 class="display-4 text-center">
+<p>All Staffs</p>
+</h3>
+
+<table class="table display" id="example">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Role</th>
+      <th scope="col">Edit/Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each staffs as |staff|}}
+    <tr>
+      <th scope="row">{{@index}}</th>
+      <td>{{staff.name}}</td>
+      <td>{{staff.role.name}}</td>
+      <td>
+        <a href="/staffs/update/{{staff._id}}" class="btn btn-primary">Edit/Delete</a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>

@@ -1,4 +1,4 @@
-<h2>{{ incomingstock.supplier }}</h2>
+<h2>{{ incomingstock.supplier.name }}</h2>
 
 <form action="/incomingstock/{{ incomingstock.id }}?_method=PUT" method="post">
 
@@ -24,20 +24,23 @@
   <input type="text" class="form-control" name="stock[chqNo]" value="{{ incomingstock.chqNo }}"> <br>
 
   <label for="supplier">Supplier</label>
-  <select type="text" class="form-control">
-    {{#each supplier as |supplierOnes|}}
-    <option value="{{supplierOnes.id}}">{{supplierOnes.name}}</option>
+  <select type="text" class="form-control" name="stock[supplier]>
+    {{#each supplier as |supplierEach|}}
+    <option value="{{ supplierEach.name }}">{{supplierEach.name}}</option>
     {{/each}}
   </select>
   <br>
   <label for="furniture-model">Furniture Model</label>
   <select type="text" class="form-control" name="stock[furnitureModel]">
-  {{#each allModelsDisplay as |furnitureModelOne|}}
-  <option value="{{furnitureModelOne.id}}">{{furnitureModelOne.model}}</option>
-  {{/each}}
+    {{#each furnitureModel as |fModel|}}
+    <option value="{{fModel.model}}">{{fModel.model}}</option>
+    {{/each}}
   </select>
 
 <button type="submit" class="btn btn-warning btn-block" name="button>
 <span class="glyphicon glyphicon-save"></span> UPDATE STOCK</button>
+</form>
 
+<form action="/incomingstock/{{ incomingstock.id }}?_method=DELETE" method="POST">
+  <button type="submit" class="btn btn-danger">Delete</button>
 </form>

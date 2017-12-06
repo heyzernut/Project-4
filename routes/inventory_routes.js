@@ -13,6 +13,11 @@ router.get('/', (req, res) => {
       promises.push(FurnitureStock.find({furnitureModel: model.id})
       .populate('location')
       .then(allStock => {
+        total = 0
+        allStock.forEach(stock => {
+          total += stock.quantity
+        })
+
         let displayModel = {
           itemCode: model.itemCode,
           model: model.model,
@@ -20,7 +25,7 @@ router.get('/', (req, res) => {
           dimension: model.dimension,
           barcode: model.barcode,
           stocks: allStock,
-          stocksAmt: allStock.length + 1
+          totalqty: total
         }
         allModelsDisplay.push(displayModel)
       }))
@@ -28,7 +33,7 @@ router.get('/', (req, res) => {
 
     Promise.all(promises)
     .then(() => {
-      res.render('inventory/index', {
+      res.render('inventory/allModels', {
         allModelsDisplay
       })
       // res.json(allModelsDisplay)
@@ -191,7 +196,6 @@ router.post('/models/:itemCode/newStock', (req, res) => {
   })
   newStock.save()
   .then(stock => {
-    console.log('stock save')
     // res.redirect(`/inventory`
     res.redirect(`/inventory/models/${itemCode}`)
 
@@ -210,6 +214,40 @@ router.get('/stocks', (req, res) => {
     })
   })
 })
+router.get('/stocks/new', (req, res) => {
+  FurnitureModel.find()
+  .then(furnitureModels => {
+    Location.find()
+    .then(locations => {
+      res.render('inventory/newStock', {
+        furnitureModels, locations
+      })
+    })
+    .catch(err => res.send(err))
+  })
+  .catch(err => {res.send("error")})
+})
+
+router.post('/stocks/new', (req, res) => {
+  const stockData = req.body.stock
+
+  let dataZone = stockData.zone.join(",").replace(/[,]/g, "")
+  let dataShelf = stockData.shelf.join(",").replace(/[,]/g, "")
+
+  let newStock = new FurnitureStock({
+    furnitureModel: stockData.furnitureModel,
+    quantity: stockData.quantity,
+    location: stockData.location,
+    zone: dataZone,
+    shelf: dataShelf
+  })
+  newStock.save()
+  .then(stock => {
+    res.redirect(`/inventory/stocks`)
+
+  }, err => res.redirect(`/inventory/stocks/new`))
+})
+
 router.get('/stocks/:id', (req, res) => {
   const stockId = req.params.id
 
@@ -218,7 +256,7 @@ router.get('/stocks/:id', (req, res) => {
   .populate('furnitureModel')
   .then( furnitureStock => {
 
-    res.render('inventory/stock', {
+    res.render('inventory/indivStock', {
       furnitureStock
     })
   })
@@ -270,7 +308,6 @@ router.delete('/stocks/:id', (req, res) => {
     res.redirect('/inventory/stocks')
   })
 })
-
 
 
 module.exports = router

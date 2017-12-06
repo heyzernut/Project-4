@@ -1,7 +1,6 @@
 $(document).ready(function(){
   $('#example').DataTable();
 
-
   //orderform function
   $('.orderType').on('change',function(){
     if( $(this).val()==="demo"){
@@ -31,9 +30,6 @@ $(document).ready(function(){
   });
 
 });
-
-
-
 
   // var FormStuff = {
   //

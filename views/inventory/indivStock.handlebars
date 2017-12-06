@@ -1,0 +1,48 @@
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Inventory</li>
+    <li class="breadcrumb-item"><a href="/inventory/stocks">stocks</a></li>
+    <li class="breadcrumb-item"></li>
+  </ol>
+</nav>
+
+<table class="table display" id="example">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Location</th>
+      <th scope="col">Zone</th>
+      <th scope="col">Self</th>
+      <th scope="col">Item Code</th>
+      <th scope="col">Model</th>
+      <th scope="col">Color</th>
+      <th scope="col">Dimension</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <th scope="row">{{@index}}</td>
+      <td>{{ furnitureStock.quantity}}</td>
+      <td>{{ furnitureStock.location.address}} ({{ furnitureStock.location.type}})</td>
+      <td>{{ furnitureStock.zone}}</td>
+      <td>{{ furnitureStock.shelf}}</td>
+      <td><a href="/inventory/models/{{ furnitureStock.furnitureModel.itemCode }}">{{ furnitureStock.furnitureModel.itemCode }}</a></td>
+      <td>{{ furnitureStock.furnitureModel.model }}</td>
+      <td>{{ furnitureStock.furnitureModel.color }}</td>
+      <td>{{ furnitureStock.furnitureModel.dimension }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<a href="/inventory/stocks/{{furnitureStock.id}}/edit"><button type="button" name="button">Edit</button></a>
+
+<form class="" action="/inventory/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
+  <button class="btn btn-info" type="submit" name="button">Delete</button>
+</form>
+{{!--
+<a href="/inventory/models/{{furnitureModel.itemCode}}/newStock"><button type="button" name="button">Add new stock</button></a>
+<form class="" action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
+  <button class="btn btn-info" type="submit" name="button">Delete</button>
+</form> --}}
