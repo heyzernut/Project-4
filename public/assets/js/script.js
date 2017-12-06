@@ -12,13 +12,13 @@ $('#selectLocation').on('change',function(){
      }
  });
 
-$(function(){
-  $('#selectLocation').on('change',function(){
-    if( $(this).val()==="Warehouse"){
-      $("#otherType").show()
+// $(function(){
+  $('#orderType').on('change',function(){
+    if( $(this).val()==="demo"){
+      $("#returnDate").show()
     }
     else{
-      $("#otherType").hide()
+      $("#returnDate").hide()
     }
   });
 
@@ -54,4 +54,4 @@ $(function(){
   // };
   // FormStuff.init();
 
-}
+// }
