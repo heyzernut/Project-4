@@ -84,10 +84,10 @@ router.post('/', (req,res)=>{
     Promise.all(promises)
     .then(() => {
       newOrder.save()
-      .then(()=> res.redirect('order/showAll'))
+      .then(()=>{})
       .catch((err)=> console.log(err.message))
     })
-  res.json(orderData)
+    res.redirect('orders')
   })
 
 //delivery trackingSchema
