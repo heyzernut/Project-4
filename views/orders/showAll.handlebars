@@ -35,8 +35,8 @@
         <td>{{order.deliveryTime}}</td>
         <td>{{order.deliveryAddress}}</td>
         <td>
-          <a href="orders/{{order.id}}?_method=DELETE">Delete</a>
-          <a href="/orders/{{order.id}}/tracking/{{tracking.id}}">Track</a>
+          <a href="/orders/{{order.id}}/tracking/{{tracking.id}}" class="btn btn-primary">Track</a>
+          <a href="orders/{{order.id}}?_method=DELETE" class="btn btn-danger">Delete</a>
         </tr>
         {{/each}}
     </tbody>

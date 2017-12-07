@@ -393,6 +393,14 @@ input[type="radio"]:checked ~ .reveal-if-active {
     padding-left: 0px;
   }
 
+  .trackingbox {
+    background-color: white;
+    padding: 20px;
+    border: 3px solid gray;
+    width: 89%;
+    margin: 50px 0px 0px 66px;
+  }
+
   /*
   * ==========================================================
   *     SIDEBAR
