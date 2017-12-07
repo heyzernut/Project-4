@@ -19,12 +19,11 @@ const hasLoggedOut = (req, res, next) => {
 }
 
 const adminOrEmployee = (req, res, next) => {
-  console.log(req.user)
-  // if(req.user.role.name === 'Admin' || req.user.role.name === 'Employee' ) {
-  //   next()
-  // } else {
-  //   res.redirect('/tracking')
-  // }
+  if(req.user.role.name === 'Admin' || req.user.role.name === 'Employee' ) {
+    next()
+  } else {
+    res.redirect('/tracking')
+  }
 }
 
 const adminOnly = (req, res, next) => {
