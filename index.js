@@ -141,7 +141,7 @@ app.get('/logout', hasLoggedOut, (req, res) => {
 //register routes
 app.use('/login', isLoggedIn, login_routes)
 app.use('/location', hasLoggedOut, adminOrEmployee, location_routes)
-app.use('/orders', hasLoggedOut, adminOrEmployee, delivery_routes)
+app.use('/orders', hasLoggedOut, delivery_routes)
 app.use('/suppliers', hasLoggedOut, adminOrEmployee, supplier_routes)
 app.use('/incomingstock', hasLoggedOut, adminOrEmployee, receivedstock_routes)
 app.use('/location', hasLoggedOut, adminOrEmployee, location_routes)

@@ -6,9 +6,11 @@ const moment = require('moment')
 const Customer = require('../models/customer')
 const Item =require('../models/orderItem')
 const FurnitureModel = require('../models/furnitureModel')
+const { adminOrEmployee } = require('../helpers')
+
 
 //show all delivery order
-router.get('/', (req,res)=>{
+router.get('/', adminOrEmployee, (req,res)=>{
   DeliveryOrder.find()
   .then((orders)=>{
     res.render('orders/showAll', {orders})
@@ -16,7 +18,7 @@ router.get('/', (req,res)=>{
 })
 
 //create new order
-router.get('/new', (req,res)=>{
+router.get('/new', adminOrEmployee, (req,res)=>{
   //today's data
   let today = moment().format("YYYY-MM-DD")
   //get customerm & furniture
@@ -30,7 +32,7 @@ router.get('/new', (req,res)=>{
   })
 
 })
-router.post('/', (req,res)=>{
+router.post('/', adminOrEmployee, (req,res)=>{
   let orderData = req.body
 
   // create a new delivery order
@@ -105,7 +107,7 @@ router.get('/:id/tracking', (req, res)=>{
 })
 
 //read & delete individual order
-router.get('/:id', (req, res)=>{
+router.get('/:id', adminOrEmployee, (req, res)=>{
   DeliveryOrder.findById(req.params.id)
   .populate(['items','reseller'])
   .then((order)=>{
