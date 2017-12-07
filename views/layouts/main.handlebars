@@ -61,26 +61,33 @@
 
 
           {{#compare user.role.name '!=' 'DeliveryMan'}}
-            <li class="active"> <a href="/"><i class="icon-home"></i>Dashboad</a></li>
-            <li> <a href="/orders"> <i class="icon-padnote"></i>Orders </a></li>
-            <li> <a href="/suppliers"> <i class="icon-grid"></i>Suppliers </a></li>
-            <li> <a href="/inventory"> <i class="fa fa-bar-chart"></i>Inventory </a></li>
-            <li><a href="#cusdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Customers </a>
+            <li class="active"> <a href="/"><i class="ion-speedometer"></i>Dashboad</a></li>
+            {{#compare user.role.name '==' 'Admin'}}
+            <li><a href="#staffdown" aria-expanded="false" data-toggle="collapse"> <i class="ion-android-person"></i>Admin</a>
+             <ul id="staffdown" class="collapse list-unstyled">
+              <li><a href="/staffs"><i class="ion-android-contacts"></i>Staff List</a></li>
+              <li><a href="/roles"><i class="ion-plus-round"></i>Add Roles</a></li>
+             </ul>
+            </li>
+            {{/compare}}
+              <li> <a href="/orders"> <i class="ion-clipboard"></i>Orders </a></li>
+            <li> <a href="/tracking"> <i class="ion-pinpoint"></i>Tracking </a></li>
+            <li> <a href="/suppliers"> <i class="ion-ios-people"></i>Suppliers </a></li>
+            <li><a href="#inventorydown" aria-expanded="false" data-toggle="collapse"><i class="ion-android-apps"></i>Inventory</a>
+               <ul id="inventorydown" class="collapse list-unstyled">
+                 <li><a href="/inventory"><i class="ion-android-clipboard"></i>Inventory List</a></li>
+                 <li><a href="/category"><i class="ion-plus-round"></i>Add Furniture Category</a></li>
+                 <li> <a href="/incomingstock"> <i class="ion-cube"></i>Incoming Stock</a></li>
+               </ul>
+            </li>
+            <li><a href="#cusdown" aria-expanded="false" data-toggle="collapse"> <i class="ion-android-contact"></i>Customers </a>
               <ul id="cusdown" class="collapse list-unstyled">
                 <li><a href="/customers">Customers List</a></li>
                 <li><a href="/customers/new">Add Customers</a></li>
               </ul>
             </li>
-            <li> <a href="/category"> <i class="icon-interface-windows"></i>Category</a></li>
-            <li> <a href="/incomingstock"> <i class="icon-interface-windows"></i>Stock</a></li>
-            {{#compare user.role.name '==' 'Admin'}}
-            <li> <a href="/roles"> <i class="icon-interface-windows"></i>Roles</a></li>
-            <li> <a href="/staffs"> <i class="icon-interface-windows"></i>Staffs</a></li>
-            <li> <a href="/tracking"> <i class="icon-padnote"></i>Tracking </a></li>
-            {{/compare}}
+            <li> <a href="/location"> <i class="ion-radio-waves"></i>Location</a></li>
           {{/compare}}
-
-
 
             {{#compare user.role.name '==' 'DeliveryMan'}}
             <li> <a href="/tracking"> <i class="icon-padnote"></i>Tracking </a></li>
