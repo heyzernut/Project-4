@@ -123,9 +123,12 @@ app.get('/furnituremodel', (req,res)=>{
 // NEW ROUTE - Suppliers
 app.use((req, res, next) => {
   app.locals.user = req.user
-  if (req.user) {
-    app.locals.admin = req.user.type === 'admin' ? req.user : null
-  }
+  // if (req.user) {
+  //   app.locals.admin = req.user.role.name === 'Admin'
+  //   app.locals.deliveryman = req.user.role.name === 'DeliveryMan'
+  //   app.locals.employee = req.user.role.name === 'Employee'
+  // }
+  // console.log(app.locals.user.role.name)
   next()
 })
 
@@ -138,7 +141,7 @@ app.get('/', (req, res) => {
 //this is for logout
 app.get('/logout', hasLoggedOut, (req, res) => {
   req.logout()
-  res.redirect('/')
+  res.redirect('/login')
 })
 
 //register routes

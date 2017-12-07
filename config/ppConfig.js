@@ -9,10 +9,12 @@ passport.serializeUser((user, next) => {
 
 passport.deserializeUser((id, next) => {
   console.log('==> id :', id)
-  User.findById(id, function (err, user) {
-      console.log('deserializeUser', user)
-    next(err, user)
-  })
+  User.findById(id)
+    .populate('role')
+    .then((user) => {
+      return next(null, user)
+    })
+    .catch((err) => next(err, null))
 })
 
 passport.use(new LocalStrategy({

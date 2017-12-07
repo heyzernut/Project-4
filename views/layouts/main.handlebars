@@ -38,7 +38,7 @@
                 {{#if user}}
                 <li class="nav-item"><a href="/logout" class="nav-link logout">Logout<i class="ion-arrow-return-right"></i></a></li>
                 {{else}}
-                <li class="nav-item"><a href="/login" class="nav-link logout">Login<i class="ion-arrow-return-right"></i></a></li>
+                <li class="nav-item"><a href="/login" class="nav-link logout">Login<i class="ion-arrow-return-left"></i></a></li>
                 {{/if}}
               </ul>
             </div>
@@ -50,15 +50,19 @@
         <nav class="side-navbar">
           <!-- Sidebar Header-->
           <div class="sidebar-header d-flex align-items-center">
+            {{#if user}}
             <div class="title">
-              <h1 class="h4">Admin Name Here</h1>
-              <p>Role here</p>
+              <h1 class="h4">{{user.name}}</h1>
+              <p>{{user.role.name}}</p>
               <hr>
             </div>
           </div>
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
-          {{#if user}}
+
           <ul class="list-unstyled">
+
+
+          {{#compare user.role.name '!=' 'DeliveryMan'}}
             <li class="active"> <a href="/"><i class="icon-home"></i>Dashboad</a></li>
             <li> <a href="/orders"> <i class="icon-padnote"></i>Orders </a></li>
             <li> <a href="/suppliers"> <i class="icon-grid"></i>Suppliers </a></li>
@@ -69,10 +73,22 @@
                 <li><a href="/customers/new">Add Customers</a></li>
               </ul>
             </li>
-            <li> <a href="/roles"> <i class="icon-interface-windows"></i>Roles</a></li>
-            <li> <a href="/staffs"> <i class="icon-interface-windows"></i>Staffs</a></li>
             <li> <a href="/category"> <i class="icon-interface-windows"></i>Category</a></li>
             <li> <a href="/incomingstock"> <i class="icon-interface-windows"></i>Stock</a></li>
+            {{#compare user.role.name '==' 'Admin'}}
+            <li> <a href="/roles"> <i class="icon-interface-windows"></i>Roles</a></li>
+            <li> <a href="/staffs"> <i class="icon-interface-windows"></i>Staffs</a></li>
+            <li> <a href="/tracking"> <i class="icon-padnote"></i>Tracking </a></li>
+            {{/compare}}
+          {{/compare}}
+
+
+
+            {{#compare user.role.name '==' 'DeliveryMan'}}
+            <li> <a href="/tracking"> <i class="icon-padnote"></i>Tracking </a></li>
+            {{/compare}}
+
+
           </ul>
           {{/if}}
         </nav>
