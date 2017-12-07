@@ -77,25 +77,26 @@
           <input type="text" name="address" class="form-control" value="{{customer.address}}">
         </div>
       </div>
+
       <table id="orderItems" class="table table-striped">
         <thead>
           <tr>
             <th>Model</th>
-            <th>Order Type</th>
-            <th>ReturnDate</th>
+            {{!-- <th>Order Type</th> --}}
+            {{!-- <th>ReturnDate</th> --}}
             <th>Quantity</th>
             <th><button type="button" name="button" id="addRow">+</button></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><input type="text" id="row-1-model" name="model" placeholder="Model"></td>
-            <td><select size="1" id="row-1-orderType" class="orderType" name="orderType">
-              <option value="sales" selected="selected">Sales</option>
-              <option value="demo">Demo</option>
-            </select>
-          </td>
-          <td><input type="date" id="row-1-returnDate" class="returnDate" name="returnDate" disabled></td>
+            <td><input type="text" id="row-1-model" name="model" placeholder="Model" required></td>
+            {{!-- <td><select size="1" id="row-1-orderType" class="orderType" name="orderType"> --}}
+              {{!-- <option value="sales" selected="selected">Sales</option> --}}
+              {{!-- <option value="demo">Demo</option> --}}
+            {{!-- </select> --}}
+          {{!-- </td> --}}
+          {{!-- <td><input type="date" id="row-1-returnDate" class="returnDate" name="returnDate" disabled></td> --}}
           <td><input type="number" id="row-1-orderQuantity" name="orderQuantity" value="1"></td>
           <td></td>
         </tr>

@@ -1,46 +1,91 @@
-<h2>{{ incomingstock.supplier.name }}</h2>
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page"><a href="/incomingstock">Incoming Stock</a></li>
+    <li class="breadcrumb-item">{{ incomingstock.supplier }}</li>
+  </ol>
+</nav>
 
-<form action="/incomingstock/{{ incomingstock.id }}?_method=PUT" method="post">
+<div class="container-fluid">
 
-  <label for="invoice">Invoice No:</label>
-  <input type="text" class="form-control" name="stock[invoiceNo]" value="{{ incomingstock.invoiceNo }}"> <br>
-  <label for="batch">Batch No.</label>
-  <input type="text" class="form-control" name="stock[batchNo]" value="{{ incomingstock.batchNo }}"> <br>
-  <label for="lot">Lot No:</label>
-  <input type="text" class="form-control" name="stock[lotNo]" value="{{ incomingstock.lotNo }}"> <br>
-  <label for="payment-type">Payment method:</label>
-  <select type="text" class="form-control" name="stock[paymentMethod]" value="{{ incomingstock.paymentMethod }}">
-    <option value="Cheque">Cheque</option>
-    <option value="Cash">Cash</option>
-  </select>
-  <br>
-  <label for="payment-status">Payment Status</label>
-  <select type="text" class="form-control" name="stock[paymentStatus]" value="{{ incomingstock.paymentStatus }}">
-    <option value="Pending">Pending</option>
-    <option value="Imcomplete">Imcomplete</option>
-    <option value="Paid">Paid</option>
-  </select><br>
-  <label for="cheque">Cheque No</label>
-  <input type="text" class="form-control" name="stock[chqNo]" value="{{ incomingstock.chqNo }}"> <br>
+  <div class="col-lg-12" style="margin-top: 25px;">
+    <div class="card">
+      <div class="card-close">
+        <form action="/incomingstock/{{ incomingstock.id }}?_method=DELETE" method="POST">
+          <button type="submit" class="btn btn-danger" name="button"><i class="ion-trash-b"></i> Delete</button>
+        </form>
+      </div>
+      <div class="card-header d-flex align-items-center">
+        <h3 class="h4">Update Stock</h3>
+      </div>
+      <div class="card-body">
+        <form action="/incomingstock/{{ incomingstock.id }}?_method=PUT" method="post">
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label class="form-control-label" for="invoice">Invoice No</label>
+              <input type="text" class="form-control" name="stock[invoiceNo]" value="{{ incomingstock.invoiceNo }}">
+            </div>
+            <div class="col-sm-4">
+              <label class="form-control-label" for="batch">Batch No.</label>
+              <input type="text" class="form-control" name="stock[batchNo]" value="{{ incomingstock.batchNo }}">
+            </div>
+            <div class="col-sm-4">
+              <label class="form-control-label" for="lot">Lot No</label>
+              <input type="text" class="form-control" name="stock[lotNo]" value="{{ incomingstock.lotNo }}">
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="form-group row">
 
-  <label for="supplier">Supplier</label>
-  <select type="text" class="form-control" name="stock[supplier]>
-    {{#each supplier as |supplierEach|}}
-    <option value="{{ supplierEach.name }}">{{supplierEach.name}}</option>
-    {{/each}}
-  </select>
-  <br>
-  <label for="furniture-model">Furniture Model</label>
-  <select type="text" class="form-control" name="stock[furnitureModel]">
-    {{#each furnitureModel as |fModel|}}
-    <option value="{{fModel.model}}">{{fModel.model}}</option>
-    {{/each}}
-  </select>
+            <div class="col-sm-6">
+              <label class="form-control-label" for="payment-type">Payment method</label>
+              <select type="text" class="form-control" name="stock[paymentMethod]" value="{{ incomingstock.paymentMethod }}">
+                <option value="Cheque">Cheque</option>
+                <option value="Cash">Cash</option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+            <label class="form-control-label" for="payment-status">Payment Status</label>
+            <select type="text" class="form-control" name="stock[paymentStatus]" value="{{ incomingstock.paymentStatus }}">
+              <option value="Pending">Pending</option>
+              <option value="Incomplete">Incomplete</option>
+              <option value="Paid">Paid</option>
+            </select>
+          </div>
+          </div>
 
-<button type="submit" class="btn btn-warning btn-block" name="button>
-<span class="glyphicon glyphicon-save"></span> UPDATE STOCK</button>
-</form>
+          <div class="line"></div>
 
-<form action="/incomingstock/{{ incomingstock.id }}?_method=DELETE" method="POST">
-  <button type="submit" class="btn btn-danger">Delete</button>
-</form>
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label class="form-control-label" for="cheque">Cheque No</label>
+              <input class="form-control" name="stock[chqNo]" value="{{ incomingstock.chqNo }}">
+            </div>
+            <div class="col-sm-4">
+              <label class="form-control-label" for="supplier">Supplier</label>
+              <select type="text" class="form-control" name="stock[supplier]>
+                {{#each supplier as |supplierEach|}}
+                <option value="{{ supplierEach.name }}">{{supplierEach.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="col-sm-4">
+              <label class="form-control-label" for="furniture-model">Furniture Model</label>
+              <select type="text" class="form-control" name="stock[furnitureModel]">
+                {{#each furnitureModel as |fModel|}}
+                <option value="{{fModel.model}}">{{fModel.model}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+
+          <div class="line"></div>
+          <div class="form-group">
+            <a href="/incomingstock" class="btn btn-secondary" role="button" aria-pressed="true">Cancel</a>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div>

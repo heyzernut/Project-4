@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
   .populate("supplier")
   .populate("furnitureModel")
   .then(incomingstock => {
+    console.log(incomingstock)
     res.render('receivedstock/stock', {
       incomingstock
     })
