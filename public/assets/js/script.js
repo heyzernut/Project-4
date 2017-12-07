@@ -21,10 +21,24 @@ $('#selectLocation').on('change',function(){
     }
   });
 
+  // Autocomplete
+  var options = {
+    url: function(phrase) {
+      return "/furnituremodel";
+    },
+    getValue: "itemCode"
+  };
+
+  var autocomplete = function(){
+    $(".provider-remote").easyAutocomplete(options);
+  }
+  autocomplete()
+
   //add rows
   $( "#addRow" ).click(function() {
-    const markup = '<tr><td><input type="text" id="provider-remote" name="model" placeholder="Model" required/></td><td><select size="1" id="row-1-orderType" class="orderType" name="orderType"><option value="sales" selected="selected">Sales</option><option value="demo">Demo</option></select></td><td><input type="date" id="row-1-returnDate" class="returnDate" name="returnDate" style="display: none"></td><td><input type="number" id="row-1-orderQuantity" name="orderQuantity" value="1"></td><td></td></tr>'
+    const markup = '<tr><td><input type="text" class="provider-remote" name="model" placeholder="Model" required/></td><td><select size="1" id="row-1-orderType" class="orderType" name="orderType"><option value="sales" selected="selected">Sales</option><option value="demo">Demo</option></select></td><td><input type="date" id="row-1-returnDate" class="returnDate" name="returnDate" style="display: none"></td><td><input type="number" id="row-1-orderQuantity" name="orderQuantity" value="1"></td><td></td></tr>'
     $("#orderItems>tbody").append(markup);
+    autocomplete()
   });
 
   //location form
@@ -40,18 +54,8 @@ $('#selectLocation').on('change',function(){
 
 });
 
-  // Autocomplete
-  var options = {
-  	url: function(phrase) {
-  		return "/furnituremodel";
-  	},
 
-  	getValue: "model"
-  };
-
-  $("#provider-remote").easyAutocomplete(options);
-
-
+  //tracking
   $('#trackingStatus').on('change',function(){
        if( $(this).val()==="Received with issues"){
        $("#trackingComment").show()
