@@ -32,7 +32,7 @@ const FurnitureModel = require('./models/furnitureModel')
 const app = express()
 
 // require all my route files
-const login_routes = require('./routes/login_routes')
+// const login_routes = require('./routes/login_routes')
 const customer_routes = require('./routes/customer_routes')
 const role_routes = require('./routes/role_routes')
 const staff_routes = require('./routes/staff_routes')
@@ -142,7 +142,7 @@ app.get('/logout', hasLoggedOut, (req, res) => {
 })
 
 //register routes
-app.use('/login', isLoggedIn, login_routes)
+// app.use('/login', isLoggedIn, login_routes)
 app.use('/location', location_routes)
 app.use('/orders', delivery_routes)
 app.use('/suppliers', supplier_routes)
