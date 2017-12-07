@@ -42,6 +42,8 @@ const supplier_routes = require('./routes/supplier_routes')
 const receivedstock_routes = require('./routes/receivedstock_routes')
 const inventory_routes = require('./routes/inventory_routes')
 const tracking_routes = require('./routes/tracking_routes')
+const audit_routes = require('./routes/audit_routes')
+
 
 
 // VIEW ENGINES aka handlebars setup
@@ -144,6 +146,8 @@ app.use('/staffs', staff_routes)
 app.use('/category', category_routes)
 app.use('/inventory', inventory_routes)
 app.use('/tracking', tracking_routes)
+app.use('/audit', audit_routes)
+
 
 
 //homepage

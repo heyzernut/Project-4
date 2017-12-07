@@ -1,0 +1,59 @@
+<h3 class="display-4 text-center">
+<p>Audit</p>
+</h3>
+
+{{#each trackings as |tracky|}}
+{{tracky}}
+{{/each}}
+<div class="container">
+  <table class="table display" id="example">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Address</th>
+        <th scope="col">Type</th>
+        <th scope="col">Zone</th>
+        <th scope="col">Shelf</th>
+        <th scope="col">Edit/Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each locations as |loca|}}
+        <tr>
+          <th scope="row">{{@index}}</th>
+          <td>{{loca.address}}</td>
+          <td>{{loca.type}}</td>
+          <div id="exampleAccordion" data-children=".item">
+            <td>
+              {{#each loca.zone}}
+                {{#if loca.zone.length}}
+                  {{#if @first}}
+                    {{ this }} to
+                  {{/if}}
+                  {{#if @last}}
+                    {{ this }}
+                  {{/if}}
+                {{/if}}
+              {{/each}}
+            </td>
+            <td>
+              {{#contains loca.type "Warehouse"}}
+                {{#each loca.shelf}}
+                  {{#if @first}}
+                    {{ this }} to
+                  {{/if}}
+                  {{#if @last}}
+                    {{ this }}
+                  {{/if}}
+                {{/each}}
+              {{/contains}}
+            </td>
+          </div>
+          <td>
+            <a href="/location/{{loca._id}}" class="btn btn-primary">Edit/Delete</a>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
