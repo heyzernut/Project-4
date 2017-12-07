@@ -7,6 +7,7 @@ const Customer = require('../models/customer')
 const Item =require('../models/orderItem')
 const FurnitureModel = require('../models/furnitureModel')
 const { adminOrEmployee } = require('../helpers')
+const FurnitureStock = require('../models/furnitureStock')
 
 
 //show all delivery order
