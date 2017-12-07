@@ -1,0 +1,52 @@
+<div class="page login-page">
+  <div class="container d-flex align-items-center">
+    <div class="form-holder has-shadow">
+      <div class="row">
+
+        <div class="col-lg-6">
+          <div class="info d-flex align-items-center">
+            <div class="content">
+              <div class="logo">
+                <h1>Inventory Management</h1>
+              </div>
+              <p>Please Login to access</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Panel    -->
+        <div class="col-lg-6 bg-white">
+          <div class="form d-flex align-items-center">
+            <div class="content">
+              <form id="login-form" action="/login" method="post">
+
+                <table>
+
+                  <tr>
+                    <td>Name</td>
+                    <td>:</td>
+                    <td><input type="text" name="user[txtName]"></td>
+                  </tr>
+
+                  <tr>
+                    <td>Password</td>
+                    <td>:</td>
+                    <td><input type="password" name="user[txtPassword]"></td>
+                  </tr>
+
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td><button id="login" type="submit" class="btn btn-dark">Login</button></td>
+                  </tr>
+
+                </table>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

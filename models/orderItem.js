@@ -6,10 +6,7 @@ const orderItemSchema = new Schema({
   quantity_ordered: Number,
   return_date: Date,
   order_type: String,
-  furnitureModel: {
-    type: Schema.Types.ObjectId,
-    ref: 'FurnitureModel'
-  },
+  itemCode: String ,
   deliveryOrderId: {
     type: Schema.Types.ObjectId,
     ref: 'DeliveryOrder'

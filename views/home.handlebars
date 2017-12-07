@@ -1,3 +1,4 @@
+{{#if user}}
 <header class="page-header">
   <div class="container-fluid">
     <div class="clearfix">
@@ -25,11 +26,11 @@
         </div>
         </a>
         <!-- Item -->
-        <a href="/orders" class="dashborder">
+        <a href="/tracking" class="dashborder">
         <div class="col-xl-3 col-sm-6">
           <div class="item d-flex align-items-center">
             <div class="icon bg-red"><i class="ion-android-clipboard"></i></div>
-            <div class="title"><span>Latest<br>Delivery</span>
+            <div class="title"><span>All<br>Delivery</span>
               <div class="progress">
                 <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
               </div>
@@ -69,3 +70,66 @@
       </div>
     </div>
   </section>
+
+  {{#each incomingstock as | stock |}}
+    {{stock.invoiceNo}} | {{stock.batchNo}} | {{stock.lotNo}}
+  {{/each}}
+  {{else}}
+  <div class="page login-page">
+    <div class="container d-flex align-items-center">
+      <div class="form-holder has-shadow">
+        <div class="row">
+
+          <div class="col-lg-6">
+            <div class="info d-flex align-items-center">
+              <div class="content">
+                <div class="logo">
+                  <h1>Inventory Managment</h1>
+                </div>
+                <p>Please Login to access</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Panel    -->
+          <div class="col-lg-6 bg-white">
+            <div class="form d-flex align-items-center">
+              <div class="content">
+                <form id="login-form" action="/login" method="post">
+
+                  <table>
+
+                    <tr>
+                      <td>Name</td>
+                      <td>:</td>
+                      <td><input type="text" name="user[txtName]"></td>
+                    </tr>
+
+                    <tr>
+                      <td>Password</td>
+                      <td>:</td>
+                      <td><input type="password" name="user[txtPassword]"></td>
+                    </tr>
+
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td><button id="login" type="submit" class="btn btn-dark">Login</button></td>
+                    </tr>
+
+                  </table>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyrights text-center">
+      <p>Design by <a href="https://bootstrapious.com/admin-templates" class="external">Bootstrapious</a></p>
+      <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+    </div>
+  </div>
+
+{{/if}}

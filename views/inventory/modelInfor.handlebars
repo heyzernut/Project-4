@@ -7,72 +7,72 @@
   </ol>
 </nav>
 
-<table class="table display" >
-  <tr>
-    <th>Item Code</th>
-    <th>Model</th>
-    <th>Color</th>
-    <th>Dimension</th>
-    <th>Barcode</th>
-  </tr>
-
-
-  <tr>
-    <td>{{ furnitureModel.itemCode }}</td>
-    <td>{{ furnitureModel.model }}</td>
-    <td>{{ furnitureModel.color }}</td>
-    <td>{{ furnitureModel.dimension }}</td>
-    <td>{{ furnitureModel.barcode }}</td>
-  </tr>
-</table>
-<a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" name="button">Edit</button></a>
-
-<form class="" action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
-  <button class="btn btn-info" type="submit" name="button">Delete</button>
-</form>
-<div class="">
+<div class="container">
   <div>
-    <h4>Stocks: </h4>
-    <a href="/inventory/models/{{furnitureModel.itemCode}}/newStock"><button type="button" name="button">Add new stock</button></a>
+    <h5>Item Code: {{ furnitureModel.itemCode }}</h5>
+    <h5>Model: {{ furnitureModel.model }}</h5>
+    <h5>Category: {{ furnitureModel.category.name }}</h5>
+    <h5>Color: {{ furnitureModel.color}}</h5>
+    <h5>Dimension: {{ furnitureModel.dimension }}</h5>
+    <h5>Barcode: {{ furnitureModel.barcode }}</h5>
+
   </div>
-  <table class="table display" id="example">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Location</th>
-        <th scope="col">Zone</th>
-        <th scope="col">Shelf</th>
-        <th scope="col">Details view</th>
-        <th scope="col">Delete</th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-        <th>Total</th>
-        <td>{{total}}</td>
-        <td colspan="5"></td>
 
-      </tr>
+  <a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" name="button">Edit</button></a>
 
-    </tfoot>
-    <tbody>
-      {{#each furnitureStocks as |stock| }}
-      <tr>
-        <th scope="row">{{@index}}</th>
-        <td>{{ stock.quantity}}</td>
-        <td>{{ stock.location.address}} ({{ stock.location.type}})</td>
-        <td>{{ stock.zone}}</td>
-        <td>{{ stock.shelf}}</td>
-        <td><a href="/inventory/stocks/{{ stock.id}}"><button type="button" name="button">View Infor</button></a></td>
-        <td>
-          <form class="" action="/inventory/stocks/{{stock.id}}?_method=DELETE" method="post">
-            <button class="btn btn-info" type="submit" name="button">Delete</button>
-          </form>
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
+  <form class="" action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
+    <button class="btn btn-info" type="submit" name="button">Delete</button>
+  </form>
+  <div class="">
+    <div>
+      <h4>Stocks: </h4>
+      <a href="/inventory/models/{{furnitureModel.itemCode}}/newStock"><button type="button" name="button">Add new stock</button></a>
+    </div>
+
+    <table class="table display" id="example">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Location</th>
+          <th scope="col">Zone</th>
+          <th scope="col">Shelf</th>
+          <th scope="col">Details view</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th>Total</th>
+          <td>{{total}}</td>
+          <td colspan="6"></td>
+
+        </tr>
+
+      </tfoot>
+      <tbody>
+        {{#each furnitureStocks as |stock| }}
+        <tr>
+          <th scope="row">{{@index}}</th>
+          <td>{{ stock.quantity}}</td>
+          <td>{{ stock.location.address}} ({{ stock.location.type}})</td>
+          <td>{{ stock.zone}}</td>
+          <td>{{ stock.shelf}}</td>
+          <td><a href="/inventory/stocks/{{ stock.id}}"><button type="button" name="button">View Infor</button></a></td>
+          <td>
+            <a href="/inventory/stocks/{{ stock.id}}/edit"><button type="button" name="button">Edit</button></a>
+          </td>
+          <td>
+            <form class="" action="/inventory/stocks/{{stock.id}}?_method=DELETE" method="post">
+              <button class="btn btn-info" type="submit" name="button">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+  </div>
 
 </div>

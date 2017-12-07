@@ -6,10 +6,11 @@ const moment = require('moment')
 const Customer = require('../models/customer')
 const Item =require('../models/orderItem')
 const FurnitureModel = require('../models/furnitureModel')
-const FurnitureStock = require('../models/furnitureStock')
+const { adminOrEmployee } = require('../helpers')
+
 
 //show all delivery order
-router.get('/', (req,res)=>{
+router.get('/', adminOrEmployee, (req,res)=>{
   DeliveryOrder.find()
   .then((orders)=>{
     res.render('orders/showAll', {orders})
@@ -17,7 +18,7 @@ router.get('/', (req,res)=>{
 })
 
 //create new order
-router.get('/new', (req,res)=>{
+router.get('/new', adminOrEmployee, (req,res)=>{
   //today's data
   let today = moment().format("YYYY-MM-DD")
   //get customerm & furniture
@@ -36,7 +37,7 @@ router.get('/new', (req,res)=>{
   })
 
 })
-router.post('/', (req,res)=>{
+router.post('/', adminOrEmployee, (req,res)=>{
   let orderData = req.body
 
   // create a new delivery order
@@ -54,11 +55,11 @@ router.post('/', (req,res)=>{
 
   //Add orderItem
   if ((typeof orderData.model)==="string"){
-    const newItem = new Item({
+      const newItem = new Item({
         quantity_ordered: orderData.orderQuantity,
         return_date: orderData.returnDate,
         order_type: orderData.orderType,
-        // furnitureStockId: ,
+        itemCode: orderData.model,
         deliveryOrderId: newOrder.id
       })
       newItem.save()
@@ -71,7 +72,7 @@ router.post('/', (req,res)=>{
         quantity_ordered: orderData.orderQuantity[i],
         return_date: orderData.returnDate[i],
         order_type: orderData.orderType[i],
-        furnitureStockId: orderData.model[i],
+        itemCode: orderData.model[i],
         deliveryOrderId: newOrder.id
       })
       promises.push(newItem.save()
@@ -86,15 +87,14 @@ router.post('/', (req,res)=>{
     order: newOrder.id
   })
     newTracking.save()
-    newOrder.save()
 
     Promise.all(promises)
     .then(() => {
       newOrder.save()
-      .then(()=> res.json(orderData))
+      .then(()=>{})
       .catch((err)=> console.log(err.message))
     })
-  res.json(orderData)
+    res.redirect('orders')
   })
 
 //delivery trackingSchema
@@ -112,7 +112,7 @@ router.get('/:id/tracking', (req, res)=>{
 })
 
 //read & delete individual order
-router.get('/:id', (req, res)=>{
+router.get('/:id', adminOrEmployee, (req, res)=>{
   DeliveryOrder.findById(req.params.id)
   .populate(['items','reseller'])
   .then((order)=>{
