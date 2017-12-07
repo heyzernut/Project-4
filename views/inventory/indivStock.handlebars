@@ -21,6 +21,8 @@
         <th scope="col">Model</th>
         <th scope="col">Color</th>
         <th scope="col">Dimension</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
       </tr>
     </thead>
 
@@ -35,15 +37,18 @@
         <td>{{ furnitureStock.furnitureModel.model }}</td>
         <td>{{ furnitureStock.furnitureModel.color }}</td>
         <td>{{ furnitureStock.furnitureModel.dimension }}</td>
+        <td><a href="/inventory/stocks/{{furnitureStock.id}}/edit"><button type="button" class="btn btn-primary" name="button">Edit</button></a></td>
+        <td>
+        <form class="" action="/inventory/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
+          <button class="btn btn-danger" type="submit" name="button">Delete</button>
+        </form>
+        </td>
+
       </tr>
     </tbody>
   </table>
 
-  <a href="/inventory/stocks/{{furnitureStock.id}}/edit"><button type="button" name="button">Edit</button></a>
 
-  <form class="" action="/inventory/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
-    <button class="btn btn-info" type="submit" name="button">Delete</button>
-  </form>
   </div>
 </div>
 {{!--
