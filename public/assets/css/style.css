@@ -147,6 +147,10 @@ input[type="radio"]:checked ~ .reveal-if-active {
     color: blue;
   }
 
+  .modal-content {
+    margin-top: 20%;
+  }
+
   *[class*="icon-"] {
     -webkit-transform: translateY(3px);
     transform: translateY(3px);
@@ -160,6 +164,11 @@ input[type="radio"]:checked ~ .reveal-if-active {
     /*border-radius: 0px;*/
     font-size: 14px;
     padding: 5px 10px;
+  }
+
+  .dashborder {
+    border-right:1px solid #eee;
+    padding-right: 5%;
   }
 
   .card {
