@@ -14,23 +14,53 @@
 </nav>
 
 
+
 <div class="container">
-  <h1 class="text-center">
-    <p>Invoice Number: {{order.invoiceNo}}</p>
-  </h1>
-
-  <h6><span>Date of Order: {{order.formattedDate}}<span></h6  >
-
-  <h6>Details:</h6>
-  <p>Quotation No.: {{order.quotationNo}} &emsp;<p>
-  <p><span>Customer: {{order.reseller.name}} &emsp;</span>
-     <span>Delivery Time: {{order.deliveryTime}} &emsp;</span>
-     <span>Delivery Address: {{order.deliveryAddress}} &emsp;</span>
-     <span>Shipping Cost: ${{order.shippingCost}}</span>
-  </p>
-
-  <h6>Terms of Delivery:</h6>
-  <p>{{order.termOfDelivery}}</p>
+  <br>
+  <form>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Date of Order</label>
+      <div class="col-sm-10">
+        <p class="form-control-static">{{order.formattedDate}}</p>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Quotation No.</label>
+      <div class="col-sm-10">
+        <p class="form-control-static">{{order.quotationNo}}</p>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Customer</label>
+      <div class="col-sm-10">
+        <p class="form-control-static">{{order.reseller.name}}</p>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Delivery Time</label>
+      <div class="col-sm-10">
+        <p class="form-control-static">{{order.deliveryTime}}</p>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Delivery Address</label>
+      <div class="col-sm-10">
+        <p class="form-control-static">{{order.deliveryAddress}}</p>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Shipping Cost</label>
+      <div class="col-sm-10">
+        <p class="form-control-static">${{order.shippingCost}}</p>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Terms of Delivery</label>
+      <div class="col-sm-10">
+        <p class="form-control-static">{{order.termOfDelivery}}</p>
+      </div>
+    </div>
+  </form>
 
 <div class="container">
   <table class="table table-sm">
