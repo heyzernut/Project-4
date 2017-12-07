@@ -13,7 +13,7 @@ const MongoStore = require('connect-mongo')(session)
 const cors = require('cors')
 
 const passport = require('./config/ppConfig')
-const { hasLoggedOut, isLoggedIn, adminOrEmployee, adminOnly} = require('./helpers')
+const { hasLoggedOut, isLoggedIn, adminOrEmployee, adminOnly, employeeOnly} = require('./helpers')
 const helpers = require('handlebars-helpers')();
 
 
@@ -42,6 +42,8 @@ const receivedstock_routes = require('./routes/receivedstock_routes')
 const inventory_routes = require('./routes/inventory_routes')
 const delivery_routes = require('./routes/delivery_routes')
 const tracking_routes = require('./routes/tracking_routes')
+const audit_routes = require('./routes/audit_routes')
+
 
 
 // VIEW ENGINES aka handlebars setup
@@ -128,7 +130,7 @@ app.use((req, res, next) => {
 
 
 //homepage
-app.get('/', adminOrEmployee, (req, res) => {
+app.get('/', employeeOnly, (req, res) => {
   res.render('home')
 })
 
@@ -151,6 +153,7 @@ app.use('/staffs', hasLoggedOut, adminOnly, staff_routes)
 app.use('/category', hasLoggedOut, adminOrEmployee, category_routes)
 app.use('/inventory', hasLoggedOut, adminOrEmployee, inventory_routes)
 app.use('/tracking', hasLoggedOut, tracking_routes)
+app.use('/audit', audit_routes)
 
 
 
