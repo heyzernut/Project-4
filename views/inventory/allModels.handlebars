@@ -73,8 +73,7 @@
            {{#each furnitureModel.stocks as |stock| }}
                <div>
                  <a href="/inventory/stocks/{{stock.id}}">
-                   {{ stock.quantity}} qty :
-                   {{ stock.location.address}} ({{ stock.location.type}} {{ stock.zone}}{{ stock.shelf}})
+                   {{ stock.location.address}} ({{ stock.location.type}} {{ stock.zone}} {{ stock.shelf}}) : {{ stock.quantity}} qty 
                  </a>
                </div>
            {{/each}}
