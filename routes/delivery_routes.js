@@ -84,7 +84,7 @@ router.post('/', (req,res)=>{
     Promise.all(promises)
     .then(() => {
       newOrder.save()
-      .then(()=> res.json(newOrder))
+      .then(()=> res.redirect('order/showAll'))
       .catch((err)=> console.log(err.message))
     })
   res.json(orderData)
