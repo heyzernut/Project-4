@@ -8,6 +8,10 @@ const receivedStockSchema = new Schema({
   paymentMethod: String,
   paymentStatus: String,
   chqNo: Number,
+  dateCreated: {
+    type: Date,
+    default: Date.now
+  },
   supplier: {
     type: Schema.Types.ObjectId,
     ref: 'Supplier'

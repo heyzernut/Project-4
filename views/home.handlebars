@@ -69,3 +69,7 @@
       </div>
     </div>
   </section>
+
+  {{#each incomingstock as | stock |}}
+    {{stock.invoiceNo}} | {{stock.batchNo}} | {{stock.lotNo}}
+  {{/each}}
