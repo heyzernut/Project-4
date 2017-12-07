@@ -13,7 +13,7 @@ const MongoStore = require('connect-mongo')(session)
 const cors = require('cors')
 
 const passport = require('./config/ppConfig')
-const { hasLoggedOut, isLoggedIn } = require('./helpers')
+const { hasLoggedOut, isLoggedIn, adminOrEmployee, adminOnly} = require('./helpers')
 const helpers = require('handlebars-helpers')();
 
 
@@ -128,7 +128,7 @@ app.use((req, res, next) => {
 
 
 //homepage
-app.get('/', (req, res) => {
+app.get('/', adminOrEmployee, (req, res) => {
   res.render('home')
 })
 
@@ -140,16 +140,16 @@ app.get('/logout', hasLoggedOut, (req, res) => {
 
 //register routes
 app.use('/login', isLoggedIn, login_routes)
-app.use('/location', hasLoggedOut, location_routes)
-app.use('/orders', hasLoggedOut, delivery_routes)
-app.use('/suppliers', hasLoggedOut, supplier_routes)
-app.use('/incomingstock', hasLoggedOut, receivedstock_routes)
-app.use('/location', hasLoggedOut, location_routes)
-app.use('/customers', hasLoggedOut, customer_routes)
-app.use('/roles', hasLoggedOut, role_routes)
-app.use('/staffs', hasLoggedOut, staff_routes)
-app.use('/category', hasLoggedOut, category_routes)
-app.use('/inventory', hasLoggedOut, inventory_routes)
+app.use('/location', hasLoggedOut, adminOrEmployee, location_routes)
+app.use('/orders', hasLoggedOut, adminOrEmployee, delivery_routes)
+app.use('/suppliers', hasLoggedOut, adminOrEmployee, supplier_routes)
+app.use('/incomingstock', hasLoggedOut, adminOrEmployee, receivedstock_routes)
+app.use('/location', hasLoggedOut, adminOrEmployee, location_routes)
+app.use('/customers', hasLoggedOut, adminOrEmployee, customer_routes)
+app.use('/roles', hasLoggedOut, adminOnly, role_routes)
+app.use('/staffs', hasLoggedOut, adminOnly, staff_routes)
+app.use('/category', hasLoggedOut, adminOrEmployee, category_routes)
+app.use('/inventory', hasLoggedOut, adminOrEmployee, inventory_routes)
 app.use('/tracking', hasLoggedOut, tracking_routes)
 
 
