@@ -393,6 +393,11 @@ input[type="radio"]:checked ~ .reveal-if-active {
     padding-left: 0px;
   }
 
+  .col-form-label {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
   .trackingbox {
     background-color: white;
     padding: 20px;
