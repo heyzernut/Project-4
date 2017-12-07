@@ -18,7 +18,28 @@ const hasLoggedOut = (req, res, next) => {
   }
 }
 
+const adminOrEmployee = (req, res, next) => {
+  if(req.user.role.name === 'Admin' || req.user.role.name === 'Employee' ) {
+    next()
+  } else {
+    res.redirect('/tracking')
+  }
+}
+
+const adminOnly = (req, res, next) => {
+  if(req.user.role.name === 'Admin') {
+    next()
+  } else if (req.user.role.name === 'Employee') {
+    res.redirect('/')
+  }
+  else {
+    res.redirect('/tracking')
+  }
+}
+
 module.exports = {
   hasLoggedOut,
-  isLoggedIn
+  isLoggedIn,
+  adminOrEmployee,
+  adminOnly
 }
