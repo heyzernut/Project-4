@@ -1,1 +1,37 @@
-<h1>Orders</h1>
+<header class="page-header">
+  <div class="container-fluid">
+    <div class="clearfix">
+    <h2 class="no-margin-bottom float-left" >Tracking</h2>
+    </div>
+  </div>
+</header>
+
+<div class="jumbotron">
+  <p >Invoice Number: {{delivery.invoiceNo}}</p>
+  <p>By: {{delivery.modeOfTransport}}</p>
+  <p>Time: {{delivery.deliveryTime}}</p>
+  <p>When: {{delivery.date}}</p>
+  <p>To: {{delivery.deliveryAddress}}</p>
+  <p>Shipping Cost: ${{delivery.shippingCost}}</p>
+  <hr class="my-4">
+  <p>Quotation number: {{delivery.quotationNo}}</p>
+  <form action="/orders/{{delivery._id}}/tracking?_method=PUT" method="POST">
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Status</label>
+      <select class="form-control" id="trackingStatus" name="trackStatus">
+      <option>Shipped</option>
+      <option>Preparing</option>
+      <option>Received</option>
+      <option>Received with issues</option>
+    </select>
+    </div>
+    <div class="form-group" id="trackingComment" style="display:none">
+      <label for="exampleFormControlTextarea1">Feedback</label>
+      <textarea class="form-control" id="textAreaForTrackingComment" rows="3" name="trackingComment"></textarea>
+    </div>
+    <p class="lead">
+      <button type="submit" class="btn btn-primary" name="button">Submit</button>
+    </p>
+  </form>
+
+</div>

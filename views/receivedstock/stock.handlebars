@@ -2,14 +2,14 @@
   <div class="container-fluid">
     <div class="clearfix">
     <h2 class="no-margin-bottom float-left" >Incoming Stock List:</h2>
-    <a href="/incomingstock/new" class="btn btn-primary active float-right" role="button" aria-pressed="true">+ Create</a>
+    <a href="/incomingstock/new" class="btn btn-outline-warning active float-right" role="button" aria-pressed="true"><i class="ion-plus-round"></i> Create New</a>
     </div>
   </div>
 </header>
 <nav aria-label="breadcrumb" role="navigation">
   <ol class="breadcrumb" style="margin-bottom:30px;">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Incoming Stock</li>
-    <li class="breadcrumb-item"><a href="/incomingstock/new">new</a></li>
   </ol>
 </nav>
 
@@ -40,37 +40,34 @@
       <td>{{ stocklist.paymentMethod }}</td>
       <td>{{ stocklist.paymentStatus }}</td>
       <td>{{ stocklist.chqNo }}</td>
-      <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg">{{ stocklist.supplier.name }}</td>
+      <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg-{{stocklist.supplier.id}}">{{ stocklist.supplier.name }}</td>
       <td>{{ stocklist.furnitureModel.model }}</td>
       <td>
         <a href="/incomingstock/{{ stocklist.id }}" class="btn btn-primary">Edit/Delete</a>
       </td>
+      <div class="modal fade bd-example-modal-lg-{{stocklist.supplier.id}}"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Supplier Detail:</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Name: {{ stocklist.supplier.name }} <hr>
+              Contact: {{ stocklist.supplier.contact }} <hr>
+              Location: {{ stocklist.supplier.location }}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </tr>
     {{/each}}
   </tbody>
 </table>
 
-</div>
-
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-       <div class="modal-header">
-         <h5 class="modal-title" id="exampleModalLabel">Supplier Detail:</h5>
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
-         </button>
-       </div>
-       <div class="modal-body">
-         {{#each incomingstock as | stocklist |}}
-          Name: {{ stocklist.supplier.name }} <hr>
-          Contact: {{ stocklist.supplier.contact }} <hr>
-          Location: {{ stocklist.supplier.location }}
-         {{/each}}
-       </div>
-       <div class="modal-footer">
-         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-       </div>
-     </div>
-   </div>
 </div>

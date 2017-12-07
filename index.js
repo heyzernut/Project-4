@@ -14,6 +14,8 @@ const cors = require('cors')
 
 const passport = require('./config/ppConfig')
 const { hasLoggedOut, isLoggedIn } = require('./helpers')
+const helpers = require('handlebars-helpers')();
+
 
 // Models
 const Location = require('./models/location')
@@ -23,7 +25,10 @@ const Role = require('./models/role')
 const Staff = require('./models/staff')
 const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
+const Tracking = require('./models/tracking')
 const Category = require('./models/category')
+const FurnitureModel = require('./models/furnitureModel')
+
 const app = express()
 
 // require all my route files
@@ -36,6 +41,8 @@ const supplier_routes = require('./routes/supplier_routes')
 const receivedstock_routes = require('./routes/receivedstock_routes')
 const inventory_routes = require('./routes/inventory_routes')
 const delivery_routes = require('./routes/delivery_routes')
+const tracking_routes = require('./routes/tracking_routes')
+
 
 // VIEW ENGINES aka handlebars setup
 app.engine('handlebars', exphbs({
@@ -105,6 +112,13 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+//furniture inventory json
+app.get('/furnituremodel', (req,res)=>{
+  FurnitureModel.find()
+  .then((furniture)=>{
+    res.json(furniture)
+  })
+})
 
 // NEW ROUTE - Suppliers
 app.use((req, res, next) => {
@@ -139,6 +153,8 @@ app.use('/roles', role_routes)
 app.use('/staffs', staff_routes)
 app.use('/category', category_routes)
 app.use('/inventory', inventory_routes)
+app.use('/tracking', tracking_routes)
+
 
 
 // opening the port for express

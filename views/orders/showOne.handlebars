@@ -1,20 +1,29 @@
+<header class="page-header">
+  <div class="container-fluid">
+    <div class="clearfix">
+    <h2 class="no-margin-bottom float-left" >{{order.invoiceNo}}</h2>
+    <a href="/orders/{{order.id}}/tracking/{{tracking.id  }}" class="btn btn-primary active float-right" role="button" aria-pressed="true">Track</a>
+    </div>
+  </div>
+</header>
 <nav aria-label="breadcrumb" role="navigation">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page"><a href="/orders">Orders</a></li>
-    <li class="breadcrumb-item">Current Order</li>
+    <li class="breadcrumb-item" aria-current="page"><a href="/orders">Orders</a></li>
+    <li class="breadcrumb-item active">Current Order</li>
   </ol>
 </nav>
 
-<div class="container">
-  <h6 class="display-4 text-center">
-    <p>Invoice Number: {{order.invoiceNo}}</p>
-  </h6>
 
-  <p><span>Date of Order: {{order.formattedDate}}<span></p>
+<div class="container">
+  <h1 class="text-center">
+    <p>Invoice Number: {{order.invoiceNo}}</p>
+  </h1>
+
+  <h6><span>Date of Order: {{order.formattedDate}}<span></h6  >
 
   <h6>Details:</h6>
-  <span>Quotation No.: {{order.quotationNo}} &emsp;<span>
-  <p><span>Customer: {{order.reseller}} &emsp;</span>
+  <p>Quotation No.: {{order.quotationNo}} &emsp;<p>
+  <p><span>Customer: {{order.reseller.name}} &emsp;</span>
      <span>Delivery Time: {{order.deliveryTime}} &emsp;</span>
      <span>Delivery Address: {{order.deliveryAddress}} &emsp;</span>
      <span>Shipping Cost: ${{order.shippingCost}}</span>
@@ -23,11 +32,10 @@
   <h6>Terms of Delivery:</h6>
   <p>{{order.termOfDelivery}}</p>
 
-    <li>{{order.items}}</li>
+<div class="container">
   <table class="table table-sm">
     <thead>
       <tr>
-        <th>#</th>
         <th>Ordered Item</th>
         <th>OrderType</th>
         <th>Quantity</th>
@@ -38,9 +46,12 @@
     <tbody>
       {{#each order.items as |item|}}
       <tr>
-        <th scope="row">1</th>
-        <td>{{item.furnitureStockId}}</td>
+        <td>{{item._id}}</td>
+        {{#if item.return_date}}
+        <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg-{{item.id}}">{{item.order_type}}</td>
+        {{else}}
         <td>{{item.order_type}}</td>
+        {{/if}}
         <td>{{item.quantity_ordered}}</td>
         <td>{{!-- item.price --}}</td>
         <td>{{!-- item.price * item.quantity_ordered --}}</td>
@@ -48,6 +59,31 @@
       {{/each}}
     </tbody>
   </table>
-  <a href="/orders">Go Back</a><br>
-  <a href="/orders/{{order.id}}/tracking/{{tracking.id  }}">Track Delivery</a>
+</div>
+
+{{!-- popup returndate for demo items --}}
+{{#each order.items as |item| }}
+<div class="modal fade bd-example-modal-lg-{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel"> Detail:</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <div>
+           Return Date: {{ item.formattedDate}}
+         </div>
+
+
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+</div>
+{{/each}}
 </div>

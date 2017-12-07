@@ -1,0 +1,56 @@
+<h3 class="display-4 text-center">
+<p>All trackings</p>
+</h3>
+
+<div class="container">
+  <table class="table display" id="example">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Invoice Number</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Phone no.</th>
+        <th scope="col">Email</th>
+        <th scope="col">Status</th>
+        <th scope="col">Feedback(if any)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each trackings as |tracka|}}
+        <tr>
+          <th scope="row">{{@index}}</th>
+          <td><a href="/orders/{{tracka.order._id}}/tracking">{{tracka.order.invoiceNo}}</a></td>
+          <td>{{tracka.order.reseller.contactPerson}}</td>
+          <td>{{tracka.order.reseller.contactNo}}</td>
+          <td>{{tracka.order.reseller.email}}</td>
+          {{#if tracka.status}}
+            <td>{{tracka.status}}</td>
+          {{else}}
+            <td>No status</td>
+          {{/if}}
+          <td>
+            {{#if tracka.comment}}
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Show</button>
+
+              <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Feedback</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                    </div>
+                    <div class="modal-body">
+                      {{tracka.comment}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

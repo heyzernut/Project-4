@@ -1,10 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Paytone+One|Poppins');
 
+.reveal-if-active {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
 
 input[type="radio"]:checked ~ .reveal-if-active {
   opacity: 1;
   max-height: 100px; /* little bit of a magic number :( */
     overflow: visible;
-}
+  }
 
 
   /*
@@ -36,6 +42,13 @@ input[type="radio"]:checked ~ .reveal-if-active {
     padding: 50px 0;
   }
 
+  .line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #eee;
+    margin: 30px 0;
+  }
+
   canvas {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -59,12 +72,17 @@ input[type="radio"]:checked ~ .reveal-if-active {
   }
 
   header.page-header {
-    padding: 20px 0;
+    padding: 20px 0 10px;
   }
 
   table {
     font-size: 0.9em;
     color: #666;
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 600;
   }
 
   .card-close {
@@ -124,6 +142,15 @@ input[type="radio"]:checked ~ .reveal-if-active {
     z-index: 8;
   }
 
+  .table-link {
+    cursor: pointer;
+    color: blue;
+  }
+
+  .modal-content {
+    margin-top: 20%;
+  }
+
   *[class*="icon-"] {
     -webkit-transform: translateY(3px);
     transform: translateY(3px);
@@ -131,6 +158,17 @@ input[type="radio"]:checked ~ .reveal-if-active {
 
   button, input {
     outline: none !important;
+  }
+
+  .btn {
+    /*border-radius: 0px;*/
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .dashborder {
+    border-right:1px solid #eee;
+    padding-right: 50px;
   }
 
   .card {
@@ -349,6 +387,10 @@ input[type="radio"]:checked ~ .reveal-if-active {
 
   .badge-rounded {
     border-radius: 50px;
+  }
+
+  .col-lg-12 {
+    padding-left: 0px;
   }
 
   /*
@@ -890,6 +932,69 @@ input[type="radio"]:checked ~ .reveal-if-active {
       left: -50%;
       -webkit-transform: translateX(-50%);
       transform: translateX(-50%);
+    }
+  }
+
+  /*
+  * ==========================================================
+  *     DASHBOARD COUNTS SECTION
+  * ==========================================================
+  */
+  section.dashboard-counts .icon {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    min-width: 40px;
+    max-width: 40px;
+    border-radius: 50%;
+  }
+
+  section.dashboard-counts .title {
+    font-size: 1.1em;
+    font-weight: 300;
+    color: #777;
+    margin: 0 20px;
+  }
+
+  section.dashboard-counts .progress {
+    margin-top: 10px;
+    height: 4px;
+  }
+
+  section.dashboard-counts .number {
+    font-size: 1.8em;
+    font-weight: 300;
+  }
+
+  section.dashboard-counts .number strong {
+    font-weight: 700;
+  }
+
+  section.dashboard-counts .row {
+    padding: 30px 15px;
+    margin: 0;
+  }
+
+  section.dashboard-counts div[class*='col-'] .item {
+    border-right: 1px solid #eee;
+    padding: 15px 0;
+  }
+
+  section.dashboard-counts div[class*='col-']:last-of-type .item {
+    border-right: none;
+  }
+
+  /*  DASHBOARD COUNTS MEDIAQUERIES ------------------------ */
+  @media (max-width: 1199px) {
+    section.dashboard-counts div[class*='col-']:nth-of-type(2) .item {
+      border-right: none;
+    }
+  }
+
+  @media (max-width: 575px) {
+    section.dashboard-counts div[class*='col-'] .item {
+      border-right: none;
     }
   }
 

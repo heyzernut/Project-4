@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
 
   newCategory.save()
   .then(
-    () => res.redirect(`/category/update/${newCategory.id}`),
+    () => res.redirect(`/category`),
     err => res.send(err)
   )
 })

@@ -1,9 +1,19 @@
+<header class="page-header">
+  <div class="container-fluid">
+    <div class="clearfix">
+    <h2 class="no-margin-bottom float-left" >Inventory List:</h2>
+    <a href="/inventory/models/new" class="btn btn-primary active float-right" role="button" aria-pressed="true">+ Create new furniture model</a>
+    </div>
+  </div>
+</header>
 <nav aria-label="breadcrumb" role="navigation">
-  <ol class="breadcrumb">
+  <ol class="breadcrumb" style="margin-bottom:30px;">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Inventory</li>
-    <li class="breadcrumb-item"><a href="/inventory/models/new">new furniture model</a></li>
   </ol>
 </nav>
+
+<div class="container">
 
 <a href="/inventory/stocks"><button type="button" name="button">Stocks View</button></a>
 
@@ -36,31 +46,40 @@
         <a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" name="button">Edit</button></a>
       </td>
 
-      <td >
+      <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg-{{furnitureModel.itemCode}}">
         {{furnitureModel.totalqty}}
-        {{!-- {{#if furnitureModel.stocks}} --}}
-
-          {{!-- {{#each furnitureModel.stocks as |stock| }}
-
-
-              <div>
-                {{ stock.quantity}} qty :
-                {{ stock.location.address}} ({{ stock.location.type}} {{ stock.zone}}{{ stock.shelf}})
-              </div>
-              {{!-- <td>{{ stock.zone}}</td>
-              <td>{{ stock.shelf}}</td> --}}
-
-
-
-          {{!-- {{/each}} --}}
-
-
-
-
-        {{!-- {{/if}} --}}
       </td>
     </tr>
     {{/each}}
   </tbody>
 
 </table>
+
+
+{{#each allModelsDisplay as |furnitureModel| }}
+<div class="modal fade bd-example-modal-lg-{{furnitureModel.itemCode}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel"> Detail:</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+
+           {{#each furnitureModel.stocks as |stock| }}
+               <div>
+                 {{ stock.quantity}} qty :
+                 {{ stock.location.address}} ({{ stock.location.type}} {{ stock.zone}}{{ stock.shelf}})
+               </div>
+           {{/each}}
+
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+</div>
+{{/each}}
