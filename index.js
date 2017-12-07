@@ -32,7 +32,7 @@ const FurnitureModel = require('./models/furnitureModel')
 const app = express()
 
 // require all my route files
-// const login_routes = require('./routes/login_routes')
+const login_routes = require('./routes/login_routes')
 const customer_routes = require('./routes/customer_routes')
 const role_routes = require('./routes/role_routes')
 const staff_routes = require('./routes/staff_routes')
@@ -123,12 +123,6 @@ app.get('/furnituremodel', (req,res)=>{
 // NEW ROUTE - Suppliers
 app.use((req, res, next) => {
   app.locals.user = req.user
-  // if (req.user) {
-  //   app.locals.admin = req.user.role.name === 'Admin'
-  //   app.locals.deliveryman = req.user.role.name === 'DeliveryMan'
-  //   app.locals.employee = req.user.role.name === 'Employee'
-  // }
-  // console.log(app.locals.user.role.name)
   next()
 })
 
@@ -145,7 +139,7 @@ app.get('/logout', hasLoggedOut, (req, res) => {
 })
 
 //register routes
-// app.use('/login', isLoggedIn, login_routes)
+app.use('/login', isLoggedIn, login_routes)
 app.use('/location', location_routes)
 app.use('/orders', delivery_routes)
 app.use('/suppliers', supplier_routes)
