@@ -42,7 +42,7 @@
         <td >{{ furnitureModel.color }}</td>
         <td >{{ furnitureModel.dimension }}</td>
         <td >{{ furnitureModel.barcode }}</td>
-        <td ><a href="/inventory/models/{{furnitureModel.itemCode}}"><button type="button" name="button">View Infor</button></a></td>
+        <td ><a href="/inventory/models/{{furnitureModel.itemCode}}"><button type="button" name="button">View</button></a></td>
         <td >
           <a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" name="button">Edit</button></a>
         </td>
@@ -73,7 +73,7 @@
            {{#each furnitureModel.stocks as |stock| }}
                <div>
                  <a href="/inventory/stocks/{{stock.id}}">
-                   {{ stock.location.address}} ({{ stock.location.type}} {{ stock.zone}} {{ stock.shelf}}) : {{ stock.quantity}} qty 
+                   {{ stock.location.address}} ({{ stock.location.type}} {{ stock.zone}} {{ stock.shelf}}) : {{ stock.quantity}} qty
                  </a>
                </div>
            {{/each}}
