@@ -70,9 +70,9 @@ router.get('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
   var formData = req.body
   Location.findByIdAndUpdate(req.params.id, {
-    address: formData.address
-    // zone: range(formData.zone_start,formData.zone_stop),
-    // shelf: rangeNum(formData.shelf_start,formData.shelf_stop)
+    address: formData.address,
+    zone: range(formData.zone_start,formData.zone_stop),
+    shelf: rangeNum(formData.shelf_start,formData.shelf_stop)
   })
   .then(() => res.redirect(`/location`))
   .catch(err => console.log(err))
