@@ -13,7 +13,7 @@ const MongoStore = require('connect-mongo')(session)
 const cors = require('cors')
 
 const passport = require('./config/ppConfig')
-const { hasLoggedOut, isLoggedIn, adminOrEmployee, adminOnly} = require('./helpers')
+const { hasLoggedOut, isLoggedIn, adminOrEmployee, adminOnly, employeeOnly} = require('./helpers')
 const helpers = require('handlebars-helpers')();
 
 
@@ -130,7 +130,7 @@ app.use((req, res, next) => {
 
 
 //homepage
-app.get('/', adminOrEmployee, (req, res) => {
+app.get('/', employeeOnly, (req, res) => {
   res.render('home')
 })
 
