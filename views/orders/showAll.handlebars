@@ -36,7 +36,7 @@
         <td>{{order.deliveryAddress}}</td>
         <td>
           <a href="orders/{{order.id}}?_method=DELETE">Delete</a>
-          <a href="orders/tracking">Track</a>
+          <a href="/orders/{{order.id}}/tracking/{{tracking.id}}">Track</a>
         </tr>
         {{/each}}
     </tbody>

@@ -58,16 +58,19 @@ router.post('/', (req,res)=>{
       newItem.save()
       newOrder.items.push(newItem.id)
   }else{
+    var promises = []
     for (var i=0; i<orderData.model.length; i++){
       const newItem = new Item({
         quantity_ordered: orderData.orderQuantity[i],
-        // return_date: orderData.returnDate[i],
+        return_date: orderData.returnDate[i],
         order_type: orderData.orderType[i],
-        // furnitureStockId: ,
+        furnitureStockId: orderData.model[i],
         deliveryOrderId: newOrder.id
       })
-      newItem.save()
-      newOrder.items.push(newItem.id)
+      promises.push(newItem.save()
+      .then(() => {
+        newOrder.items.push(newItem._id)
+      }))
     }
   }
 
@@ -77,9 +80,13 @@ router.post('/', (req,res)=>{
   })
     newTracking.save()
 
-    newOrder.save()
-    .then(()=> res.json(orderData))
-    .catch((err)=> console.log(err.message))
+    Promise.all(promises)
+    .then(() => {
+      newOrder.save()
+      .then(()=> res.json(orderData))
+      .catch((err)=> console.log(err.message))
+    })
+
   })
 
 //delivery trackingSchema
@@ -99,7 +106,7 @@ router.get('/:id/tracking', (req, res)=>{
 //read & delete individual order
 router.get('/:id', (req, res)=>{
   DeliveryOrder.findById(req.params.id)
-  .populate('items')
+  .populate(['items','reseller'])
   .then((order)=>{
 
     res.render('orders/showOne',{order})
