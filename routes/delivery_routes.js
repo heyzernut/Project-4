@@ -26,8 +26,13 @@ router.get('/new', adminOrEmployee, (req,res)=>{
   .then((models)=>{
     Customer.find()
     .then((customers)=>{
-      console.log(customers)
-      res.render('orders/new', {today, customers, models})
+      FurnitureStock.find()
+      .then((stocks)=>{
+        res.render('orders/new', {today, customers, models, stocks})
+
+      })
+      // console.log(customers)
+      // res.render('orders/new', {today, customers, models})
     })
   })
 
@@ -128,7 +133,8 @@ router.put('/:id/tracking', (req, res) => {
   var formData = req.body
   Tracking.update({order: req.params.id}, {
       status: formData.trackStatus,
-      comment: formData.trackingComment
+      comment: formData.trackingComment,
+      discrepancy: formData.discrepancy
   })
   .then(() => res.redirect(`/tracking`))
   .catch(err => console.log(err))

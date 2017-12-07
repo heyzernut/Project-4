@@ -19,11 +19,12 @@ const hasLoggedOut = (req, res, next) => {
 }
 
 const adminOrEmployee = (req, res, next) => {
-  if(req.user.role.name === 'Admin' || req.user.role.name === 'Employee' ) {
-    next()
-  } else {
-    res.redirect('/tracking')
-  }
+  console.log(req.user)
+  // if(req.user.role.name === 'Admin' || req.user.role.name === 'Employee' ) {
+  //   next()
+  // } else {
+  //   res.redirect('/tracking')
+  // }
 }
 
 const adminOnly = (req, res, next) => {
@@ -37,9 +38,18 @@ const adminOnly = (req, res, next) => {
   }
 }
 
+const employeeOnly = (req, res, next) => {
+  if( req.user && req.user.role.name === 'DeliveryMan') {
+    res.redirect('/tracking')
+  } else {
+    next()
+  }
+}
+
 module.exports = {
   hasLoggedOut,
   isLoggedIn,
   adminOrEmployee,
-  adminOnly
+  adminOnly,
+  employeeOnly
 }
