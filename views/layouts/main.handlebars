@@ -76,17 +76,9 @@
             {{#compare user.role.name '==' 'Admin'}}
             <li> <a href="/roles"> <i class="icon-interface-windows"></i>Roles</a></li>
             <li> <a href="/staffs"> <i class="icon-interface-windows"></i>Staffs</a></li>
-            <li> <a href="/tracking"> <i class="icon-padnote"></i>Tracking </a></li>
             {{/compare}}
           {{/compare}}
-
-
-
-            {{#compare user.role.name '==' 'DeliveryMan'}}
-            <li> <a href="/tracking"> <i class="icon-padnote"></i>Tracking </a></li>
-            {{/compare}}
-
-
+          <li> <a href="/tracking"> <i class="icon-padnote"></i>Tracking </a></li>
           </ul>
           {{/if}}
         </nav>
