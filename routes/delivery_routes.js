@@ -34,59 +34,59 @@ router.post('/', (req,res)=>{
   let orderData = req.body
 
   //create a new delivery order
-  const newOrder = new DeliveryOrder({
-    date: orderData.date,
-    invoiceNo: orderData.invoiceNo,
-    quotationNo: orderData.quotationNo,
-    modeOfTransport: orderData.transport,
-    deliveryTime: orderData.delivery_time,
-    shippingCost: orderData.transport_cost,
-    termOfDelivery: orderData.terms,
-    deliveryAddress: orderData.address,
-    reseller: orderData.customers
-  })
-
-  //Add orderItem
-  if ((typeof orderData.model)==="string"){
-    const newItem = new Item({
-        quantity_ordered: orderData.orderQuantity,
-        return_date: orderData.returnDate,
-        order_type: orderData.orderType,
-        // furnitureStockId: ,
-        deliveryOrderId: newOrder.id
-      })
-      newItem.save()
-      newOrder.items.push(newItem.id)
-  }else{
-    var promises = []
-    for (var i=0; i<orderData.model.length; i++){
-      const newItem = new Item({
-        quantity_ordered: orderData.orderQuantity[i],
-        return_date: orderData.returnDate[i],
-        order_type: orderData.orderType[i],
-        furnitureStockId: orderData.model[i],
-        deliveryOrderId: newOrder.id
-      })
-      promises.push(newItem.save()
-      .then(() => {
-        newOrder.items.push(newItem._id)
-      }))
-    }
-  }
-
-  //create a tracking id
-  const newTracking = new Tracking({
-    order: newOrder.id
-  })
-    newTracking.save()
-
-    Promise.all(promises)
-    .then(() => {
-      newOrder.save()
-      .then(()=> res.json(orderData))
-      .catch((err)=> console.log(err.message))
-    })
-
+  // const newOrder = new DeliveryOrder({
+  //   date: orderData.date,
+  //   invoiceNo: orderData.invoiceNo,
+  //   quotationNo: orderData.quotationNo,
+  //   modeOfTransport: orderData.transport,
+  //   deliveryTime: orderData.delivery_time,
+  //   shippingCost: orderData.transport_cost,
+  //   termOfDelivery: orderData.terms,
+  //   deliveryAddress: orderData.address,
+  //   reseller: orderData.customers
+  // })
+  //
+  // //Add orderItem
+  // if ((typeof orderData.model)==="string"){
+  //   const newItem = new Item({
+  //       quantity_ordered: orderData.orderQuantity,
+  //       return_date: orderData.returnDate,
+  //       order_type: orderData.orderType,
+  //       // furnitureStockId: ,
+  //       deliveryOrderId: newOrder.id
+  //     })
+  //     newItem.save()
+  //     newOrder.items.push(newItem.id)
+  // }else{
+  //   var promises = []
+  //   for (var i=0; i<orderData.model.length; i++){
+  //     const newItem = new Item({
+  //       quantity_ordered: orderData.orderQuantity[i],
+  //       return_date: orderData.returnDate[i],
+  //       order_type: orderData.orderType[i],
+  //       furnitureStockId: orderData.model[i],
+  //       deliveryOrderId: newOrder.id
+  //     })
+  //     promises.push(newItem.save()
+  //     .then(() => {
+  //       newOrder.items.push(newItem._id)
+  //     }))
+  //   }
+  // }
+  //
+  // //create a tracking id
+  // const newTracking = new Tracking({
+  //   order: newOrder.id
+  // })
+  //   newTracking.save()
+  //
+  //   Promise.all(promises)
+  //   .then(() => {
+  //     newOrder.save()
+  //     .then(()=> res.json(orderData))
+  //     .catch((err)=> console.log(err.message))
+  //   })
+  res.json(orderData)
   })
 
 //delivery trackingSchema
