@@ -50,7 +50,7 @@
         <nav class="side-navbar">
           <!-- Sidebar Header-->
           <div class="sidebar-header d-flex align-items-center">
-          {{#if user}}
+            {{#if user}}
             <div class="title">
               <h1 class="h4">{{user.name}}</h1>
               <p>{{user.role.name}}</p>
@@ -70,7 +70,7 @@
             <li><a href="#cusdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Customers </a>
               <ul id="cusdown" class="collapse list-unstyled">
                 <li><a href="/customers">Customers List</a></li>
-                <li><a href="/customers/new"><i class="ion-plus-round"></i>Add Customers</a></li>
+                <li><a href="/customers/new">Add Customers</a></li>
               </ul>
             </li>
             <li> <a href="/category"> <i class="icon-interface-windows"></i>Category</a></li>
@@ -81,6 +81,7 @@
             <li> <a href="/tracking"> <i class="icon-padnote"></i>Tracking </a></li>
             {{/compare}}
           {{/compare}}
+
 
 
             {{#compare user.role.name '==' 'DeliveryMan'}}
