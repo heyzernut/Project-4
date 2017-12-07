@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="clearfix">
     <h2 class="no-margin-bottom float-left" >All Orders:</h2>
-    <a href="/orders/new" class="btn btn-primary active float-right" role="button" aria-pressed="true">+ Create</a>
+    <a href="/orders/new" class="btn btn-outline-warning active float-right" role="button" aria-pressed="true"><i class="ion-plus-round"></i> Create New</a>
     </div>
   </div>
 </header>
@@ -36,7 +36,7 @@
         <td>{{order.deliveryAddress}}</td>
         <td>
           <a href="orders/{{order.id}}?_method=DELETE">Delete</a>
-          <a href="orders/tracking">Track</a>
+          <a href="/orders/{{order.id}}/tracking/{{tracking.id}}">Track</a>
         </tr>
         {{/each}}
     </tbody>
