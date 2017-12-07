@@ -31,8 +31,9 @@ router.get('/', (req, res) => {
           totalqty: total
         }
         allModelsDisplay.push(displayModel)
-      }))
-    })
+      })
+    )
+  })
 
     Promise.all(promises)
     .then(() => {
@@ -173,36 +174,30 @@ router.delete('/models/:itemCode', (req, res) => {
 
 
 router.get('/models/:itemCode/newStock', (req, res) => {
-
   const itemCode = req.params.itemCode
-
   FurnitureModel.find({itemCode : itemCode})
   .then(foundModel => {
     let furnitureModel = foundModel[0]
-    // res.render('inventory/modelsNewStock', {
-    //   furnitureModel
-    // })
-    Location.find({})
+    Location.find()
     .then(locations => {
       res.render('inventory/modelsNewStock', {
         furnitureModel, locations
       })
     })
-    .catch(err => {
-      res.render('inventory/modelsNewStock', {
-        furnitureModel
-      })
-    })
+    .catch(err => { res.send(err) })
   })
   .catch(err => {res.send("error")})
 })
 router.post('/models/:itemCode/newStock', (req, res) => {
   const stockData = req.body.stock
   const itemCode = req.params.itemCode
-  let dataZone = stockData.zone.join(",").replace(/[,]/g, "")
-  let dataShelf = stockData.shelf.join(",").replace(/[,]/g, "")
+  let dataZone = stockData.zone
+  let dataShelf = stockData.shelf
 
-
+  if (typeof stockData.zone === 'object'){
+    dataZone = dataZone.join(",").replace(/[,]/g, "")
+    dataShelf = dataShelf.join(",").replace(/[,]/g, "")
+  }
 
   let newStock = new FurnitureStock({
     furnitureModel: stockData.furnitureModel,
@@ -213,9 +208,7 @@ router.post('/models/:itemCode/newStock', (req, res) => {
   })
   newStock.save()
   .then(stock => {
-    // res.redirect(`/inventory`
     res.redirect(`/inventory/models/${itemCode}`)
-
   }, err => res.direct(`/models/${itemCode}/newStock`))
 })
 
@@ -254,8 +247,13 @@ router.get('/stocks/new', (req, res) => {
 router.post('/stocks/new', (req, res) => {
   const stockData = req.body.stock
 
-  let dataZone = stockData.zone.join(",").replace(/[,]/g, "")
-  let dataShelf = stockData.shelf.join(",").replace(/[,]/g, "")
+  let dataZone = stockData.zone
+  let dataShelf = stockData.shelf
+
+  if (typeof stockData.zone === 'object'){
+    dataZone = dataZone.join(",").replace(/[,]/g, "")
+    dataShelf = dataShelf.join(",").replace(/[,]/g, "")
+  }
 
   let newStock = new FurnitureStock({
     furnitureModel: stockData.furnitureModel,
@@ -267,7 +265,6 @@ router.post('/stocks/new', (req, res) => {
   newStock.save()
   .then(stock => {
     res.redirect(`/inventory/stocks`)
-
   }, err => res.redirect(`/inventory/stocks/new`))
 })
 
@@ -305,9 +302,13 @@ router.put('/stocks/:id', (req, res) => {
   const editFurnitureStocks = req.body.stock
   FurnitureStock.findById(stockId)
   .then(stock => {
+    let dataZone = stockData.zone
+    let dataShelf = stockData.shelf
 
-    let dataZone = editFurnitureStocks.zone.join(",").replace(/[,]/g, "")
-    let dataShelf = editFurnitureStocks.shelf.join(",").replace(/[,]/g, "")
+    if (typeof stockData.zone === 'object'){
+      dataZone = dataZone.join(",").replace(/[,]/g, "")
+      dataShelf = dataShelf.join(",").replace(/[,]/g, "")
+    }
 
     let stockUpdate = {
       quantity:  editFurnitureStocks.quantity || stock.quantity,

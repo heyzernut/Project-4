@@ -7,14 +7,14 @@
 </header>
 
 <div class="trackingbox">
-  <p >Invoice Number: {{delivery.invoiceNo}}</p>
-  <p>By: {{delivery.modeOfTransport}}</p>
-  <p>Time: {{delivery.deliveryTime}}</p>
-  <p>When: {{delivery.date}}</p>
-  <p>To: {{delivery.deliveryAddress}}</p>
-  <p>Shipping Cost: ${{delivery.shippingCost}}</p>
+  <p ><strong>Invoice Number:</strong>  {{delivery.invoiceNo}}</p>
+  <p><strong>By:</strong>  {{delivery.modeOfTransport}}</p>
+  <p><strong>Time:</strong>  {{delivery.deliveryTime}}</p>
+  <p><strong>When: </strong>  {{delivery.date}}</p>
+  <p><strong>To:</strong> {{delivery.deliveryAddress}}</p>
+  <p><strong>Shipping Cost:</strong> ${{delivery.shippingCost}}</p>
   <hr class="my-4">
-  <p>Quotation number: {{delivery.quotationNo}}</p>
+  <p><strong>Quotation number:</strong> {{delivery.quotationNo}}</p>
   <form action="/orders/{{delivery._id}}/tracking?_method=PUT" method="POST">
     <div class="form-group">
       <label for="exampleFormControlSelect1">Status</label>

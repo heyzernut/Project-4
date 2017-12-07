@@ -1,11 +1,22 @@
-<div class="container-fluid">
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page"><a href="/inventory">Inventory</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Model</li>
+    <li class="breadcrumb-item">Update</li>
+  </ol>
+</nav>
+
+<div class="container-fluid" style="margin-top: 25px;">
+
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-header d-flex align-items-center">
-        <h3>Edit {{ furnitureModel.model }} ({{ furnitureModel.itemCode }})</h3>
-        <form "form-group" action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
-          <button class="btn btn-info" type="submit" name="button">Delete</button>
+      <div class="card-close">
+        <form action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
+          <button type="submit" class="btn btn-danger" name="button"><i class="ion-trash-b"></i> Delete</button>
         </form>
+      </div>
+      <div class="card-header d-flex align-items-center">
+        <h3 class="h4">Edit {{ furnitureModel.model }} ({{ furnitureModel.itemCode }})</h3>
       </div>
       <div class="card-body">
         <form action="/inventory/models/new" method="post">
@@ -35,7 +46,7 @@
             </div>
           </div>
           <div class="line"></div>
-          <div class="col-sm-4">
+          <div class="row col-sm-4">
             <label  class="form-control-label" for="lblCategory">Category: </label>
             <select class="form-control" name="model[category]">
               <option  value=""></option>
@@ -46,6 +57,7 @@
           </div>
           <div class="line"></div>
           <div class="form-group">
+            <a href="/inventory" class="btn btn-secondary" role="button" aria-pressed="true">Cancel</a>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </form>

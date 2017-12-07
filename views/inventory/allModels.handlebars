@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="clearfix">
     <h2 class="no-margin-bottom float-left" >Inventory List:</h2>
-    <a href="/inventory/models/new" class="btn btn-primary active float-right" role="button" aria-pressed="true">+ Create new furniture model</a>
+    <a href="/inventory/models/new" class="btn btn-outline-warning active float-right" role="button" aria-pressed="true"><i class="ion-plus-round"></i> Create new furniture model</a>
     </div>
   </div>
 </header>
@@ -42,7 +42,7 @@
         <td >{{ furnitureModel.color }}</td>
         <td >{{ furnitureModel.dimension }}</td>
         <td >{{ furnitureModel.barcode }}</td>
-        <td ><a href="/inventory/models/{{furnitureModel.itemCode}}"><button type="button" name="button">View Infor</button></a></td>
+        <td ><a href="/inventory/models/{{furnitureModel.itemCode}}"><button type="button" name="button">View</button></a></td>
         <td >
           <a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" name="button">Edit</button></a>
         </td>
@@ -73,8 +73,7 @@
            {{#each furnitureModel.stocks as |stock| }}
                <div>
                  <a href="/inventory/stocks/{{stock.id}}">
-                   {{ stock.quantity}} qty :
-                   {{ stock.location.address}} ({{ stock.location.type}} {{ stock.zone}}{{ stock.shelf}})
+                   {{ stock.location.address}} ({{ stock.location.type}} {{ stock.zone}} {{ stock.shelf}}) : {{ stock.quantity}} qty
                  </a>
                </div>
            {{/each}}
