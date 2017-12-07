@@ -1,25 +1,56 @@
-<h3>Edit {{ furnitureModel.model }} ({{ furnitureModel.itemCode }})</h3>
+<div class="container-fluid">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header d-flex align-items-center">
+        <h3>Edit {{ furnitureModel.model }} ({{ furnitureModel.itemCode }})</h3>
+        <form "form-group" action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
+          <button class="btn btn-info" type="submit" name="button">Delete</button>
+        </form>
+      </div>
+      <div class="card-body">
+        <form action="/inventory/models/new" method="post">
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label class="form-control-label" for="lblItemCode">Item Code: </label>
+              <input type="text" class="form-control" name="model[itemCode]" placeholder="Enter Item Code" value="{{ furnitureModel.itemCode }}">
+            </div>
+            <div class="col-sm-4">
+              <label class="form-control-label" for="lblModel">Model: </label>
+              <input class="form-control" type="text" name="model[model]" placeholder="Enter Model" value="{{ furnitureModel.model }}">
+            </div>
+            <div class="col-sm-4">
+              <label class="form-control-label" for="lblColor">Color: </label>
+              <input class="form-control" type="text" name="model[color]" placeholder="Enter Color" value="{{ furnitureModel.color }}">
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <label  class="form-control-label" for="lblDimension">Dimension: </label>
+              <input class="form-control" type="text" name="model[dimension]" placeholder="Enter Dimension" value="{{ furnitureModel.dimension }}">
+            </div>
+            <div class="col-sm-6">
+              <label  class="form-control-label" for="lblBarcode">Barcode: </label>
+              <input class="form-control" type="text" name="model[barcode]" placeholder="Enter Barcode" value="{{ furnitureModel.barcode}}">
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="col-sm-4">
+            <label  class="form-control-label" for="lblCategory">Category: </label>
+            <select class="form-control" name="model[category]">
+              <option  value=""></option>
+              {{#each categories as |category|}}
+              <option  value="{{ category.id }}">{{ category.name }} </option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="line"></div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
 
-<form action="/inventory/models/{{furnitureModel.itemCode}}?_method=PUT" method="post">
-  <label for="lblItemCode">Item Code: </label>
-  <input type="text" name="model[itemCode]" placeholder="Enter Item Code" value="{{ furnitureModel.itemCode }}">
-
-  <label for="lblModel">Model: </label>
-  <input type="text" name="model[model]" placeholder="Enter Model" value="{{ furnitureModel.model }}">
-
-  <label for="lblColor">Color: </label>
-  <input type="text" name="model[color]" placeholder="Enter Color" value="{{ furnitureModel.color }}">
-
-  <label for="lblDimension">Dimension: </label>
-  <input type="text" name="model[dimension]" placeholder="Enter Dimension" value="{{ furnitureModel.dimension }}">
-
-  <label for="lblBarcode">Barcode: </label>
-  <input type="text" name="model[barcode]" placeholder="Enter Barcode">
-
-  <button type="submit" name="btn">Submit</button>
-
-</form>
-
-<form class="" action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
-  <button class="btn btn-info" type="submit" name="button">Delete</button>
-</form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,56 +1,93 @@
+<header class="page-header">
+  <div class="container-fluid">
+    <div class="clearfix">
+    <h2 class="no-margin-bottom float-left" >Stock List:</h2>
+    <a href="/inventory/stocks/new" class="btn btn-primary active float-right" role="button" aria-pressed="true">+ Create new stock</a>
+    </div>
+  </div>
+</header>
 <nav aria-label="breadcrumb" role="navigation">
-  <ol class="breadcrumb">
+  <ol class="breadcrumb" style="margin-bottom:30px;">
     <li class="breadcrumb-item active" aria-current="page">Inventory </li>
     <li class="breadcrumb-item active" aria-current="page">stocks</li>
     <li class="breadcrumb-item"><a href="/inventory/stocks/new">new stocks</a></li>
   </ol>
 </nav>
 
-<a href="/inventory/"><button type="button" name="button">Model View</button></a>
 
-<table class="table display" id="example">
-  <thead>
-    <tr>
-      <th>Location</th>
-      <th>Quantity</th>
-      <th>Zone</th>
-      <th>shelf</th>
-      <th>Detail View</th>
-      <th>Remove</th>
-      <th>Model</th>
-      <th>Item Code</th>
-      <th>Color</th>
-      <th>Dimension</th>
-      <th>View model</th>
-    </tr>
-  </thead>
+<div class="container">
+  <a href="/inventory/"><button type="button" name="button">Model View</button></a>
 
-  <tbody>
+  <table class="table display" id="example">
+    <thead>
+      <tr>
+        <th>Location</th>
+        <th>Model</th>
+        <th>Item Code</th>
+        <th>Quantity</th>
+        <th>Zone</th>
+        <th>shelf</th>
+        <th>Detail View</th>
+        <th>Edit</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
 
-    {{#each furnitureStocks as |furnitureStock| }}
+    <tbody>
 
-    <tr>
-      <td>{{ furnitureStock.location.address}} ({{ furnitureStock.location.type}})</td>
-      <td>{{ furnitureStock.quantity}}</td>
-      <td>{{ furnitureStock.zone}}</td>
-      <td>{{ furnitureStock.shelf}}</td>
+      {{#each furnitureStocks as |furnitureStock| }}
 
-
-
-      <td ><a href="/inventory/stocks/{{ furnitureStock.id}}"><button type="button" name="button">View Infor</button></a></td>
-      <td>
-        <form class="" action="/inventory/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
-          <button class="btn btn-info" type="submit" name="button">Delete</button>
-        </form>
-      </td>
-      <td >{{ furnitureStock.furnitureModel.model }}</td>
-      <td >{{ furnitureStock.furnitureModel.itemCode }}</td>
-      <td >{{ furnitureStock.furnitureModel.color }}</td>
-      <td >{{ furnitureStock.furnitureModel.dimension }}</td>
-      <td ><a href="/inventory/models/{{ furnitureStock.furnitureModel.itemCode}}"><button type="button" name="button">View Model</button></a></td>
-    </tr>
-    {{/each}}
-  </tbody>
+      <tr>
+        <td>{{ furnitureStock.location.address}} ({{ furnitureStock.location.type}})</td>
+        <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg-{{furnitureStock.furnitureModel.itemCode}}">{{ furnitureStock.furnitureModel.model }}</td>
+        <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg-{{furnitureStock.furnitureModel.itemCode}}">{{ furnitureStock.furnitureModel.itemCode }}</td>
+        <td>{{ furnitureStock.quantity}}</td>
+        <td>{{ furnitureStock.zone}}</td>
+        <td>{{ furnitureStock.shelf}}</td>
 
 
-</table>
+
+        <td ><a href="/inventory/stocks/{{ furnitureStock.id}}"><button type="button" name="button">View Infor</button></a></td>
+        <td ><a href="/inventory/stocks/{{ furnitureStock.id}}/edit"><button type="button" name="button">Edit</button></a></td>
+
+        <td>
+          <form class="" action="/inventory/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
+            <button class="btn btn-info" type="submit" name="button">Delete</button>
+          </form>
+        </td>
+
+      </tr>
+      {{/each}}
+    </tbody>
+
+
+  </table>
+</div>
+
+
+{{#each furnitureStocks as |furnitureStock| }}
+<div class="modal fade bd-example-modal-lg-{{ furnitureStock.furnitureModel.itemCode}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel"> Detail of {{ furnitureStock.furnitureModel.model }} ({{ furnitureStock.furnitureModel.itemCode }})</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         {{!-- <h4>Item Code :{{ furnitureStock.furnitureModel.itemCode }}</h4>
+         <h4>Model :{{ furnitureStock.furnitureModel.model }}</h4> --}}
+         <h4>Color: {{ furnitureStock.furnitureModel.color }}</h4>
+         <h4>Dimension: {{ furnitureStock.furnitureModel.dimension }}</h4>
+         <h4>Category: {{ furnitureStock.furnitureModel.category.name }}</h4>
+
+         <a href="/inventory/models/{{ furnitureStock.furnitureModel.itemCode}}"><button type="button" name="button">View Model</button></a>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+</div>
+{{/each}}
