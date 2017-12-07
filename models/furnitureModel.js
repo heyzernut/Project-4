@@ -6,7 +6,11 @@ const furnitureModelSchema = new Schema({
   model: String,
   color: String,
   dimension: String,
-  barcode: String
+  barcode: String,
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category'
+  }
 })
 
 const FurnitureModel = mongoose.model('FurnitureModel', furnitureModelSchema)

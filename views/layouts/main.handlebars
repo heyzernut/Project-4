@@ -1,113 +1,127 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Inventory management</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="/assets/css/easy-autocomplete.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
-  </head>
 
-  <body>
-    <div class="page home-page">
-      <!-- Main Navbar-->
-      <header class="header">
-        <nav class="navbar">
-          <!-- Search Box-->
-          <div class="search-box">
-            <button class="dismiss"><i class="icon-close"></i></button>
-            <form id="searchForm" action="#" role="search">
-              <input type="search" placeholder="What are you looking for..." class="form-control">
-            </form>
-          </div>
-          <div class="container-fluid">
-            <div class="navbar-holder d-flex align-items-center justify-content-between">
-              <!-- Navbar Header-->
-              <div class="navbar-header">
-                <!-- Navbar Brand --><a href="/" class="navbar-brand">
-                  <div class="brand-text brand-big"><span>Inventory </span><strong>Management</strong></div>
-                  <div class="brand-text brand-small"><strong>IM</strong></div></a>
-                <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
-              </div>
-              <!-- Navbar Menu -->
-              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                <!-- Logout    -->
-                {{#if user}}
-                <li class="nav-item"><a href="/logout" class="nav-link logout">Logout<i class="ion-arrow-return-right"></i></a></li>
-                {{/if}}
-              </ul>
+<head>
+  <meta charset="utf-8">
+  <title>Inventory management</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="/assets/css/easy-autocomplete.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body>
+  <div class="page home-page">
+    <!-- Main Navbar-->
+    <header class="header">
+      <nav class="navbar">
+        <!-- Search Box-->
+        <div class="search-box">
+          <button class="dismiss"><i class="icon-close"></i></button>
+          <form id="searchForm" action="#" role="search">
+            <input type="search" placeholder="What are you looking for..." class="form-control">
+          </form>
+        </div>
+        <div class="container-fluid">
+          <div class="navbar-holder d-flex align-items-center justify-content-between">
+            <!-- Navbar Header-->
+            <div class="navbar-header">
+              <!-- Navbar Brand -->
+              <a href="/" class="navbar-brand">
+                <div class="brand-text brand-big"><span>Inventory </span><strong>Management</strong></div>
+                <div class="brand-text brand-small"><strong>IM</strong></div>
+              </a>
+              <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
             </div>
+            <!-- Navbar Menu -->
+            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+              <!-- Logout    -->
+              {{#if user}}
+                <li class="nav-item"><a href="/logout" class="nav-link logout">Logout<i class="ion-arrow-return-right"></i></a></li>
+              {{/if}}
+            </ul>
           </div>
-        </nav>
-      </header>
-      <div class="page-content d-flex align-items-stretch">
-        <!-- Side Navbar -->
-        <nav class="side-navbar">
-          <!-- Sidebar Header-->
-          <div class="sidebar-header d-flex align-items-center">
-            {{#if user}}
+        </div>
+      </nav>
+    </header>
+    <div class="page-content d-flex align-items-stretch">
+      <!-- Side Navbar -->
+      <nav class="side-navbar">
+        <!-- Sidebar Header-->
+        <div class="sidebar-header d-flex align-items-center">
+          {{#if user}}
             <div class="title">
               <h1 class="h4">{{user.name}}</h1>
               <p>{{user.role.name}}</p>
               <hr>
             </div>
-          </div>
-          <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+        </div>
+        <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
 
-          <ul class="list-unstyled">
+        <ul class="list-unstyled">
 
 
           {{#compare user.role.name '!=' 'DeliveryMan'}}
-            <li class="active"> <a href="/"><i class="icon-home"></i>Dashboard</a></li>
-            <li> <a href="/orders"> <i class="icon-padnote"></i>Orders </a></li>
-            <li> <a href="/suppliers"> <i class="icon-grid"></i>Suppliers </a></li>
-            <li> <a href="/inventory"> <i class="fa fa-bar-chart"></i>Inventory </a></li>
-            <li><a href="#cusdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Customers </a>
+            <li class="active"> <a href="/"><i class="ion-speedometer"></i>Dashboard</a></li>
+            {{#compare user.role.name '==' 'Admin'}}
+              <li><a href="#staffdown" aria-expanded="false" data-toggle="collapse"> <i class="ion-android-person"></i>Admin</a>
+                <ul id="staffdown" class="collapse list-unstyled">
+                  <li><a href="/staffs"><i class="ion-android-contacts"></i>Staff List</a></li>
+                  <li><a href="/roles"><i class="ion-plus-round"></i>Add Roles</a></li>
+                </ul>
+              </li>
+            {{/compare}}
+            <li> <a href="/orders"> <i class="ion-clipboard"></i>Orders </a></li>
+            <li> <a href="/suppliers"> <i class="ion-ios-people"></i>Suppliers </a></li>
+            <li><a href="#inventorydown" aria-expanded="false" data-toggle="collapse"><i class="ion-android-apps"></i>Inventory</a>
+              <ul id="inventorydown" class="collapse list-unstyled">
+                <li><a href="/inventory"><i class="ion-android-clipboard"></i>Inventory List</a></li>
+                <li><a href="/category"><i class="ion-plus-round"></i>Add Furniture Category</a></li>
+                <li> <a href="/incomingstock"> <i class="ion-cube"></i>Incoming Stock</a></li>
+              </ul>
+            </li>
+            <li><a href="#cusdown" aria-expanded="false" data-toggle="collapse"> <i class="ion-android-contact"></i>Customers </a>
               <ul id="cusdown" class="collapse list-unstyled">
                 <li><a href="/customers">Customers List</a></li>
                 <li><a href="/customers/new">Add Customers</a></li>
               </ul>
             </li>
-            <li> <a href="/category"> <i class="icon-interface-windows"></i>Category</a></li>
-            <li> <a href="/incomingstock"> <i class="icon-interface-windows"></i>Stock</a></li>
-            {{#compare user.role.name '==' 'Admin'}}
-            <li> <a href="/roles"> <i class="icon-interface-windows"></i>Roles</a></li>
-            <li> <a href="/staffs"> <i class="icon-interface-windows"></i>Staffs</a></li>
-            {{/compare}}
+            <li> <a href="/location"> <i class="ion-radio-waves"></i>Location</a></li>
           {{/compare}}
-          <li> <a href="/tracking"> <i class="icon-padnote"></i>Tracking </a></li>
-          </ul>
-          {{/if}}
-        </nav>
-        <div class="content-inner">
+          <li> <a href="/tracking"> <i class="ion-pinpoint"></i>Tracking </a></li>
 
-          {{{ body }}}
-          <!-- Page Footer-->
-          <footer class="main-footer">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-sm-6">
-                  <p>Your company &copy; 2017-2019</p>
-                </div>
-                <div class="col-sm-6 text-right">
-                  <p>Design by <a href="#" class="external">Wdi 12</a></p>
-                </div>
+        </ul>
+        {{/if}}
+      </nav>
+      <div class="content-inner">
+
+        {{{ body }}}
+        <!-- Page Footer-->
+        <footer class="main-footer">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-6">
+                <p>Your company &copy; 2017-2019</p>
+              </div>
+              <div class="col-sm-6 text-right">
+                <p>Design by <a href="#" class="external">Wdi 12</a></p>
               </div>
             </div>
-          </footer>
-        </div>
+          </div>
+        </footer>
       </div>
     </div>
+  </div>
 
-    <!-- Javascript files-->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" charset="utf-8"></script>
-    <script src="/assets/js/jquery.easy-autocomplete.js"></script>
-    <script src="/assets/js/script.js"></script>
-  </body>
+  <!-- Javascript files-->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" charset="utf-8"></script>
+  <script src="/assets/js/jquery.easy-autocomplete.js"></script>
+  <script src="/assets/js/script.js"></script>
+</body>
+
 </html>

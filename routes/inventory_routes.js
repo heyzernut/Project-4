@@ -1,15 +1,17 @@
 const FurnitureModel = require('../models/furnitureModel')
 const FurnitureStock = require('../models/furnitureStock')
+const Category = require('../models/category')
 const Location = require('../models/location')
 const express = require('express')
 const router = express.Router()
 
 router.get('/', (req, res) => {
   FurnitureModel.find()
+  .populate('category')
   .then(allModels => {
     var allModelsDisplay = []
     var promises = []
-    allModels.forEach(model => {
+    allModels.forEach( model => {
       promises.push(FurnitureStock.find({furnitureModel: model.id})
       .populate('location')
       .then(allStock => {
@@ -24,6 +26,7 @@ router.get('/', (req, res) => {
           color: model.color,
           dimension: model.dimension,
           barcode: model.barcode,
+          category: model.category,
           stocks: allStock,
           totalqty: total
         }
@@ -43,7 +46,15 @@ router.get('/', (req, res) => {
 
 
 router.get('/models/new', (req, res) => {
-  res.render('inventory/modelsNew')
+  Category.find()
+  .then(categories => {
+    res.render('inventory/modelsNew', {
+      categories
+    })
+  })
+  .catch(err => {
+    res.send(err)
+  })
 })
 router.post('/models/new', (req, res) => {
   const modelData = req.body.model
@@ -52,7 +63,8 @@ router.post('/models/new', (req, res) => {
     model: modelData.model,
     color: modelData.color,
     dimension: modelData.dimension,
-    barcode: modelData.barcode
+    barcode: modelData.barcode,
+    category: modelData.category
   })
   newModel.save()
   .then(model => {
@@ -66,6 +78,7 @@ router.post('/models/new', (req, res) => {
 router.get('/models/:itemCode', (req, res) => {
   const itemCode = req.params.itemCode
   FurnitureModel.find({itemCode : itemCode})
+  .populate('category')
   .then(foundModel => {
     let furnitureModel = foundModel[0]
     let furnitureModelId = furnitureModel.id
@@ -95,9 +108,12 @@ router.get('/models/:itemCode/edit', (req, res) => {
   const itemCode = req.params.itemCode
   FurnitureModel.find({itemCode : itemCode})
   .then(foundModel => {
-    let furnitureModel = foundModel[0]
-    res.render('inventory/modelsEdit', {
-      furnitureModel
+    Category.find()
+    .then(categories => {
+      let furnitureModel = foundModel[0]
+      res.render('inventory/modelsEdit', {
+        furnitureModel, categories
+      })
     })
   })
 })
@@ -114,7 +130,8 @@ router.put('/models/:itemCode', (req, res) => {
       model: editFurnitureModel.model || furnitureModel.model,
       color: editFurnitureModel.color || furnitureModel.color,
       dimension: editFurnitureModel.dimension || furnitureModel.dimension,
-      barcode: editFurnitureModel.barcode || furnitureModel.barcode
+      barcode: editFurnitureModel.barcode || furnitureModel.barcode,
+      category: editFurnitureModel.category || furnitureModel.category
     }
 
     let modelItemCode = toUpdate.itemCode
@@ -207,7 +224,13 @@ router.get('/stocks', (req, res) => {
 
   FurnitureStock.find()
   .populate('location')
-  .populate('furnitureModel')
+  .populate( {
+       path: 'furnitureModel',
+       populate: {
+         path: 'category',
+         model: 'Category'
+       }
+    })
   .then( furnitureStocks => {
     res.render('inventory/allStocks', {
       furnitureStocks
@@ -308,6 +331,5 @@ router.delete('/stocks/:id', (req, res) => {
     res.redirect('/inventory/stocks')
   })
 })
-
 
 module.exports = router
