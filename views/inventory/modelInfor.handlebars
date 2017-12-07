@@ -9,25 +9,32 @@
 
 <div class="container-fluid">
   <div class="col-lg-12" style="margin-top: 25px;">
+    <div class="card-close">
+
+    </div>
     <div class="card card-body">
-      <h5>Item Code: {{ furnitureModel.itemCode }}</h5>
-      <h5>Model: {{ furnitureModel.model }}</h5>
-      <h5>Category: {{ furnitureModel.category.name }}</h5>
-      <h5>Color: {{ furnitureModel.color}}</h5>
-      <h5>Dimension: {{ furnitureModel.dimension }}</h5>
-      <h5>Barcode: {{ furnitureModel.barcode }}</h5>
+      Item Code: {{ furnitureModel.itemCode }} <hr>
+      Model: {{ furnitureModel.model }} <hr>
+      Category: {{ furnitureModel.category.name }} <hr>
+      Color: {{ furnitureModel.color}} <hr>
+      Dimension: {{ furnitureModel.dimension }} <hr>
+      Barcode: {{ furnitureModel.barcode }} <hr>
+
+      <div class="form-group row">
+        <form class="col-sm-1 " action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
+          <button class="btn btn-danger" type="submit" name="button">Delete</button>
+        </form>
+
+        <a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button class="btn btn-primary" type="button" name="button">Edit</button></a>
+      </div>
+
     </div>
   </div>
 
-  <a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" name="button">Edit</button></a>
-
-  <form class="" action="/inventory/models/{{ furnitureModel.itemCode }}?_method=DELETE" method="post">
-    <button class="btn btn-info" type="submit" name="button">Delete</button>
-  </form>
   <div class="">
     <div>
-      <h4>Stocks: </h4>
-      <div class="d-flex flex-row-reverse">
+      <div class="d-flex justify-content-between">
+        <div class=""><h3>Stock List:</h3></div>
         <div class=""><a href="/inventory/models/{{furnitureModel.itemCode}}/newStock"><button type="button" class="btn btn-info" style="background-color:black; padding:8px 30px; margin-bottom: 15%; cursor: pointer;" name="button"><i class="ion-cube"></i> Add new stock</button></a></div>
       </div>
     </div>

@@ -6,7 +6,9 @@
   </ol>
 </nav>
 
-<div class="container">
+<div class="container-fluid">
+  <div class="col-lg-12" style="margin-top: 25px;">
+
   <table class="table display" id="example">
     <thead>
       <tr>
@@ -42,6 +44,7 @@
   <form class="" action="/inventory/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
     <button class="btn btn-info" type="submit" name="button">Delete</button>
   </form>
+  </div>
 </div>
 {{!--
 <a href="/inventory/models/{{furnitureModel.itemCode}}/newStock"><button type="button" name="button">Add new stock</button></a>

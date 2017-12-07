@@ -8,15 +8,17 @@
 </nav>
 
 <div class="container-fluid">
-  <div class="col-lg-12">
+  <div class="col-lg-12" style="margin-top: 25px;">
     <div class="card">
+      <div class="card-close">
+        <form class="" action="/inventory/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
+          <button class="btn btn-danger" type="submit" name="button">Delete</button>
+        </form>
+      </div>
       <div class="card-header d-flex align-items-center">
         <h3>Edit stock for {{ furnitureStock.furnitureModel.model }} ({{ furnitureStock.furnitureModel.itemCode }})</h3>
         <h4>Location: {{furnitureStock.location.address}} ({{furnitureStock.location.type}})</h4>
       </div>
-      <form class="" action="/inventory/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
-        <button class="btn btn-info" type="submit" name="button">Delete</button>
-      </form>
       <div class="card-body">
         <form action="/inventory/stocks/{{furnitureStock.id}}?_method=PUT" method="post">
           <div class="form-group row">
@@ -28,11 +30,11 @@
           <div class="line"></div>
           <div>
             <label  class="form-control-label" for="lblLocation">Location: </label>
-            <div class="form-group row">
+            <div class="form-group row" style="margin-left: 6px; margin-top: 15px;">
               {{#each locations as |location|}}
-              <div class="">
-                <input class="form-control" type="radio" id="location" name="stock[location]" value="{{location.id}}">
-                <h5 class="form-control-label">{{ location.address }}({{ location.type }})</h5>
+              <div class="col-sm-4">
+                <input class="form-control form-check-input" type="radio" id="location" name="stock[location]" value="{{location.id}}">
+                <div class="form-control-label">{{ location.address }} ({{ location.type }})</div>
                 <div class="reveal-if-active">
                   {{#if location.zone}}
                   <label  class="form-control-label" for="lblZone">Zone: </label>
@@ -58,6 +60,7 @@
           </div>
           <div class="line"></div>
           <div class="form-group">
+            <a href="/inventory/stocks" class="btn btn-secondary" role="button" aria-pressed="true">Cancel</a>
             <button type="submit" class="btn btn-primary">Create</button>
           </div>
         </form>
