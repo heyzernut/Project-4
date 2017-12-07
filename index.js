@@ -129,7 +129,7 @@ app.use((req, res, next) => {
 
 //homepage
 app.get('/', (req, res) => {
-  res.render('login/login')
+  res.render('home')
 })
 
 //this is for logout
