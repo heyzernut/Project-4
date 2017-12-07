@@ -44,9 +44,9 @@
         <td >{{ furnitureModel.color }}</td>
         <td >{{ furnitureModel.dimension }}</td>
         <td >{{ furnitureModel.barcode }}</td>
-        <td ><a href="/inventory/models/{{furnitureModel.itemCode}}"><button type="button" name="button">View</button></a></td>
+        <td ><a href="/inventory/models/{{furnitureModel.itemCode}}"><button type="button" class="btn btn-info" name="button">View</button></a></td>
         <td >
-          <a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" name="button">Edit</button></a>
+          <a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" class="btn btn-primary" name="button">Edit</button></a>
         </td>
         <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg-{{furnitureModel.itemCode}}">
           {{furnitureModel.totalqty}}
