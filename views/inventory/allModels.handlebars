@@ -14,46 +14,48 @@
 </nav>
 
 <div class="container">
+  <a href="/inventory/stocks"><button type="button" name="button">Stocks View</button></a>
 
-<a href="/inventory/stocks"><button type="button" name="button">Stocks View</button></a>
+  <table class="table display inventory" id="example">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Item Code</th>
+        <th scope="col">Model</th>
+        <th scope="col">Category</th>
+        <th scope="col">Color</th>
+        <th scope="col">Dimension</th>
+        <th scope="col">Barcode</th>
+        <th scope="col">View</th>
+        <th scope="col">Edit/Delete</th>
+        <th scope="col">Quantity</th>
 
-<table class="table display inventory" id="example">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Item Code</th>
-      <th scope="col">Model</th>
-      <th scope="col">Color</th>
-      <th scope="col">Dimension</th>
-      <th scope="col">Barcode</th>
-      <th scope="col">View</th>
-      <th scope="col">Edit/Delete</th>
-      <th scope="col">Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each allModelsDisplay as |furnitureModel| }}
+      <tr>
+        <th scope="row">{{@index}}</th>
+        <td >{{ furnitureModel.itemCode }}</td>
+        <td >{{ furnitureModel.model }}</td>
+        <td >{{ furnitureModel.category.name}}</td>
+        <td >{{ furnitureModel.color }}</td>
+        <td >{{ furnitureModel.dimension }}</td>
+        <td >{{ furnitureModel.barcode }}</td>
+        <td ><a href="/inventory/models/{{furnitureModel.itemCode}}"><button type="button" name="button">View Infor</button></a></td>
+        <td >
+          <a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" name="button">Edit</button></a>
+        </td>
+        <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg-{{furnitureModel.itemCode}}">
+          {{furnitureModel.totalqty}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 
-    </tr>
-  </thead>
-  <tbody>
-    {{#each allModelsDisplay as |furnitureModel| }}
-    <tr>
-      <th scope="row">{{@index}}</td>
-      <td >{{ furnitureModel.itemCode }}</td>
-      <td >{{ furnitureModel.model }}</td>
-      <td >{{ furnitureModel.color }}</td>
-      <td >{{ furnitureModel.dimension }}</td>
-      <td >{{ furnitureModel.barcode }}</td>
-      <td ><a href="/inventory/models/{{furnitureModel.itemCode}}"><button type="button" name="button">View Infor</button></a></td>
-      <td >
-        <a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" name="button">Edit</button></a>
-      </td>
+</div>
 
-      <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg-{{furnitureModel.itemCode}}">
-        {{furnitureModel.totalqty}}
-      </td>
-    </tr>
-    {{/each}}
-  </tbody>
-
-</table>
 
 
 {{#each allModelsDisplay as |furnitureModel| }}
