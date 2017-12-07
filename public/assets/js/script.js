@@ -39,7 +39,16 @@ $('#selectLocation').on('change',function(){
     }
   });
 
+
 });
+
+  // Autocomplete
+  var options = {
+    data: ["blue", "green", "pink", "red", "yellow"]
+  };
+
+  $("#basics").easyAutocomplete(options);
+
 
   $('#trackingStatus').on('change',function(){
        if( $(this).val()==="Received with issues"){
@@ -50,6 +59,8 @@ $('#selectLocation').on('change',function(){
        $("#textAreaForTrackingComment").val('')
        }
    });
+
+
 
   // var FormStuff = {
   //
