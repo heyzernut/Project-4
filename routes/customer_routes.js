@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
 
   newCustomer.save()
     .then(
-      () => res.redirect(`/customers/update/${newCustomer.id}`),
+      () => res.redirect(`/customers`),
       err => res.send(err)
     )
 })
