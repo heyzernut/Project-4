@@ -31,8 +31,9 @@ router.get('/', (req, res) => {
           totalqty: total
         }
         allModelsDisplay.push(displayModel)
-      }))
-    })
+      })
+    )
+  })
 
     Promise.all(promises)
     .then(() => {
@@ -199,8 +200,13 @@ router.get('/models/:itemCode/newStock', (req, res) => {
 router.post('/models/:itemCode/newStock', (req, res) => {
   const stockData = req.body.stock
   const itemCode = req.params.itemCode
-  let dataZone = stockData.zone.join(",").replace(/[,]/g, "")
-  let dataShelf = stockData.shelf.join(",").replace(/[,]/g, "")
+  let dataZone = stockData.zone
+  let dataShelf = stockData.shelf
+
+  if (typeof stockData.zone === 'object'){
+    dataZone = dataZone.join(",").replace(/[,]/g, "")
+    dataShelf = dataShelf.join(",").replace(/[,]/g, "")
+  }
 
 
 
