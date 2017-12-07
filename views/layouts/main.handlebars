@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/assets/css/easy-autocomplete.css">
     <link rel="stylesheet" href="/assets/css/style.css">
   </head>
 
@@ -34,7 +35,11 @@
               <!-- Navbar Menu -->
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <!-- Logout    -->
-                <li class="nav-item"><a href="login.html" class="nav-link logout">Logout<i class="ion-arrow-return-right"></i></a></li>
+                {{#if user}}
+                <li class="nav-item"><a href="/logout" class="nav-link logout">Logout<i class="ion-arrow-return-right"></i></a></li>
+                {{else}}
+                <li class="nav-item"><a href="/login" class="nav-link logout">Login<i class="ion-arrow-return-right"></i></a></li>
+                {{/if}}
               </ul>
             </div>
           </div>
@@ -52,6 +57,7 @@
             </div>
           </div>
           <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+          {{#if user}}
           <ul class="list-unstyled">
             <li class="active"> <a href="/"><i class="ion-speedometer"></i>Dashboard</a></li>
             <li><a href="#staffdown" aria-expanded="false" data-toggle="collapse"> <i class="ion-briefcase"></i>Admin</a>
@@ -77,6 +83,7 @@
             <li> <a href="/incomingstock"> <i class="ion-cube"></i>Stock</a></li>
             <li> <a href="/location"> <i class="ion-location"></i>Location</a></li>
           </ul>
+          {{/if}}
         </nav>
         <div class="content-inner">
 
@@ -99,10 +106,11 @@
     </div>
 
     <!-- Javascript files-->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script src="/assets/js/jquery.easy-autocomplete.js"></script>
     <script src="/assets/js/script.js"></script>
   </body>
 </html>
