@@ -2,21 +2,21 @@
   <div class="container-fluid">
     <div class="clearfix">
     <h2 class="no-margin-bottom float-left" >Stock List:</h2>
-    <a href="/inventory/stocks/new" class="btn btn-primary active float-right" role="button" aria-pressed="true">+ Create new stock</a>
+    <a href="/inventory/stocks/new" class="btn btn-outline-warning active float-right" role="button" aria-pressed="true"><i class="ion-plus-round"></i>  Create new stock</a>
     </div>
   </div>
 </header>
 <nav aria-label="breadcrumb" role="navigation">
   <ol class="breadcrumb" style="margin-bottom:30px;">
-    <li class="breadcrumb-item active" aria-current="page">Inventory </li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="/inventory">Inventory</a> </li>
     <li class="breadcrumb-item active" aria-current="page">stocks</li>
-    <li class="breadcrumb-item"><a href="/inventory/stocks/new">new stocks</a></li>
   </ol>
 </nav>
+  <div class="container">
 
-
-<div class="container">
-  <a href="/inventory/"><button type="button" name="button">Model View</button></a>
+  <div class="d-flex flex-row-reverse">
+    <div class=""><a href="/inventory/"><button type="button" class="btn btn-info" style="background-color:black; padding:8px 30px; margin-bottom: 15%; cursor: pointer;" name="button"><i class="ion-cube"></i> View Model</button></a></div>
+  </div>
 
   <table class="table display" id="example">
     <thead>
@@ -47,12 +47,12 @@
 
 
 
-        <td ><a href="/inventory/stocks/{{ furnitureStock.id}}"><button type="button" name="button">View Infor</button></a></td>
-        <td ><a href="/inventory/stocks/{{ furnitureStock.id}}/edit"><button type="button" name="button">Edit</button></a></td>
+        <td ><a href="/inventory/stocks/{{ furnitureStock.id}}"><button class="btn btn-info" type="button" name="button">View</button></a></td>
+        <td ><a href="/inventory/stocks/{{ furnitureStock.id}}/edit"><button class="btn btn-primary" type="button" name="button">Edit</button></a></td>
 
         <td>
           <form class="" action="/inventory/stocks/{{furnitureStock.id}}?_method=DELETE" method="post">
-            <button class="btn btn-info" type="submit" name="button">Delete</button>
+            <button class="btn btn-danger" type="submit" name="button">Delete</button>
           </form>
         </td>
 
@@ -78,13 +78,12 @@
        <div class="modal-body">
          {{!-- <h4>Item Code :{{ furnitureStock.furnitureModel.itemCode }}</h4>
          <h4>Model :{{ furnitureStock.furnitureModel.model }}</h4> --}}
-         <h4>Color: {{ furnitureStock.furnitureModel.color }}</h4>
-         <h4>Dimension: {{ furnitureStock.furnitureModel.dimension }}</h4>
-         <h4>Category: {{ furnitureStock.furnitureModel.category.name }}</h4>
-
-         <a href="/inventory/models/{{ furnitureStock.furnitureModel.itemCode}}"><button type="button" name="button">View Model</button></a>
+         Color: {{ furnitureStock.furnitureModel.color }} <hr/>
+         Dimension: {{ furnitureStock.furnitureModel.dimension }} <hr/>
+         Category: {{ furnitureStock.furnitureModel.category.name }}
        </div>
        <div class="modal-footer">
+         <a href="/inventory/models/{{ furnitureStock.furnitureModel.itemCode}}"><button type="button" class="btn btn-primary" name="button">View Model</button></a>
          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
        </div>
      </div>
