@@ -1,53 +1,50 @@
-<div class="container">
-    <div class="row">
-            <p class="card-title">Company Name :{{ customer.name }}</p>
-            <p class="card-text">Company Address : {{ customer.companyAddress }}</p>
-            <p class="card-text">Email: {{customer.email}}</p>
-            <p class="card-text">Contact Person: {{customer.contactPerson}}</p>
-            <p class="card-text">Contact No: {{customer.contactNo}}</p>
-      </div>
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb" style="margin-bottom:30px;">
+    <li class="breadcrumb-item"><a href="/customers">Customer</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ customer.name }}</li>
+  </ol>
+</nav>
 
-            {{!-- We can also setup a form here to update the existing data --}}
-            {{!-- when there's a path, there's a route in your index.js --}}
-            {{!-- why PUT, because all update technically MUST go thru PUT request --}}
-            <h3 class="card-title text-center">Update Customer</h3>
-            <form action="/customers/update/{{ customer.id }}?_method=PUT" method="post">
-
-
-              {{!-- we put the {{}} inside value cos we want to show the existing name --}}
-              <label for="lblCompanyName">Company Name : </label>
-              <input type="text" class="form-control" name="customer[txtName]"placeholder="Enter Company Name" value="{{ customer.name }}">
-              <br/>
-
-              <label for="lblCompanyAddress">Company Address : </label>
-              <input type="text" class="form-control" name="customer[txtAddress]" placeholder="Enter Company Address" value="{{ customer.companyAddress }}">
-              <br/>
-
-              <label for="lblContactPerson">Contact Person : </label>
-              <input type="text" class="form-control" name="customer[txtContactPerson]" placeholder="Enter Contact Person" value="{{ customer.contactPerson }}">
-              <br/>
-
-              <label for="lblContactNo">Contact No : </label>
-              <input type="text" class="form-control" name="customer[txtContactNo]" placeholder="Enter Contact No" value="{{ customer.contactNo }}">
-              <br/>
-
-              <label for="lblEmail">Email : </label>
-              <input type="text" class="form-control" name="customer[txtEmail]" placeholder="Enter Email" value="{{ customer.email }}">
-              <br/>
-
-
-              <div class="text-center">
-                <button type="submit" name="button" class="btn bg-warning">Submit</button>
-              </div>
-            </form>
-
-            <h3 class="card-title text-center">Delete Supplier</h3>{{!-- Same thing, different request type --}}
-            <form action="/customers/update/{{ customer.id }}?_method=DELETE" method="post">
-              <div class="text-center">
-                <button type="submit" class="btn bg-warning" name="button">Delete</button>
-              </div>
-              {{!-- don't need input fields here, cos we're not updating anything --}}
-            </form>
-
-
+<div class="container-fluid">
+<div class="col-lg-12">
+  <div class="card">
+    <div class="card-close">
+      <form action="/customers/update/{{ customer.id }}?_method=DELETE" method="post">
+          <button class="btn btn-danger" type="submit" name="button">Delete</button>
+      </form>
     </div>
+    <div class="card-header d-flex align-items-center">
+      <h3 class="h4">Update Customer</h3>
+    </div>
+    <div class="card-body">
+      <form action="/customers/update/{{ customer.id }}?_method=PUT" method="post">
+        <div class="form-group">
+          <label class="form-control-label" for="lblCompanyName">Company Name:</label>
+          <input type="text" class="form-control" name="customer[txtName]" value="{{ customer.name }}">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label" for="lblCompanyAddress">Company Address:</label>
+          <input type="text" class="form-control" name="customer[txtAddress]" value="{{ customer.companyAddress }}">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label" for="lblContactPerson">Contact Person:</label>
+          <input type="tel" class="form-control" name="customer[txtContactPerson]" value="{{ customer.contactPerson }}">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label" for="lblContactPerson">Contact Number:</label>
+          <input type="tel" class="form-control" name="customer[txtContactNo]" value="{{ customer.contactNo }}">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label" for="lblEmail">Email:</label>
+          <input type="tel" class="form-control" name="customer[txtEmail]" value="{{ customer.email }}">
+        </div>
+        <div class="line"></div>
+        <div class="form-group">
+          <a href="/customers" class="btn btn-secondary" role="button" aria-pressed="true">Cancel</a>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
