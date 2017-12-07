@@ -23,7 +23,7 @@ $('#selectLocation').on('change',function(){
 
   //add rows
   $( "#addRow" ).click(function() {
-    const markup = '<tr><td><input type="text" id="row-1-model" name="model" placeholder="Model" required></td><td><select size="1" id="row-1-orderType" class="orderType" name="orderType"><option value="sales" selected="selected">Sales</option><option value="demo">Demo</option></select></td><td><input type="date" id="row-1-returnDate" class="returnDate" name="returnDate" style="display: none"></td><td><input type="number" id="row-1-orderQuantity" name="orderQuantity" value="1"></td><td></td></tr'
+    const markup = '<tr><td><input type="text" id="provider-remote" name="model" placeholder="Model" required/></td><td><select size="1" id="row-1-orderType" class="orderType" name="orderType"><option value="sales" selected="selected">Sales</option><option value="demo">Demo</option></select></td><td><input type="date" id="row-1-returnDate" class="returnDate" name="returnDate" style="display: none"></td><td><input type="number" id="row-1-orderQuantity" name="orderQuantity" value="1"></td><td></td></tr>'
     $("#orderItems>tbody").append(markup);
   });
 

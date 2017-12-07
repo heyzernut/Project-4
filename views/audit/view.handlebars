@@ -1,59 +1,54 @@
 <h3 class="display-4 text-center">
 <p>Audit</p>
 </h3>
-
-{{#each trackings as |tracky|}}
-{{tracky}}
-{{/each}}
-<div class="container">
-  <table class="table display" id="example">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Address</th>
-        <th scope="col">Type</th>
-        <th scope="col">Zone</th>
-        <th scope="col">Shelf</th>
-        <th scope="col">Edit/Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each locations as |loca|}}
+<h3 class="display-4 text-center">
+<p>{{trackings.length}} order/orders with discrepancies </p>
+</h3>
+{{#each trackings as |tracking|}}
+  <div class="container">
+    <table class="table display" id="example">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Invoice number</th>
+          <th scope="col">Number of discrepancies</th>
+          <th scope="col">Feedback</th>
+          <th scope="col">Customer</th>
+          <th scope="col">Update status</th>
+        </tr>
+      </thead>
+      <tbody>
         <tr>
           <th scope="row">{{@index}}</th>
-          <td>{{loca.address}}</td>
-          <td>{{loca.type}}</td>
-          <div id="exampleAccordion" data-children=".item">
-            <td>
-              {{#each loca.zone}}
-                {{#if loca.zone.length}}
-                  {{#if @first}}
-                    {{ this }} to
-                  {{/if}}
-                  {{#if @last}}
-                    {{ this }}
-                  {{/if}}
-                {{/if}}
-              {{/each}}
-            </td>
-            <td>
-              {{#contains loca.type "Warehouse"}}
-                {{#each loca.shelf}}
-                  {{#if @first}}
-                    {{ this }} to
-                  {{/if}}
-                  {{#if @last}}
-                    {{ this }}
-                  {{/if}}
-                {{/each}}
-              {{/contains}}
-            </td>
-          </div>
+          <td>{{tracking.order.invoiceNo}}</td>
+          <td>{{tracking.discrepancy}}</td>
           <td>
-            <a href="/location/{{loca._id}}" class="btn btn-primary">Edit/Delete</a>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Show</button>
+
+            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Feedback</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                    {{tracking.comment}}
+                  </div>
+                </div>
+              </div>
+            </div>
           </td>
-        </tr>
-      {{/each}}
-    </tbody>
+          <td>{{tracking.order.reseller.contactPerson}}</td>
+  </div>
+  <td>
+    <a href="/orders/{{tracking.order._id}}/tracking" class="btn btn-primary">Update</a>
+  </td>
+  </tr>
+  </tbody>
   </table>
+{{/each}}
 </div>

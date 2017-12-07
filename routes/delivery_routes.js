@@ -6,6 +6,7 @@ const moment = require('moment')
 const Customer = require('../models/customer')
 const Item =require('../models/orderItem')
 const FurnitureModel = require('../models/furnitureModel')
+const FurnitureStock = require('../models/furnitureStock')
 
 //show all delivery order
 router.get('/', (req,res)=>{
@@ -24,8 +25,13 @@ router.get('/new', (req,res)=>{
   .then((models)=>{
     Customer.find()
     .then((customers)=>{
-      console.log(customers)
-      res.render('orders/new', {today, customers, models})
+      FurnitureStock.find()
+      .then((stocks)=>{
+        res.render('orders/new', {today, customers, models, stocks})
+
+      })
+      // console.log(customers)
+      // res.render('orders/new', {today, customers, models})
     })
   })
 
@@ -33,7 +39,7 @@ router.get('/new', (req,res)=>{
 router.post('/', (req,res)=>{
   let orderData = req.body
 
-  //create a new delivery order
+  // create a new delivery order
   const newOrder = new DeliveryOrder({
     date: orderData.date,
     invoiceNo: orderData.invoiceNo,
@@ -57,6 +63,7 @@ router.post('/', (req,res)=>{
       })
       newItem.save()
       newOrder.items.push(newItem.id)
+      newOrder.save()
   }else{
     var promises = []
     for (var i=0; i<orderData.model.length; i++){
@@ -79,6 +86,7 @@ router.post('/', (req,res)=>{
     order: newOrder.id
   })
     newTracking.save()
+    newOrder.save()
 
     Promise.all(promises)
     .then(() => {
@@ -86,7 +94,7 @@ router.post('/', (req,res)=>{
       .then(()=> res.json(orderData))
       .catch((err)=> console.log(err.message))
     })
-
+  res.json(orderData)
   })
 
 //delivery trackingSchema
@@ -125,7 +133,8 @@ router.put('/:id/tracking', (req, res) => {
   var formData = req.body
   Tracking.update({order: req.params.id}, {
       status: formData.trackStatus,
-      comment: formData.trackingComment
+      comment: formData.trackingComment,
+      discrepancy: formData.discrepancy
   })
   .then(() => res.redirect(`/tracking`))
   .catch(err => console.log(err))

@@ -20,19 +20,19 @@
     <div class="form-group" id="otherType">
       <label for="Zone" class="col-sm-2 col-form-label">Start zone</label>
       <div class="col-sm-10">
-        <input type="address" class="form-control" name="zone_start" id="Zone" placeholder="eg. A-Z">
+        <input type="address" class="form-control" name="zone_start" id="Zone" placeholder="eg. A-Z" value="{{location.zone.[0]}}">
       </div>
       <label for="Zone" class="col-sm-2 col-form-label">End zone</label>
       <div class="col-sm-10">
-        <input type="address" class="form-control" name="zone_stop" id="Zone" placeholder="eg. A-Z">
+        <input type="address" class="form-control" name="zone_stop" id="Zone" placeholder="eg. A-Z" value="{{#withLast location.zone}}{{this}}{{/withLast}}">
       </div>
       <label for="Shelf" class="col-sm-2 col-form-label">Start shelf</label>
       <div class="col-sm-10">
-        <input type="address" class="form-control" name="shelf_start" id="Shelf" placeholder="eg. 1-100">
+        <input type="address" class="form-control" name="shelf_start" id="Shelf" placeholder="eg. 1-100" value="{{location.shelf.[0]}}">
       </div>
       <label for="Shelf" class="col-sm-2 col-form-label">End shelf</label>
       <div class="col-sm-10">
-        <input type="address" class="form-control" name="shelf_stop" id="Shelf" placeholder="eg. 1-100">
+        <input type="address" class="form-control" name="shelf_stop" id="Shelf" placeholder="eg. 1-100" value="{{#withLast location.shelf}}{{this}}{{/withLast}}">
       </div>
     </div>
     {{/contains}}

@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 const trackingSchema = new Schema({
   status: String,
   comment: String,
+  discrepancy: Number,
   order: {
     type: Schema.Types.ObjectId,
     ref: 'DeliveryOrder'
