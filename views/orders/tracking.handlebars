@@ -1,13 +1,18 @@
-<h3 class="display-4 text-center">
-<p>Tracking</p>
-</h3>
+<header class="page-header">
+  <div class="container-fluid">
+    <div class="clearfix">
+    <h2 class="no-margin-bottom float-left" >Tracking</h2>
+    </div>
+  </div>
+</header>
+
 <div class="jumbotron">
-  <h1 class="display-3">Invoice Number: {{delivery.invoiceNo}}</h1>
-  <p class="lead">By: {{delivery.modeOfTransport}}</p>
-  <p class="lead">Time: {{delivery.deliveryTime}}</p>
-  <p class="lead">When: {{delivery.date}}</p>
-  <p class="lead">To: {{delivery.deliveryAddress}}</p>
-  <p class="lead">Shipping Cost: ${{delivery.shippingCost}}</p>
+  <p >Invoice Number: {{delivery.invoiceNo}}</p>
+  <p>By: {{delivery.modeOfTransport}}</p>
+  <p>Time: {{delivery.deliveryTime}}</p>
+  <p>When: {{delivery.date}}</p>
+  <p>To: {{delivery.deliveryAddress}}</p>
+  <p>Shipping Cost: ${{delivery.shippingCost}}</p>
   <hr class="my-4">
   <p>Quotation number: {{delivery.quotationNo}}</p>
   <form action="/orders/{{delivery._id}}/tracking?_method=PUT" method="POST">
