@@ -45,16 +45,31 @@ router.post('/', (req,res)=>{
     deliveryAddress: orderData.address,
     reseller: orderData.customers
   })
+
   //Add orderItem
-  const newItem = new Item({
-    quantity_ordered: orderData.orderQuantity,
-    return_date: orderData.returnDate,
-    order_type: orderData.orderType,
-    // furnitureStockId: ,
-    deliveryOrderId: newOrder.id
-  })
-  newItem.save()
-  newOrder.items.push(newItem.id)
+  if ((typeof orderData.model)==="string"){
+    const newItem = new Item({
+        quantity_ordered: orderData.orderQuantity,
+        return_date: orderData.returnDate,
+        order_type: orderData.orderType,
+        // furnitureStockId: ,
+        deliveryOrderId: newOrder.id
+      })
+      newItem.save()
+      newOrder.items.push(newItem.id)
+  }else{
+    for (var i=0; i<orderData.model.length; i++){
+      const newItem = new Item({
+        quantity_ordered: orderData.orderQuantity[i],
+        // return_date: orderData.returnDate[i],
+        order_type: orderData.orderType[i],
+        // furnitureStockId: ,
+        deliveryOrderId: newOrder.id
+      })
+      newItem.save()
+      newOrder.items.push(newItem.id)
+    }
+  }
 
   //create a tracking id
   const newTracking = new Tracking({
