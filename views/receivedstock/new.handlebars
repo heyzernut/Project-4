@@ -1,44 +1,85 @@
-<div class="header header-primary text-center">
-  <h3>Received Stock</h3>
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb" style="margin-bottom:30px;">
+    <li class="breadcrumb-item"><a href="/incomingstock">Incoming Stock</a></li>
+    <li class="breadcrumb-item active" aria-current="page">New</li>
+  </ol>
+</nav>
+
+<div class="container-fluid">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header d-flex align-items-center">
+        <h3 class="h4">Received Stock</h3>
+      </div>
+      <div class="card-body">
+        <form action="/incomingstock" method="post">
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label class="form-control-label" for="invoice">Invoice No</label>
+              <input type="text" class="form-control" name="stock[invoiceNo]" placeholder="invoice no">
+            </div>
+            <div class="col-sm-4">
+              <label class="form-control-label" for="batch">Batch No.</label>
+              <input type="text" class="form-control" name="stock[batchNo]" placeholder="batch no">
+            </div>
+            <div class="col-sm-4">
+              <label class="form-control-label" for="lot">Lot No</label>
+              <input type="text" class="form-control" name="stock[lotNo]" placeholder="lot no">
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="form-group row">
+
+            <div class="col-sm-6">
+              <label class="form-control-label" for="payment-type">Payment method</label>
+              <select type="text" class="form-control" name="stock[paymentMethod]">
+                <option value="Cheque">Cheque</option>
+                <option value="Cash">Cash</option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+            <label class="form-control-label" for="payment-status">Payment Status</label>
+            <select type="text" class="form-control" name="stock[paymentStatus]">
+              <option value="Pending">Pending</option>
+              <option value="Incomplete">Incomplete</option>
+              <option value="Paid">Paid</option>
+            </select>
+          </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label class="form-control-label" for="cheque">Cheque No</label>
+              <input class="form-control" name="stock[chqNo]" placeholder="cheque no">
+            </div>
+            <div class="col-sm-4">
+              <label class="form-control-label" for="supplier">Supplier</label>
+              <select type="text" class="form-control" name="stock[supplier]">
+                {{#each supplier as |supplierOne|}}
+                <option value="{{supplierOne.id}}">{{supplierOne.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="col-sm-4">
+              <label class="form-control-label" for="furniture-model">Furniture Model</label>
+              <select type="text" class="form-control" name="stock[furnitureModel]">
+              {{#each allModels as |furnitureModelOne|}}
+              <option value="{{furnitureModelOne.id}}">{{furnitureModelOne.model}}</option>
+              {{/each}}
+              </select>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="form-group">
+            <a href="/incomingstock" class="btn btn-secondary" role="button" aria-pressed="true">Cancel</a>
+            <button type="submit" class="btn btn-primary">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-
-<form action="/incomingstock" method="post">
-
-  <label for="invoice">Invoice No:</label>
-  <input type="text" class="form-control" name="stock[invoiceNo]" placeholder="invoice no"> <br>
-  <label for="batch">Batch No.</label>
-  <input type="text" class="form-control" name="stock[batchNo]" placeholder="batch no"> <br>
-  <label for="lot">Lot No:</label>
-  <input type="text" class="form-control" name="stock[lotNo]" placeholder="lot no"> <br>
-  <label for="payment-type">Payment method:</label>
-  <select type="text" class="form-control" name="stock[paymentMethod]">
-    <option value="Cheque">Cheque</option>
-    <option value="Cash">Cash</option>
-  </select>
-  <br>
-  <label for="payment-status">Payment Status</label>
-  <select type="text" class="form-control" name="stock[paymentStatus]">
-    <option value="Pending">Pending</option>
-    <option value="Imcomplete">Imcomplete</option>
-    <option value="Paid">Paid</option>
-  </select><br>
-  <label for="cheque">Cheque No</label>
-  <input type="text" class="form-control" name="stock[chqNo]" placeholder="cheque no"> <br>
-
-  <label for="supplier">Supplier</label>
-  <select type="text" class="form-control" name="stock[supplier]">
-    {{#each supplier as |supplierOne|}}
-    <option value="{{supplierOne.id}}">{{supplierOne.name}}</option>
-    {{/each}}
-  </select>
-  <br>
-  <label for="furniture-model">Furniture Model</label>
-  <select type="text" class="form-control" name="stock[furnitureModel]">
-  {{#each allModels as |furnitureModelOne|}}
-  <option value="{{furnitureModelOne.id}}">{{furnitureModelOne.model}}</option>
-  {{/each}}
-  </select>
-
-  <button type="submit" name="button" class="btn btn-primary btn-round btn-lg btn-block">Create</button>
-
-</form>
