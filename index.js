@@ -129,7 +129,7 @@ app.use((req, res, next) => {
 
 //homepage
 app.get('/', (req, res) => {
-  res.render('home')
+  res.render('login/login')
 })
 
 //this is for logout
@@ -140,17 +140,17 @@ app.get('/logout', hasLoggedOut, (req, res) => {
 
 //register routes
 app.use('/login', isLoggedIn, login_routes)
-app.use('/location', location_routes)
-app.use('/orders', delivery_routes)
-app.use('/suppliers', supplier_routes)
-app.use('/incomingstock', receivedstock_routes)
-app.use('/location', location_routes)
-app.use('/customers', customer_routes)
-app.use('/roles', role_routes)
-app.use('/staffs', staff_routes)
-app.use('/category', category_routes)
-app.use('/inventory', inventory_routes)
-app.use('/tracking', tracking_routes)
+app.use('/location', hasLoggedOut, location_routes)
+app.use('/orders', hasLoggedOut, delivery_routes)
+app.use('/suppliers', hasLoggedOut, supplier_routes)
+app.use('/incomingstock', hasLoggedOut, receivedstock_routes)
+app.use('/location', hasLoggedOut, location_routes)
+app.use('/customers', hasLoggedOut, customer_routes)
+app.use('/roles', hasLoggedOut, role_routes)
+app.use('/staffs', hasLoggedOut, staff_routes)
+app.use('/category', hasLoggedOut, category_routes)
+app.use('/inventory', hasLoggedOut, inventory_routes)
+app.use('/tracking', hasLoggedOut, tracking_routes)
 
 
 
