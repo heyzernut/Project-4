@@ -28,6 +28,7 @@ const Supplier = require('./models/supplier')
 const ReceivedStock = require('./models/receivedStock')
 const Tracking = require('./models/tracking')
 const Category = require('./models/category')
+const FurnitureModel = require('./models/furnitureModel')
 
 const app = express()
 
@@ -111,6 +112,13 @@ app.get('/',(req,res) => {
   res.render('home')
 })
 
+//furniture inventory json
+app.get('/furnituremodel', (req,res)=>{
+  FurnitureModel.find()
+  .then((furniture)=>{
+    res.json(furniture)
+  })
+})
 
 // NEW ROUTE - Suppliers
 app.use((req, res, next) => {
