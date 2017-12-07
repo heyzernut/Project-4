@@ -90,4 +90,12 @@ router.put('/update/:id', (req, res) => {
 
 })
 
+// Detele file
+router.delete('/update/:id', (req, res) => {
+
+  Staff.findByIdAndRemove(req.params.id)
+  .then(() => res.redirect(`/staffs`))
+  .catch(err => console.log(err))
+})
+
 module.exports = router
