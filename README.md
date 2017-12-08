@@ -82,6 +82,8 @@ User must be able to generate and view the discrepancies.
 * added delivery routes
 * added supplier routes
 * added inventory routes
+
+
 ---------
 
 ## Acknowledgments

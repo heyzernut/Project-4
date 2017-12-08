@@ -302,10 +302,10 @@ router.put('/stocks/:id', (req, res) => {
   const editFurnitureStocks = req.body.stock
   FurnitureStock.findById(stockId)
   .then(stock => {
-    let dataZone = stockData.zone
-    let dataShelf = stockData.shelf
+    let dataZone = editFurnitureStocks.zone
+    let dataShelf = editFurnitureStocks.shelf
 
-    if (typeof stockData.zone === 'object'){
+    if (typeof editFurnitureStocks.zone === 'object'){
       dataZone = dataZone.join(",").replace(/[,]/g, "")
       dataShelf = dataShelf.join(",").replace(/[,]/g, "")
     }
