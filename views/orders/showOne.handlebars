@@ -85,7 +85,7 @@
     <tbody>
       {{#each order.items as |item|}}
       <tr>
-        <td>{{item._id}}</td>
+        <td>{{item.itemCode}}</td>
         {{#if item.return_date}}
         <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg-{{item.id}}">{{item.order_type}}</td>
         {{else}}
