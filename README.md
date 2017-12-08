@@ -2,7 +2,7 @@
 
 Done By:
 * [Jieying](https://github.com/thamjieying)
-* [Huishi](https://github.com/pehhuishi)
+* [Hui Shi](https://github.com/pehhuishi)
 * [Hazel](https://github.com/heyzernut)
 * [Chongqiang](https://github.com/cqdotcom)
 * [Si Ya](https://github.com/Siya-ng) <br>
@@ -78,11 +78,40 @@ User must be able to generate and view the discrepancies.
 * create the models
 
 3 Dec 2017
-* added user routes, (register, log in, log out)
-* added delivery routes
-* added supplier routes
-* added inventory routes
+* add user routes
+* add delivery routes
+* add supplier routes
+* add inventory routes
 
+4 Dec 2017
+* add CRUD for the customer
+* able to create supplier and received stock
+* able to add furniture model, add stock to the furniture model
+* add location routes
+* attempt with react as front end
+
+5 Dec 2017
+* scrap the idea of using react due to time constraint
+* add CRUD for location
+* add CRUD for furniture models & stocks
+* able to create staff and view staff information
+* add navigation bars, datatable.
+
+6 Dec 2017
+* add location and barcode for furniture model
+* add create for delivery order
+* add the table view for customer routes,
+* add modal/ pop up information table for supplier's details & furniture model's stocks information
+* add CRUD for category
+* add header and breadcrumb to all routes
+* add tracking routes and functionality
+
+7 Dec 2017
+* add autocomplete of furniture model's item code under delivery order form.
+* working log in and log out
+* add restriction of access for the different type of user. (delivery man are only allowed to access tracking routes.)
+* edit the nav bar arrangement
+* edit the view for all the routes, standardize the looks for all routes.
 
 ---------
 
