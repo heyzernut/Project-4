@@ -30,7 +30,7 @@ router.get('/',(req,res) => {
     })
   })
   .catch(err => {
-    console.log(err);
+    res.send(err);
   })
 })
 
@@ -43,7 +43,7 @@ router.get('/update/:id', (req,res) => {
     })
   })
   .catch(err => {
-    console.log(err);
+    res.send(err);
   })
 })
 
@@ -54,7 +54,7 @@ router.put('/update/:id', (req,res) => {
     name: formData.txtName
   })
   .then(() => res.redirect(`/category`))
-  .catch(err => console.log(err))
+  .catch(err => res.send(err))
 })
 
 //delete the category
@@ -62,7 +62,7 @@ router.delete('/update/:id', (req,res) => {
 
   Category.findByIdAndRemove(req.params.id)
   .then(() => res.redirect(`/category`))
-  .catch(err => console.log(err))
+  .catch(err => res.send(err))
 
 })
 

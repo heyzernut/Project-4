@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
   .populate("supplier")
   .populate("furnitureModel")
   .then(incomingstock => {
-    console.log(incomingstock)
     res.render('receivedstock/stock', {
       incomingstock
     })
@@ -86,7 +85,6 @@ router.put('/:id', (req, res) => {
     .then((incomingstock)=> {
       Supplier.find({name: formData.supplier})
         .then((supplier)=> {
-          console.log('supplier', supplier)
           FurnitureModel.find({model: formData.furnitureModel})
           .then((furnitureModel)=>{
             incomingstock.set({

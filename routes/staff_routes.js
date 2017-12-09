@@ -72,8 +72,8 @@ router.put('/update/:id', (req, res) => {
       console.log('from the form:', formData.role)
       Role.find({name: formData.role})
         .then((role) => {
-          console.log('role : ',role)
-          console.log(role[0].name);
+          // console.log('role : ',role)
+          // console.log(role[0].name);
           user.set({
             role: role[0]._id,
             name: formData.txtName,

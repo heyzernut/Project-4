@@ -28,9 +28,9 @@
         <th scope="col">Color</th>
         <th scope="col">Dimension</th>
         <th scope="col">Barcode</th>
+        <th scope="col">Total Quantities</th>
         <th scope="col">View</th>
         <th scope="col">Edit/Delete</th>
-        <th scope="col">Quantity</th>
 
       </tr>
     </thead>
@@ -44,12 +44,12 @@
         <td >{{ furnitureModel.color }}</td>
         <td >{{ furnitureModel.dimension }}</td>
         <td >{{ furnitureModel.barcode }}</td>
+        <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg-{{furnitureModel.itemCode}}">
+          {{furnitureModel.totalqty}}
+        </td>
         <td ><a href="/inventory/models/{{furnitureModel.itemCode}}"><button type="button" class="btn btn-info" name="button">View</button></a></td>
         <td >
           <a href="/inventory/models/{{furnitureModel.itemCode}}/edit"><button type="button" class="btn btn-primary" name="button">Edit</button></a>
-        </td>
-        <td class="table-link" data-toggle="modal" data-target=".bd-example-modal-lg-{{furnitureModel.itemCode}}">
-          {{furnitureModel.totalqty}}
         </td>
       </tr>
       {{/each}}

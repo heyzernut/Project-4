@@ -21,14 +21,14 @@ function range(start, stop) {
 router.get('/', (req, res) => {
   Location.find()
   .then(locations => {
-    res.render('inventory/location', {locations})
+    res.render('location/location', {locations})
   }).catch(err => {
     console.log(err)
   })
 })
 
 router.get('/new', (req, res) => {
-  res.render('inventory/newLocation')
+  res.render('location/newLocation')
 })
 
 router.post('/new', (req, res) => {
@@ -43,13 +43,13 @@ router.post('/new', (req, res) => {
 })
 
 router.get('/new', (req, res) => {
-  res.render('inventory/newLocation')
+  res.render('location/newLocation')
 })
 
 router.get('/:id', (req, res) => {
   var id = req.params.id
   Location.findOne({_id: id}).then(location => {
-    res.render('inventory/locationId', {location})
+    res.render('location/locationId', {location})
   }).catch(err => {
     console.log(err)
   })

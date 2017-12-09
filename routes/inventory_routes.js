@@ -70,9 +70,9 @@ router.post('/models/new', (req, res) => {
   newModel.save()
   .then(model => {
     console.log('model save')
-    // res.redirect(`/inventory`
     res.redirect(`/inventory/models/${model.itemCode}`)
-  }, err => res.direct('/models/new'))
+  }, err => {
+    res.direct('/models/new')})
 })
 
 

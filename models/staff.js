@@ -19,7 +19,6 @@ staffSchema.pre('save', function (next) {
   bcrypt.hash(staff.password, 10)
   .then(hash => {
     staff.password = hash
-    console.log('pre save flow', staff)
     next()
   })
 })
